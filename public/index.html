@@ -423,7 +423,7 @@ function buildScene() {
 }
 
 // ================================================================
-//  BUILD BURJ KHALIFA TOWERS  (no per-floor lights — just geometry)
+//  BUILD BURJ KHALIFA TOWERS — rich glass interiors
 // ================================================================
 function buildCity() {
   BUILDINGS.forEach(b => {
@@ -432,175 +432,238 @@ function buildCity() {
     const glassPlanes = [];
 
     for (let f=0; f<b.floors; f++) {
-      const t = f/(b.floors-1);
-      const w = b.bW - (b.bW - b.tW)*Math.pow(t, 1.3);
+      const t = f / (b.floors - 1);
+      // Burj Khalifa taper: Math.pow(t,1.4) gives realistic setback curve
+      const w = b.bW - (b.bW - b.tW) * Math.pow(t, 1.4);
       const y = f * FH;
+      const pH = FH - 0.22;
 
-      // Floor slab
+      // ── Floor slab ───────────────────────────────────────────────
       const slab = new THREE.Mesh(
-        new THREE.BoxGeometry(w+0.25, 0.2, w+0.25),
-        new THREE.MeshBasicMaterial({ color:0x0c1b2e })
+        new THREE.BoxGeometry(w + 0.3, 0.18, w + 0.3),
+        new THREE.MeshBasicMaterial({ color: 0x0c1b2e })
       );
-      slab.position.y = y+0.1; slab.castShadow = true;
+      slab.position.y = y + 0.09;
       group.add(slab);
 
-      const pH = FH - 0.28;
+      // ── Spandrel beam (dark band between floors) ─────────────────
+      const spandrel = new THREE.Mesh(
+        new THREE.BoxGeometry(w + 0.05, 0.18, w + 0.05),
+        new THREE.MeshBasicMaterial({ color: 0x060f1e })
+      );
+      spandrel.position.y = y + pH + 0.09;
+      group.add(spandrel);
 
-      // 4 glass faces
-      for (let side=0; side<4; side++) {
-        const isX = side < 2, sign = side%2===0 ? 1 : -1;
-
-        // Glass panel — transparent, tinted with building color
+      // ── 4 glass faces with mullions ──────────────────────────────
+      for (let side = 0; side < 4; side++) {
+        const isX = side < 2, sign = side % 2 === 0 ? 1 : -1;
+        const glassCol = new THREE.Color(b.col).multiplyScalar(0.09);
         const glassMat = new THREE.MeshBasicMaterial({
-          color: new THREE.Color(b.col).multiplyScalar(0.07),
-          transparent: true, opacity: 0.22
+          color: glassCol, transparent: true, opacity: 0.28
         });
-        const glass = new THREE.Mesh(new THREE.PlaneGeometry(w-0.1, pH), glassMat);
-        glass.position.y = y + FH/2;
-        if (isX) { glass.position.x = sign*(w/2+0.01); glass.rotation.y = sign>0?-Math.PI/2:Math.PI/2; }
-        else     { glass.position.z = sign*(w/2+0.01); if(sign<0) glass.rotation.y = Math.PI; }
+        const glass = new THREE.Mesh(new THREE.PlaneGeometry(w - 0.08, pH), glassMat);
+        glass.position.y = y + FH / 2;
+        if (isX) { glass.position.x = sign * (w / 2 + 0.01); glass.rotation.y = sign > 0 ? -Math.PI / 2 : Math.PI / 2; }
+        else      { glass.position.z = sign * (w / 2 + 0.01); if (sign < 0) glass.rotation.y = Math.PI; }
         group.add(glass);
         glassPlanes.push(glassMat);
 
-        // Mullions — use MeshBasicMaterial to save uniforms
-        const divs = Math.max(2, Math.floor((w-0.2)/1.6));
-        for (let d=0; d<=divs; d++) {
-          const dm = -w/2 + d*(w/divs);
-          const div = new THREE.Mesh(
-            new THREE.PlaneGeometry(0.03, pH+0.08),
-            new THREE.MeshBasicMaterial({ color:0x1a3550, transparent:true, opacity:0.5 })
+        // Mullion verticals
+        const divs = Math.max(2, Math.floor((w - 0.2) / 1.5));
+        for (let d = 0; d <= divs; d++) {
+          const dm = -w / 2 + d * (w / divs);
+          const mul = new THREE.Mesh(
+            new THREE.PlaneGeometry(0.04, pH),
+            new THREE.MeshBasicMaterial({ color: 0x1a3a55, transparent: true, opacity: 0.6 })
           );
-          div.position.copy(glass.position);
-          div.rotation.copy(glass.rotation);
-          if (isX) div.position.z += dm; else div.position.x += dm;
-          group.add(div);
+          mul.position.copy(glass.position);
+          mul.rotation.copy(glass.rotation);
+          if (isX) mul.position.z += dm; else mul.position.x += dm;
+          group.add(mul);
         }
       }
 
-      // Interior glow plane per floor (visible through glass)
-      // Use MeshBasicMaterial only
-      const glow = new THREE.Mesh(
-        new THREE.PlaneGeometry(w*0.7, w*0.7),
-        new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:0.03, side:THREE.DoubleSide })
+      // ── Floor activation plane (pipeline wave target) ─────────────
+      const activation = new THREE.Mesh(
+        new THREE.PlaneGeometry(w * 0.85, w * 0.85),
+        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.04, side: THREE.DoubleSide })
       );
-      glow.rotation.x = Math.PI/2; glow.position.set(0, y+0.08, 0);
-      glow.userData = { isGlow:true, floor:f, floors:b.floors };
-      group.add(glow);
+      activation.rotation.x = Math.PI / 2;
+      activation.position.set(0, y + 0.06, 0);
+      activation.userData = { isActivation: true, floor: f, floors: b.floors, baseOp: 0.04 };
+      group.add(activation);
 
-      // Interior agent dots — visible through glass (MeshBasicMaterial only)
-      const numDots = 2 + Math.floor(Math.random()*2);
-      for (let d=0; d<numDots; d++) {
-        const dot = new THREE.Mesh(
-          new THREE.SphereGeometry(0.1, 5, 5),
-          new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:0.6 })
+      // ── Central core orb per floor ────────────────────────────────
+      const coreOrb = new THREE.Mesh(
+        new THREE.SphereGeometry(0.09, 6, 6),
+        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.55 })
+      );
+      coreOrb.position.set(0, y + FH / 2, 0);
+      coreOrb.userData = { isCoreOrb: true, floor: f, phase: f * 0.4 };
+      group.add(coreOrb);
+
+      // ── Token pipe spine ─────────────────────────────────────────
+      const pipe = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.025, 0.025, FH * 0.85, 5),
+        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.18 })
+      );
+      pipe.position.set(0, y + FH / 2, 0);
+      pipe.userData = { isPipe: true, floor: f, floors: b.floors };
+      group.add(pipe);
+
+      // ── Horizontal data bus lines ─────────────────────────────────
+      for (let db = 0; db < 2; db++) {
+        const busLen = w * 0.7;
+        const bus = new THREE.Mesh(
+          new THREE.BoxGeometry(busLen, 0.015, 0.015),
+          new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.2 })
         );
-        dot.position.set(
-          (Math.random()-.5)*(w-1.4),
-          y + FH/2 + (Math.random()-.5)*0.4,
-          (Math.random()-.5)*(w-1.4)
-        );
-        dot.userData = { isDot:true, baseY:dot.position.y, phase:Math.random()*Math.PI*2, speed:.5+Math.random() };
-        group.add(dot);
+        bus.position.set(0, y + FH * (0.3 + db * 0.35), (db % 2 === 0 ? 1 : -1) * w * 0.18);
+        bus.userData = { isDataBus: true, phase: db * Math.PI + f * 0.3 };
+        group.add(bus);
       }
 
-      // Vertical token pipe (center spine)
-      const pipe = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.03, 0.03, FH*0.8, 5),
-        new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:0.15 })
+      // ── Interior agent figures (1-2 per floor, visible through glass) ──
+      const numAgents = 1 + (f % 3 === 0 ? 1 : 0);
+      for (let ag = 0; ag < numAgents; ag++) {
+        const agGroup = new THREE.Group();
+        const side = ag % 2 === 0 ? 1 : -1;
+        const xOff = side * (w * 0.22 + Math.random() * 0.15);
+        const zOff = (Math.random() - 0.5) * (w * 0.3);
+
+        // Agent body
+        const agBody = new THREE.Mesh(
+          new THREE.BoxGeometry(0.18, 0.28, 0.12),
+          new THREE.MeshBasicMaterial({ color: new THREE.Color(b.col).multiplyScalar(0.5) })
+        );
+        agGroup.add(agBody);
+
+        // Agent head (glowing)
+        const agHead = new THREE.Mesh(
+          new THREE.SphereGeometry(0.1, 6, 6),
+          new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.9 })
+        );
+        agHead.position.y = 0.24;
+        agGroup.add(agHead);
+
+        // Spinning data cube held by agent
+        const dataCube = new THREE.Mesh(
+          new THREE.BoxGeometry(0.09, 0.09, 0.09),
+          new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.85 })
+        );
+        dataCube.position.set(0.18, 0.1, 0);
+        dataCube.userData = { isDataCube: true };
+        agGroup.add(dataCube);
+
+        agGroup.position.set(xOff, y + FH * 0.38, zOff);
+        agGroup.userData = {
+          isAgent: true,
+          baseY: y + FH * 0.38,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.4 + Math.random() * 0.5,
+          floor: f
+        };
+        group.add(agGroup);
+      }
+
+      // ── Glow plane (kept for animateBuildings wave) ───────────────
+      const glow = new THREE.Mesh(
+        new THREE.PlaneGeometry(w * 0.6, w * 0.6),
+        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.02, side: THREE.DoubleSide })
       );
-      pipe.position.set((Math.random()-.5)*0.6, y+FH/2, (Math.random()-.5)*0.6);
-      pipe.userData = { isPipe:true, floor:f, floors:b.floors };
-      group.add(pipe);
+      glow.rotation.x = Math.PI / 2;
+      glow.position.set(0, y + 0.05, 0);
+      glow.userData = { isGlow: true, floor: f, floors: b.floors };
+      group.add(glow);
     }
 
-    // Spire
-    for (let s=0; s<7; s++) {
-      const sr = b.tW*0.3*(1-s/7);
+    // ── 8-section tapered spire ───────────────────────────────────────
+    for (let s = 0; s < 8; s++) {
+      const sr = b.tW * 0.28 * (1 - s / 8);
       const spire = new THREE.Mesh(
-        new THREE.CylinderGeometry(sr*.5, sr, 1.5, 7),
-        new THREE.MeshBasicMaterial({ color:0x132540 })
+        new THREE.CylinderGeometry(sr * 0.45, sr, 1.5, 8),
+        new THREE.MeshBasicMaterial({ color: s < 4 ? 0x132540 : 0x0d1e35 })
       );
-      spire.position.y = totalH + s*1.5 + 0.75;
+      spire.position.y = totalH + s * 1.5 + 0.75;
       group.add(spire);
     }
 
-    // Beacon top — pulse via scale/opacity, NO PointLight (avoids "too many uniforms" crash)
+    // ── Beacon + halo (no PointLight — avoids uniform overflow) ──────
     const beacon = new THREE.Mesh(
       new THREE.SphereGeometry(0.28, 8, 8),
-      new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:1.0 })
+      new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 1.0 })
     );
-    beacon.position.y = totalH + 7*1.5 + 0.2;
-    beacon.userData = { isBeacon:true };
+    beacon.position.y = totalH + 8 * 1.5 + 0.2;
+    beacon.userData = { isBeacon: true };
     group.add(beacon);
 
-    // Halo ring replaces PointLight — pure geometry, zero extra uniforms
     const halo = new THREE.Mesh(
       new THREE.TorusGeometry(0.75, 0.07, 5, 20),
-      new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:0.5 })
+      new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.5 })
     );
     halo.rotation.x = Math.PI / 2;
-    halo.position.y = totalH + 7*1.5 + 0.2;
-    halo.userData = { isHalo:true };
+    halo.position.y = totalH + 8 * 1.5 + 0.2;
+    halo.userData = { isHalo: true };
     group.add(halo);
 
-    // Dummy object so buildingData slot still has a tipLight key (no-op now)
-    const tipLight = { intensity: 2.5 };
+    const tipLight = { intensity: 2.5 }; // plain JS — no PointLight
 
-    // Podium
+    // ── Podium ────────────────────────────────────────────────────────
     const pod = new THREE.Mesh(
-      new THREE.BoxGeometry(b.bW+4, 1.1, b.bW+4),
-      new THREE.MeshBasicMaterial({ color:0x0c1a2e })
+      new THREE.BoxGeometry(b.bW + 4.5, 1.2, b.bW + 4.5),
+      new THREE.MeshBasicMaterial({ color: 0x0c1a2e })
     );
-    pod.position.y = 0.55; pod.castShadow = true; pod.receiveShadow = true;
+    pod.position.y = 0.6;
     group.add(pod);
 
-    // Corner neon pillars
-    [[1,1],[-1,1],[1,-1],[-1,-1]].forEach(([cx,cz]) => {
-      const p = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.04, 0.05, totalH, 5),
-        new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:0.2 })
+    // ── Corner neon pillars ───────────────────────────────────────────
+    [[1,1],[-1,1],[1,-1],[-1,-1]].forEach(([cx, cz]) => {
+      const pillar = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.05, 0.06, totalH, 5),
+        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.22 })
       );
-      p.position.set(cx*(b.bW/2+0.05), totalH/2, cz*(b.bW/2+0.05));
-      group.add(p);
+      pillar.position.set(cx * (b.bW / 2 + 0.1), totalH / 2, cz * (b.bW / 2 + 0.1));
+      group.add(pillar);
     });
 
-    // Entrance portal glow
+    // ── Entrance portal glow ──────────────────────────────────────────
     const portal = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.4, 3.2),
-      new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:0.12, side:THREE.DoubleSide })
+      new THREE.PlaneGeometry(2.6, 3.4),
+      new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.14, side: THREE.DoubleSide })
     );
-    portal.position.set(0, 1.6, (b.bW+4)/2+0.02);
+    portal.position.set(0, 1.7, (b.bW + 4.5) / 2 + 0.02);
     group.add(portal);
 
     group.position.set(b.pos.x, 0, b.pos.z);
     scene.add(group);
     buildingData.push({ group, b, tipLight, glassPlanes });
 
-    // Floating label (sprite)
-    addLabel(b, totalH + 7*1.5 + 3.5);
+    // Floating label sprite
+    addLabel(b, totalH + 8 * 1.5 + 3.5);
 
-    // External orbiting agents (3 per building, simple geometry, no lights)
-    for (let i=0; i<3; i++) {
+    // External orbiting mini-agents
+    for (let i = 0; i < 3; i++) {
       const ag = new THREE.Group();
       ag.add(new THREE.Mesh(
         new THREE.CylinderGeometry(0.12, 0.16, 0.85, 7),
-        new THREE.MeshBasicMaterial({ color:new THREE.Color(b.col).multiplyScalar(.7) })
+        new THREE.MeshBasicMaterial({ color: new THREE.Color(b.col).multiplyScalar(0.7) })
       ));
-      const head = new THREE.Mesh(
+      const agHead = new THREE.Mesh(
         new THREE.SphereGeometry(0.15, 6, 6),
-        new THREE.MeshBasicMaterial({ color:b.col })
+        new THREE.MeshBasicMaterial({ color: b.col })
       );
-      head.position.y = 0.62; ag.add(head);
+      agHead.position.y = 0.62;
+      ag.add(agHead);
       const pkt = new THREE.Mesh(
-        new THREE.BoxGeometry(0.14,0.14,0.14),
-        new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:0.85 })
+        new THREE.BoxGeometry(0.14, 0.14, 0.14),
+        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.85 })
       );
-      pkt.position.set(0.28, 0.28, 0); ag.add(pkt);
-
-      const or = b.bW/2 + 2.5 + Math.random()*3;
-      const oa = (i/3)*Math.PI*2;
-      ag.position.set(b.pos.x+Math.cos(oa)*or, 0.5, b.pos.z+Math.sin(oa)*or);
-      ag.userData = { bPos:b.pos, or, oa, os:0.005+Math.random()*.007, bp:Math.random()*Math.PI*2, pkt };
+      pkt.position.set(0.28, 0.28, 0);
+      ag.add(pkt);
+      const or = b.bW / 2 + 2.5 + Math.random() * 3;
+      const oa = (i / 3) * Math.PI * 2;
+      ag.position.set(b.pos.x + Math.cos(oa) * or, 0.5, b.pos.z + Math.sin(oa) * or);
+      ag.userData = { bPos: b.pos, or, oa, os: 0.005 + Math.random() * 0.007, bp: Math.random() * Math.PI * 2, pkt };
       scene.add(ag);
       extAgents.push(ag);
     }
@@ -814,66 +877,110 @@ function animateAgents(dt) {
 }
 
 function animateBuildings(dt) {
-  const t = Date.now()*.001;
-  // Processing wave (0→1 per 1.2s, repeating) — travels up floors
-  const wave = (t*0.75) % 1;
+  const t = Date.now() * 0.001;
+  const wave = (t * 0.75) % 1;
   const activeId = activeBuildingId || (nearBuilding?.id);
 
   buildingData.forEach(({group, b, glassPlanes}) => {
     const isActive = b.id === activeId;
     const waveStr  = isActive ? 1 : 0.3;
 
-    // Glass opacity pulse
+    // Glass pulse — slightly brighter when active
     glassPlanes.forEach((mat, i) => {
-      mat.opacity = 0.18 + Math.abs(Math.sin(t*.5+i*.2))*.08;
+      mat.opacity = 0.22 + Math.abs(Math.sin(t * 0.5 + i * 0.2)) * 0.1 * (isActive ? 1.4 : 1);
     });
 
-    // Animate all children
     group.children.forEach(child => {
       if (!child || !child.userData) return;
       const ud = child.userData;
 
       if (ud.isBeacon) {
-        // Pulse size/opacity in place of point light
         const p = 0.8 + Math.sin(t * 2 + b.pos.x * 0.1) * 0.3;
         child.scale.setScalar(p * (isActive ? 1.6 : 1.0));
         child.material.opacity = 0.6 + Math.sin(t * 2) * 0.4;
       }
       if (ud.isHalo) {
-        child.material.opacity = (0.25 + Math.sin(t * 1.7) * 0.2) * (isActive ? 2.0 : 1.0);
+        child.material.opacity = (0.25 + Math.sin(t * 1.7) * 0.2) * (isActive ? 2.2 : 1.0);
         child.scale.setScalar(1 + Math.sin(t * 1.1) * 0.18);
       }
-      if (ud.isGlow) {
-        const ff = ud.floor/ud.floors;
+      if (ud.isActivation) {
+        const ff = ud.floor / ud.floors;
         const wd = Math.abs(wave - ff);
-        child.material.opacity = 0.02 + Math.max(0,1-wd*7)*waveStr*.14 + Math.abs(Math.sin(t*.4+ud.floor*.5))*.015;
+        const pk = Math.max(0, 1 - wd * 6) * waveStr;
+        child.material.opacity = ud.baseOp + pk * 0.28 + Math.abs(Math.sin(t * 0.4 + ud.floor * 0.5)) * 0.02;
+      }
+      if (ud.isCoreOrb) {
+        const ff = ud.floor / (ud.floors || 1);
+        const wd = Math.abs(wave - ff);
+        const pk = Math.max(0, 1 - wd * 6) * waveStr;
+        child.scale.setScalar(1 + pk * 1.8 + Math.sin(t * 1.5 + ud.phase) * 0.12);
+        child.material.opacity = 0.4 + pk * 0.55 + Math.sin(t * 1.5 + ud.phase) * 0.12;
       }
       if (ud.isPipe) {
-        const ff = ud.floor/ud.floors;
+        const ff = ud.floor / ud.floors;
         const wd = Math.abs(wave - ff);
-        child.material.opacity = 0.1 + Math.max(0,1-wd*8)*waveStr*.4;
-        child.scale.x = child.scale.z = 1 + Math.max(0,1-wd*8)*waveStr*.8;
+        const pk = Math.max(0, 1 - wd * 8) * waveStr;
+        child.material.opacity = 0.12 + pk * 0.5;
+        child.scale.x = child.scale.z = 1 + pk * 1.2;
       }
-      if (ud.isDot) {
-        child.position.y = ud.baseY + Math.sin(t*ud.speed+ud.phase)*.12;
-        child.material.opacity = 0.45 + Math.abs(Math.sin(t*ud.speed+ud.phase))*.4;
+      if (ud.isGlow) {
+        const ff = ud.floor / ud.floors;
+        const wd = Math.abs(wave - ff);
+        child.material.opacity = 0.015 + Math.max(0, 1 - wd * 7) * waveStr * 0.1;
       }
-      if (ud.isBeacon) {
-        child.material.color.setHex(b.col);
+      if (ud.isDataBus) {
+        child.material.opacity = 0.12 + Math.abs(Math.sin(t * 1.8 + ud.phase)) * 0.28 * waveStr;
+        child.scale.x = 0.6 + Math.abs(Math.sin(t * 2.2 + ud.phase)) * 0.6;
+      }
+      // Interior agent groups — bob, rotate, spin data cubes
+      if (ud.isAgent) {
+        child.position.y = ud.baseY + Math.sin(t * ud.speed + ud.phase) * 0.09;
+        child.rotation.y = t * 0.35 * (ud.phase > Math.PI ? 1 : -1);
+        child.children.forEach(part => {
+          if (part.userData && part.userData.isDataCube) {
+            part.rotation.y = t * 2.8;
+            part.rotation.x = t * 1.7;
+            part.material.opacity = 0.6 + Math.sin(t * 3 + ud.phase) * 0.35;
+          }
+        });
       }
     });
   });
 
-  // Labels float
   scene.children.forEach(c => {
     if (c.isSprite && c.userData.baseY) {
-      c.position.y = c.userData.baseY + Math.sin(t*.75+c.position.x*.1)*.4;
+      c.position.y = c.userData.baseY + Math.sin(t * 0.75 + c.position.x * 0.1) * 0.4;
     }
   });
 
-  // Rings
-  if (scene.userData.r1) scene.userData.r1.rotation.z = t*.18;
-  if (scene.userData.r2) scene.userData.r2.rotation.z = -t*.32;
+  if (scene.userData.r1) scene.userData.r1.rotation.z = t * 0.18;
+  if (scene.userData.r2) scene.userData.r2.rotation.z = -t * 0.32;
+}
+
+// ── Wave surge: floors light up sequentially on message send ─────────────────
+function triggerWaveSurge(building) {
+  const bd = buildingData.find(d => d.b.id === building.id);
+  if (!bd) return;
+  const totalFloors = building.floors;
+
+  for (let f = 0; f < totalFloors; f++) {
+    const delay = f * 90; // 90ms per floor = wave travels bottom→top
+    setTimeout(() => {
+      bd.group.children.forEach(child => {
+        if (!child || !child.userData) return;
+        const ud = child.userData;
+        if ((ud.isActivation || ud.isCoreOrb || ud.isPipe) && ud.floor === f) {
+          // Spike opacity high then let animateBuildings take over
+          child.material.opacity = ud.isActivation ? 0.65 : ud.isCoreOrb ? 1.0 : 0.9;
+          setTimeout(() => {
+            if (child.material) child.material.opacity = ud.isActivation ? 0.04 : ud.isCoreOrb ? 0.5 : 0.18;
+          }, 250);
+        }
+      });
+      // Fire interior tokens at each floor's position
+      if (f % 3 === 0) fireInteriorToken(building);
+    }, delay);
+  }
 }
 
 function animateTokens(dt) {
@@ -1036,22 +1143,36 @@ function animateRobot(dt) {
 //  OUTPUT BEAMS
 // ================================================================
 function fireOutputBeam(building) {
-  const topY = building.floors*2.3 + 7*1.5 + 2;
-  // Beam
-  const geo = new THREE.CylinderGeometry(0.06, 0.22, 0.1, 7);
-  const mat = new THREE.MeshBasicMaterial({ color:building.col, transparent:true, opacity:0.9 });
-  const beam = new THREE.Mesh(geo, mat);
-  beam.position.set(building.pos.x, topY, building.pos.z);
-  beam.userData = { t:0, dur:1.3, topY, isBeam:true };
-  scene.add(beam); outputBeams.push(beam);
-  // Ring
-  const r = new THREE.Mesh(
-    new THREE.TorusGeometry(0.3, 0.05, 5, 20),
-    new THREE.MeshBasicMaterial({ color:building.col, transparent:true, opacity:0.85 })
+  const totalH = building.floors * 2.3;
+  const topY = totalH + 8 * 1.5 + 2;
+
+  // Main sky beam — shoots upward
+  const beam = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.04, 0.35, 0.1, 8),
+    new THREE.MeshBasicMaterial({ color: building.col, transparent: true, opacity: 0.95 })
   );
-  r.rotation.x=Math.PI/2; r.position.set(building.pos.x, topY, building.pos.z);
-  r.userData = { t:0, dur:0.9, isRing:true };
-  scene.add(r); outputBeams.push(r);
+  beam.position.set(building.pos.x, topY, building.pos.z);
+  beam.userData = { t: 0, dur: 1.4, topY, isBeam: true };
+  scene.add(beam);
+  outputBeams.push(beam);
+
+  // 3 expanding shockwave rings at different delays
+  for (let ri = 0; ri < 3; ri++) {
+    setTimeout(() => {
+      const r = new THREE.Mesh(
+        new THREE.TorusGeometry(0.3 + ri * 0.15, 0.05, 5, 22),
+        new THREE.MeshBasicMaterial({ color: building.col, transparent: true, opacity: 0.9 - ri * 0.2 })
+      );
+      r.rotation.x = Math.PI / 2;
+      r.position.set(building.pos.x, topY - ri * 0.5, building.pos.z);
+      r.userData = { t: 0, dur: 0.7 + ri * 0.15, isRing: true };
+      scene.add(r);
+      outputBeams.push(r);
+    }, ri * 80);
+  }
+
+  // Burst of 18 interior tokens upward
+  for (let i = 0; i < 18; i++) setTimeout(() => fireInteriorToken(building), i * 45);
 }
 
 function animateBeams(dt) {
@@ -1226,8 +1347,11 @@ async function sendMsg() {
 
   // Robot acts out the pipeline
   startRobotPipeline(building);
+  // Token burst from player to tower
   for(let i=0;i<8;i++) setTimeout(()=>fireToken(building),i*70);
   for(let i=0;i<6;i++) setTimeout(()=>fireInteriorToken(building),i*90);
+  // Wave surge travels floor by floor through the building
+  triggerWaveSurge(building);
 
   const tid=addTyping();
   let reply=null;
