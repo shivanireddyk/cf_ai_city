@@ -11,34 +11,40 @@
 body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflow:hidden;height:100vh;width:100vw}
 #cc{position:fixed;inset:0}canvas{display:block}
 
+/* Vignette overlay */
+#vignette{position:fixed;inset:0;pointer-events:none;z-index:8;background:radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(1,9,18,.75) 100%)}
+
+/* Chromatic aberration strips */
+#chroma{position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.018;background:repeating-linear-gradient(0deg,rgba(255,0,100,.4) 0px,transparent 1px,transparent 3px,rgba(0,255,255,.3) 4px,transparent 5px)}
+
 /* HUD */
 #hud{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:14px 20px;pointer-events:none;z-index:10}
-.ht{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--cyan);text-shadow:0 0 18px var(--cyan);letter-spacing:.15em}
+.ht{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--cyan);text-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,245,255,.4);letter-spacing:.15em}
 .ht span{color:var(--mag)}.hm{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(0,245,255,.4);margin-top:2px}
 
-/* Pipeline stage overlay — shows what the robot is doing */
+/* Pipeline stage overlay */
 #stage-overlay{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:30;pointer-events:none;opacity:0;transition:opacity .4s}
 #stage-overlay.show{opacity:1}
-#stage-box{background:rgba(1,9,18,.93);border:1px solid var(--gb);border-radius:10px;padding:10px 22px;text-align:center;backdrop-filter:blur(14px);min-width:300px}
+#stage-box{background:rgba(1,9,18,.93);border:1px solid var(--gb);border-radius:10px;padding:10px 22px;text-align:center;backdrop-filter:blur(14px);min-width:300px;box-shadow:0 0 30px rgba(0,245,255,.1),inset 0 0 20px rgba(0,245,255,.04)}
 #stage-icon{font-size:1.6rem;display:block;margin-bottom:4px}
 #stage-name{font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;color:var(--cyan);letter-spacing:.12em}
 #stage-desc{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:rgba(255,255,255,.5);margin-top:3px}
 
 /* Tooltip */
-#tt{position:fixed;top:50%;left:50%;transform:translate(-50%,-140px);background:rgba(1,9,18,.92);border:1px solid var(--gb);border-radius:10px;padding:10px 20px;text-align:center;pointer-events:none;z-index:20;opacity:0;transition:opacity .3s}
+#tt{position:fixed;top:50%;left:50%;transform:translate(-50%,-140px);background:rgba(1,9,18,.92);border:1px solid var(--gb);border-radius:10px;padding:10px 20px;text-align:center;pointer-events:none;z-index:20;opacity:0;transition:opacity .3s;box-shadow:0 0 24px rgba(0,245,255,.12)}
 #tt.show{opacity:1}
-#tt .tn{font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;color:var(--cyan)}
+#tt .tn{font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;color:var(--cyan);text-shadow:0 0 12px var(--cyan)}
 #tt .ts{font-size:.65rem;color:rgba(255,255,255,.45);font-family:'Share Tech Mono',monospace;margin-top:3px}
-#tt .te{margin-top:6px;font-size:.62rem;color:var(--mag);font-family:'Share Tech Mono',monospace;animation:blink 1s infinite}
+#tt .te{margin-top:6px;font-size:.62rem;color:var(--mag);font-family:'Share Tech Mono',monospace;animation:blink 1s infinite;text-shadow:0 0 8px var(--mag)}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
 /* Controls */
 #ctrl{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;pointer-events:none}
-.kh{background:rgba(0,0,0,.65);border:1px solid var(--gb);border-radius:5px;padding:5px 10px;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(0,245,255,.6);backdrop-filter:blur(6px)}
+.kh{background:rgba(0,0,0,.7);border:1px solid var(--gb);border-radius:5px;padding:5px 10px;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(0,245,255,.6);backdrop-filter:blur(8px);box-shadow:0 0 10px rgba(0,245,255,.06)}
 .kh kbd{background:rgba(0,245,255,.1);border:1px solid var(--gb);border-radius:3px;padding:1px 5px;color:var(--cyan)}
 
 /* Minimap */
-#mm{position:fixed;bottom:55px;right:18px;width:120px;height:120px;background:rgba(1,9,18,.88);border:1px solid var(--gb);border-radius:8px;z-index:10;overflow:hidden}
+#mm{position:fixed;bottom:55px;right:18px;width:120px;height:120px;background:rgba(1,9,18,.88);border:1px solid var(--gb);border-radius:8px;z-index:10;overflow:hidden;box-shadow:0 0 20px rgba(0,245,255,.1)}
 #mm canvas{display:block}
 #mml{position:absolute;bottom:3px;left:0;right:0;text-align:center;font-family:'Share Tech Mono',monospace;font-size:.5rem;color:rgba(0,245,255,.3)}
 
@@ -72,10 +78,10 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
 #boom-scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.05) 2px,rgba(0,0,0,.05) 4px);opacity:.5}
 
 /* Chat */
-#chat{position:fixed;right:-430px;top:0;bottom:0;width:410px;background:linear-gradient(180deg,rgba(1,9,18,.97),rgba(4,16,36,.97));border-left:1px solid var(--gb);display:flex;flex-direction:column;z-index:50;transition:right .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(18px)}
+#chat{position:fixed;right:-430px;top:0;bottom:0;width:410px;background:linear-gradient(180deg,rgba(1,9,18,.97),rgba(4,16,36,.97));border-left:1px solid var(--gb);display:flex;flex-direction:column;z-index:50;transition:right .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(18px);box-shadow:-8px 0 40px rgba(0,245,255,.08)}
 #chat.open{right:0}
 .ch{padding:16px 16px 12px;border-bottom:1px solid var(--gb);position:relative}
-.cbn{font-family:'Orbitron',monospace;font-size:.88rem;font-weight:700;color:var(--cyan);text-shadow:0 0 8px var(--cyan)}
+.cbn{font-family:'Orbitron',monospace;font-size:.88rem;font-weight:700;color:var(--cyan);text-shadow:0 0 12px var(--cyan)}
 .cbd{font-size:.68rem;color:rgba(255,255,255,.42);margin-top:3px;font-family:'Share Tech Mono',monospace}
 .cag{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
 .cab{font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:2px 7px;border-radius:10px;border:1px solid;animation:cpulse 2s infinite}
@@ -83,8 +89,8 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
 .ccl:hover{background:rgba(0,245,255,.1);color:var(--cyan)}
 #msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px;scrollbar-width:thin;scrollbar-color:var(--gb) transparent}
 .msg{max-width:90%;padding:9px 12px;border-radius:9px;font-size:.76rem;line-height:1.6}
-.msg.u{align-self:flex-end;background:rgba(0,245,255,.09);border:1px solid rgba(0,245,255,.16);color:#cef4ff}
-.msg.a{align-self:flex-start;background:rgba(255,0,170,.06);border:1px solid rgba(255,0,170,.15);color:#ffe0f5}
+.msg.u{align-self:flex-end;background:rgba(0,245,255,.09);border:1px solid rgba(0,245,255,.16);color:#cef4ff;box-shadow:0 0 12px rgba(0,245,255,.06)}
+.msg.a{align-self:flex-start;background:rgba(255,0,170,.06);border:1px solid rgba(255,0,170,.15);color:#ffe0f5;box-shadow:0 0 12px rgba(255,0,170,.05)}
 .msg.s{align-self:center;background:rgba(255,238,0,.04);border:1px solid rgba(255,238,0,.1);color:rgba(255,238,0,.6);font-family:'Share Tech Mono',monospace;font-size:.63rem;text-align:center;max-width:95%}
 .ml{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:rgba(255,255,255,.25);margin-bottom:3px}
 .ti{display:flex;gap:4px;align-items:center;padding:2px 0}
@@ -93,29 +99,39 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
 @keyframes tb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
 .cia{padding:11px 13px;border-top:1px solid var(--gb);display:flex;gap:7px}
 #ci{flex:1;background:rgba(0,245,255,.05);border:1px solid var(--gb);border-radius:7px;padding:8px 12px;color:#e0f4ff;font-family:'Exo 2',sans-serif;font-size:.76rem;outline:none;transition:border-color .2s}
-#ci:focus{border-color:var(--cyan)}#ci::placeholder{color:rgba(255,255,255,.2)}
-#cs{background:linear-gradient(135deg,var(--cyan),var(--mag));border:none;border-radius:7px;padding:8px 14px;color:#000;font-family:'Orbitron',monospace;font-size:.66rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+#ci:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,245,255,.1)}
+#ci::placeholder{color:rgba(255,255,255,.2)}
+#cs{background:linear-gradient(135deg,var(--cyan),var(--mag));border:none;border-radius:7px;padding:8px 14px;color:#000;font-family:'Orbitron',monospace;font-size:.66rem;font-weight:700;cursor:pointer;transition:opacity .2s;box-shadow:0 0 16px rgba(0,245,255,.25)}
 #cs:hover{opacity:.82}#cs:disabled{opacity:.3;cursor:not-allowed}
 
 /* Splash */
 #splash{position:fixed;inset:0;background:var(--dark);z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .8s}
 #splash.hide{opacity:0;pointer-events:none}
-.st{font-family:'Orbitron',monospace;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;text-align:center;background:linear-gradient(90deg,var(--cyan),var(--mag),var(--yel));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
+.st{font-family:'Orbitron',monospace;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;text-align:center;background:linear-gradient(90deg,var(--cyan),var(--mag),var(--yel));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;filter:drop-shadow(0 0 30px rgba(0,245,255,.3))}
 .ss{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:rgba(0,245,255,.52);text-align:center;max-width:400px;line-height:1.8}
-.se{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;letter-spacing:.2em;padding:13px 38px;border-radius:3px;cursor:pointer;transition:all .3s}
-.se:hover{box-shadow:0 0 24px rgba(0,245,255,.28)}
+.se{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;letter-spacing:.2em;padding:13px 38px;border-radius:3px;cursor:pointer;transition:all .3s;box-shadow:0 0 20px rgba(0,245,255,.1),inset 0 0 20px rgba(0,245,255,.04)}
+.se:hover{box-shadow:0 0 40px rgba(0,245,255,.4),inset 0 0 30px rgba(0,245,255,.1)}
 .stags{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:460px}
 .stag{font-family:'Share Tech Mono',monospace;font-size:.6rem;padding:3px 8px;border-radius:20px;border:1px solid}
-.scanline{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:scan 3.5s linear infinite;opacity:.15;pointer-events:none;z-index:201}
+/* Scanline — two overlapping for denser effect */
+.scanline{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),var(--mag),transparent);animation:scan 4s linear infinite;opacity:.12;pointer-events:none;z-index:201}
+.scanline2{position:fixed;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);animation:scan 4s linear infinite;animation-delay:-2s;opacity:.07;pointer-events:none;z-index:201}
 @keyframes scan{from{top:0}to{top:100vh}}
-#xhair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:15;width:14px;height:14px}
-#xhair::before,#xhair::after{content:'';position:absolute;background:rgba(0,245,255,.7)}
-#xhair::before{width:14px;height:1px;top:6px;left:0}#xhair::after{width:1px;height:14px;top:0;left:6px}
+/* Crosshair — animated rings */
+#xhair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:15;width:22px;height:22px}
+#xhair::before,#xhair::after{content:'';position:absolute;background:rgba(0,245,255,.8)}
+#xhair::before{width:22px;height:1px;top:10px;left:0}#xhair::after{width:1px;height:22px;top:0;left:10px}
+#xhair-ring{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:14;width:36px;height:36px;border:1px solid rgba(0,245,255,.25);border-radius:50%;animation:xring 2s ease-in-out infinite}
+@keyframes xring{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.25}50%{transform:translate(-50%,-50%) scale(1.3);opacity:.5}}
 </style>
 </head>
 <body>
 <div class="scanline"></div>
+<div class="scanline2"></div>
+<div id="vignette"></div>
+<div id="chroma"></div>
 <div id="xhair"></div>
+<div id="xhair-ring"></div>
 
 <!-- BOOM screen -->
 <div id="boom">
@@ -347,78 +363,253 @@ function init() {
 }
 
 // ================================================================
-//  SCENE / ENVIRONMENT  (minimal lights to avoid uniform overflow)
+//  SCENE / ENVIRONMENT — full visual upgrade
 // ================================================================
+let rainGeo, rainSystem;
+let auroraStrips = [];
+let floatingOrbs = [];
+let groundReflections = [];
+
 function buildScene() {
-  // Just 3 lights total — avoids "too many uniforms" shader error
-  scene.add(new THREE.AmbientLight(0x0a1830, 1.5));
-  const dir = new THREE.DirectionalLight(0x3355aa, 0.7);
+  // 3 lights only — no PointLights to avoid uniform overflow
+  scene.add(new THREE.AmbientLight(0x0a1830, 1.8));
+  const dir = new THREE.DirectionalLight(0x4466cc, 0.6);
   dir.position.set(30, 60, 20);
   dir.castShadow = true;
+  dir.shadow.mapSize.width = 1024;
+  dir.shadow.mapSize.height = 1024;
   scene.add(dir);
-  const hem = new THREE.HemisphereLight(0x001122, 0x040e1c, 0.6);
-  scene.add(hem);
+  scene.add(new THREE.HemisphereLight(0x001133, 0x050e20, 0.7));
 
-  // Ground
+  // ── Ground — dark base + neon glow overlay ──────────────────────
   const gnd = new THREE.Mesh(
-    new THREE.PlaneGeometry(300, 300),
-    new THREE.MeshBasicMaterial({ color:0x060f1e })
+    new THREE.PlaneGeometry(400, 400),
+    new THREE.MeshBasicMaterial({ color: 0x03080f })
   );
-  gnd.rotation.x = -Math.PI/2; gnd.receiveShadow = true;
+  gnd.rotation.x = -Math.PI / 2;
+  gnd.receiveShadow = true;
   scene.add(gnd);
 
-  // Grid
-  const grid = new THREE.GridHelper(300, 80, 0x071e38, 0x071e38);
-  grid.position.y = 0.008; scene.add(grid);
+  // Reflective puddle layer — a slightly lighter plane that gives
+  // a wet-street look by showing building colors as faint blobs
+  const puddle = new THREE.Mesh(
+    new THREE.PlaneGeometry(400, 400),
+    new THREE.MeshBasicMaterial({ color: 0x050e1e, transparent: true, opacity: 0.7 })
+  );
+  puddle.rotation.x = -Math.PI / 2;
+  puddle.position.y = 0.003;
+  scene.add(puddle);
 
-  // Roads
-  [{ w:220,d:6,x:0,z:0 }, { w:6,d:220,x:0,z:0 }].forEach(r => {
-    const m = new THREE.Mesh(
-      new THREE.PlaneGeometry(r.w, r.d),
-      new THREE.MeshBasicMaterial({ color:0x030d1f })
+  // Ground color glow under each building (fake reflection)
+  BUILDINGS.forEach(b => {
+    const ref = new THREE.Mesh(
+      new THREE.PlaneGeometry(b.bW + 8, b.bW + 8),
+      new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.07, side: THREE.DoubleSide })
     );
-    m.rotation.x = -Math.PI/2; m.position.set(r.x,0.007,r.z);
-    scene.add(m);
+    ref.rotation.x = -Math.PI / 2;
+    ref.position.set(b.pos.x, 0.004, b.pos.z);
+    ref.userData = { isGroundRef: true, col: b.col };
+    scene.add(ref);
+    groundReflections.push(ref);
   });
 
-  // Stars
-  const sg = new THREE.BufferGeometry();
-  const sp = [];
-  for (let i=0; i<3000; i++) sp.push((Math.random()-.5)*500, 50+Math.random()*100, (Math.random()-.5)*500);
-  sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
-  scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ color:0xaaccff, size:0.22, transparent:true, opacity:0.5 })));
+  // ── Neon grid — bright cyan lines ────────────────────────────────
+  const grid = new THREE.GridHelper(300, 60, 0x003344, 0x001a26);
+  grid.position.y = 0.005;
+  scene.add(grid);
 
-  // Atmosphere rings (geometry only, no extra lights)
-  const mkRing = (r,c,op) => {
+  // Bright neon accent lines crossing the city
+  const neonLineMat = new THREE.MeshBasicMaterial({ color: 0x00f5ff, transparent: true, opacity: 0.12 });
+  for (let i = -3; i <= 3; i++) {
+    const hLine = new THREE.Mesh(new THREE.PlaneGeometry(200, 0.06), neonLineMat);
+    hLine.rotation.x = -Math.PI / 2;
+    hLine.position.set(0, 0.006, i * 8);
+    scene.add(hLine);
+    const vLine = new THREE.Mesh(new THREE.PlaneGeometry(0.06, 200), neonLineMat);
+    vLine.rotation.x = -Math.PI / 2;
+    vLine.position.set(i * 8, 0.006, 0);
+    scene.add(vLine);
+  }
+
+  // ── Roads with neon lane markings ────────────────────────────────
+  [{ w:220,d:7,x:0,z:0,rot:0 }, { w:7,d:220,x:0,z:0,rot:0 }].forEach(r => {
     const m = new THREE.Mesh(
-      new THREE.TorusGeometry(r, 0.1, 6, 60),
-      new THREE.MeshBasicMaterial({ color:c, transparent:true, opacity:op })
+      new THREE.PlaneGeometry(r.w, r.d),
+      new THREE.MeshBasicMaterial({ color: 0x020912 })
     );
-    m.rotation.x = Math.PI/2; m.position.y = 0.5;
+    m.rotation.x = -Math.PI / 2;
+    m.position.set(r.x, 0.007, r.z);
+    scene.add(m);
+  });
+  // Dashed lane markers
+  const dashMat = new THREE.MeshBasicMaterial({ color: 0xffee00, transparent: true, opacity: 0.25 });
+  for (let i = -10; i <= 10; i++) {
+    const dash = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 0.08), dashMat);
+    dash.rotation.x = -Math.PI / 2;
+    dash.position.set(i * 10, 0.009, 0);
+    scene.add(dash);
+    const dash2 = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 2.5), dashMat);
+    dash2.rotation.x = -Math.PI / 2;
+    dash2.position.set(0, 0.009, i * 10);
+    scene.add(dash2);
+  }
+
+  // ── Stars — 3 layers: white, blue-tinted, colored ────────────────
+  [[5000, 0xaaccff, 0.18, 0.24], [1500, 0x88bbff, 0.35, 0.4], [400, 0xff88ff, 0.55, 0.7]].forEach(([count, col, sz, op]) => {
+    const sg = new THREE.BufferGeometry();
+    const sp = [];
+    for (let i = 0; i < count; i++) {
+      sp.push((Math.random() - 0.5) * 600, 60 + Math.random() * 140, (Math.random() - 0.5) * 600);
+    }
+    sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
+    scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ color: col, size: sz, transparent: true, opacity: op })));
+  });
+
+  // ── AURORA BOREALIS — animated sine-wave geometry bands ───────────
+  const auroraColors = [0x00ffaa, 0x0088ff, 0xaa00ff, 0x00f5ff, 0xff00aa];
+  for (let a = 0; a < 5; a++) {
+    const aGeo = new THREE.BufferGeometry();
+    const pts = [];
+    const W = 300, segs = 80;
+    for (let i = 0; i <= segs; i++) {
+      const x = (i / segs - 0.5) * W;
+      pts.push(x, 0, 0, x, 0, 0); // top + bottom of ribbon (will be updated each frame)
+    }
+    aGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+    const indices = [];
+    for (let i = 0; i < segs; i++) {
+      const b2 = i * 2;
+      indices.push(b2, b2+1, b2+2, b2+2, b2+1, b2+3);
+    }
+    aGeo.setIndex(indices);
+    const aMat = new THREE.MeshBasicMaterial({
+      color: auroraColors[a], transparent: true, opacity: 0.0,
+      side: THREE.DoubleSide
+    });
+    const aMesh = new THREE.Mesh(aGeo, aMat);
+    aMesh.userData = {
+      isAurora: true,
+      baseY: 80 + a * 15,
+      height: 18 + a * 6,
+      speed: 0.18 + a * 0.07,
+      phase: a * 1.3,
+      waveAmp: 8 + a * 4,
+      segs,
+      W
+    };
+    scene.add(aMesh);
+    auroraStrips.push(aMesh);
+  }
+
+  // ── RAIN particle system ──────────────────────────────────────────
+  const RAIN_COUNT = 2500;
+  rainGeo = new THREE.BufferGeometry();
+  const rainPos = new Float32Array(RAIN_COUNT * 3);
+  const rainVel = new Float32Array(RAIN_COUNT); // fall speed per drop
+  for (let i = 0; i < RAIN_COUNT; i++) {
+    rainPos[i*3]   = (Math.random() - 0.5) * 180;
+    rainPos[i*3+1] = Math.random() * 120;
+    rainPos[i*3+2] = (Math.random() - 0.5) * 180;
+    rainVel[i] = 18 + Math.random() * 14;
+  }
+  rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
+  rainGeo.userData.vel = rainVel;
+  rainSystem = new THREE.Points(rainGeo, new THREE.PointsMaterial({
+    color: 0x4488aa, size: 0.12, transparent: true, opacity: 0.35
+  }));
+  scene.add(rainSystem);
+
+  // ── Floating data orbs throughout city ───────────────────────────
+  const orbColors = [0x00f5ff, 0xff00aa, 0xffee00, 0x00ff88, 0xff8800, 0xaa88ff];
+  for (let i = 0; i < 60; i++) {
+    const col = orbColors[i % orbColors.length];
+    const orb = new THREE.Mesh(
+      new THREE.SphereGeometry(0.06 + Math.random() * 0.1, 5, 5),
+      new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.5 + Math.random() * 0.4 })
+    );
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 8 + Math.random() * 35;
+    orb.position.set(
+      Math.cos(angle) * radius,
+      2 + Math.random() * 30,
+      Math.sin(angle) * radius
+    );
+    orb.userData = {
+      isOrb: true,
+      baseX: orb.position.x, baseY: orb.position.y, baseZ: orb.position.z,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.3 + Math.random() * 0.6,
+      radius: 0.5 + Math.random() * 1.5,
+      orbitSpeed: (Math.random() - 0.5) * 0.008,
+      angle
+    };
+    scene.add(orb);
+    floatingOrbs.push(orb);
+  }
+
+  // ── Central obelisk — upgraded with neon rings ────────────────────
+  const ob = new THREE.Mesh(
+    new THREE.ConeGeometry(0.5, 6, 4),
+    new THREE.MeshBasicMaterial({ color: 0x00f5ff, transparent: true, opacity: 0.9 })
+  );
+  ob.position.y = 3;
+  scene.add(ob);
+  // Rotating rings around obelisk
+  [[1.5, 0x00f5ff, 0.5], [2.5, 0xff00aa, 0.35], [3.5, 0xffee00, 0.25]].forEach(([r, c, op]) => {
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(r, 0.04, 5, 32),
+      new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: op })
+    );
+    ring.userData = { isObeliskRing: true };
+    ring.position.y = 2 + r * 0.5;
+    scene.add(ring);
+    scene.userData['obRing' + r] = ring;
+  });
+
+  // ── Atmosphere rings ──────────────────────────────────────────────
+  const mkRing = (r, c, op) => {
+    const m = new THREE.Mesh(
+      new THREE.TorusGeometry(r, 0.12, 6, 80),
+      new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: op })
+    );
+    m.rotation.x = Math.PI / 2;
+    m.position.y = 0.5;
     scene.add(m); return m;
   };
-  scene.userData.r1 = mkRing(12, 0x00f5ff, 0.18);
-  scene.userData.r2 = mkRing(8,  0xff00aa, 0.12);
+  scene.userData.r1 = mkRing(14, 0x00f5ff, 0.16);
+  scene.userData.r2 = mkRing(9, 0xff00aa, 0.11);
+  scene.userData.r3 = mkRing(20, 0xffee00, 0.06);
 
-  // Central obelisk
-  const ob = new THREE.Mesh(
-    new THREE.ConeGeometry(0.6, 5, 4),
-    new THREE.MeshBasicMaterial({ color:0x00f5ff })
-  );
-  ob.position.y = 2.5; scene.add(ob);
-
-  // Background city (NO point lights — they overflow uniforms)
-  for (let i=0; i<45; i++) {
-    const x=(Math.random()-.5)*180, z=(Math.random()-.5)*180;
-    if (Math.sqrt(x*x+z*z)<36) continue;
-    const h=4+Math.random()*22, w=2+Math.random()*5;
-    const m = new THREE.Mesh(
-      new THREE.BoxGeometry(w, h, w+Math.random()*2),
-      new THREE.MeshBasicMaterial({
-        color: new THREE.Color().setHSL(Math.random()*.6+.5, .3, .05).setHSL(Math.random()*.6+.5, .7, .015)
-      })
+  // ── Background city — more buildings, lit windows ─────────────────
+  const bgCols = [0x001a2e, 0x0d1a0a, 0x1a000d, 0x0a0a1a, 0x0d0d00];
+  for (let i = 0; i < 80; i++) {
+    const x = (Math.random() - 0.5) * 220, z = (Math.random() - 0.5) * 220;
+    if (Math.sqrt(x*x+z*z) < 38) continue;
+    const h = 5 + Math.random() * 28, w = 2 + Math.random() * 5;
+    const bldg = new THREE.Mesh(
+      new THREE.BoxGeometry(w, h, w + Math.random() * 2),
+      new THREE.MeshBasicMaterial({ color: bgCols[i % bgCols.length] })
     );
-    m.position.set(x, h/2, z); m.castShadow = true; scene.add(m);
+    bldg.position.set(x, h / 2, z);
+    scene.add(bldg);
+
+    // Random lit windows on background buildings
+    const winCount = Math.floor(Math.random() * 6) + 2;
+    const winColors = [0x00f5ff, 0xff8800, 0xffee00, 0xff00aa, 0x00ff88];
+    for (let w2 = 0; w2 < winCount; w2++) {
+      const wc = winColors[Math.floor(Math.random() * winColors.length)];
+      const win = new THREE.Mesh(
+        new THREE.PlaneGeometry(0.4 + Math.random() * 0.6, 0.3 + Math.random() * 0.4),
+        new THREE.MeshBasicMaterial({ color: wc, transparent: true, opacity: 0.3 + Math.random() * 0.4 })
+      );
+      win.position.set(
+        x + (Math.random() - 0.5) * (w - 0.2),
+        (Math.random() * 0.8 + 0.1) * h,
+        z + (w / 2 + 0.01) * (Math.random() > 0.5 ? 1 : -1)
+      );
+      win.userData = { isWin: true, phase: Math.random() * Math.PI * 2, blinkRate: 0.3 + Math.random() * 2 };
+      scene.add(win);
+    }
   }
 }
 
@@ -770,30 +961,30 @@ function buildRobot() {
 //  TOKEN POOL  (simple spheres, shared material per building)
 // ================================================================
 const TOKEN_MATS = {};
+const TOKEN_GEOS = [
+  new THREE.SphereGeometry(0.1, 5, 5),
+  new THREE.OctahedronGeometry(0.1),
+  new THREE.TetrahedronGeometry(0.1),
+  new THREE.BoxGeometry(0.12, 0.12, 0.12),
+];
 function spawnTokenPool() {
   BUILDINGS.forEach(b => {
-    TOKEN_MATS[b.id] = new THREE.MeshBasicMaterial({ color:b.col, transparent:true, opacity:0 });
+    TOKEN_MATS[b.id] = new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0 });
   });
-  // 30 token balls total (5 per building) — share materials
   BUILDINGS.forEach(b => {
-    for (let i=0; i<5; i++) {
-      const m = new THREE.Mesh(
-        new THREE.SphereGeometry(0.08, 4, 4),
-        TOKEN_MATS[b.id].clone()
-      );
-      m.position.set(0,-500,0);
-      m.userData = { alive:false, t:0, dur:1.3, sx:0, sy:0, sz:0, ex:0, ey:0, ez:0, bid:b.id };
+    for (let i = 0; i < 8; i++) {
+      const geo = TOKEN_GEOS[i % TOKEN_GEOS.length];
+      const m = new THREE.Mesh(geo, TOKEN_MATS[b.id].clone());
+      m.position.set(0, -500, 0);
+      m.userData = { alive:false, t:0, dur:1.3, sx:0, sy:0, sz:0, ex:0, ey:0, ez:0, bid:b.id, spinX: Math.random()*3, spinZ: Math.random()*2 };
       scene.add(m);
       tokenBalls.push(m);
     }
-    // Interior rising balls
-    for (let i=0; i<6; i++) {
-      const m = new THREE.Mesh(
-        new THREE.SphereGeometry(0.07, 4, 4),
-        TOKEN_MATS[b.id].clone()
-      );
-      m.position.set(0,-500,0);
-      m.userData = { alive:false, t:0, dur:2, bx:b.pos.x, bz:b.pos.z, bW:b.bW, maxY:b.floors*2.3*.9, bid:b.id };
+    for (let i = 0; i < 8; i++) {
+      const geo = TOKEN_GEOS[i % TOKEN_GEOS.length];
+      const m = new THREE.Mesh(geo, TOKEN_MATS[b.id].clone());
+      m.position.set(0, -500, 0);
+      m.userData = { alive:false, t:0, dur:2, bx:b.pos.x, bz:b.pos.z, bW:b.bW, maxY:b.floors*2.3*.9, bid:b.id, spinX: Math.random()*4, spinZ: Math.random()*3 };
       scene.add(m);
       interiorBalls.push(m);
     }
@@ -832,6 +1023,7 @@ function loop() {
   movePlayer(dt);
   animateAgents(dt);
   animateBuildings(dt);
+  animateEnvironment(dt);
   animateTokens(dt);
   animateRobot(dt);
   animateBeams(dt);
@@ -953,8 +1145,86 @@ function animateBuildings(dt) {
     }
   });
 
+  // Ring rotations moved to animateEnvironment
+}
+
+// ================================================================
+//  ENVIRONMENT ANIMATION — rain, aurora, orbs, windows, reflections
+// ================================================================
+function animateEnvironment(dt) {
+  const t = Date.now() * 0.001;
+
+  // Rain: drops fall, reset at top
+  if (rainGeo) {
+    const pos = rainGeo.attributes.position.array;
+    const vel = rainGeo.userData.vel;
+    for (let i = 0; i < pos.length / 3; i++) {
+      pos[i*3+1] -= vel[i] * dt;
+      if (pos[i*3+1] < 0) {
+        pos[i*3]   = (Math.random() - 0.5) * 180;
+        pos[i*3+1] = 80 + Math.random() * 40;
+        pos[i*3+2] = (Math.random() - 0.5) * 180;
+      }
+    }
+    rainGeo.attributes.position.needsUpdate = true;
+    rainSystem.position.x = Math.sin(t * 0.3) * 1.5;
+  }
+
+  // Aurora: animate sine-wave ribbons at high altitude
+  auroraStrips.forEach(mesh => {
+    const ud = mesh.userData;
+    const pos = mesh.geometry.attributes.position.array;
+    const segs = ud.segs;
+    for (let i = 0; i <= segs; i++) {
+      const x = (i / segs - 0.5) * ud.W;
+      const wave  = Math.sin(i * 0.12 + t * ud.speed + ud.phase) * ud.waveAmp;
+      const wave2 = Math.sin(i * 0.07 + t * ud.speed * 0.7 + ud.phase + 1.2) * (ud.waveAmp * 0.5);
+      const yBot = ud.baseY + wave + wave2;
+      const yTop = yBot + ud.height;
+      pos[i*6]   = x; pos[i*6+1] = yBot; pos[i*6+2] = 0;
+      pos[i*6+3] = x; pos[i*6+4] = yTop; pos[i*6+5] = 0;
+    }
+    mesh.geometry.attributes.position.needsUpdate = true;
+    mesh.material.opacity = Math.max(0, Math.sin(t * 0.08 + ud.phase)) * (0.03 + Math.sin(t * 0.22 + ud.phase) * 0.025);
+  });
+
+  // Floating orbs — orbit + bob
+  floatingOrbs.forEach(orb => {
+    const ud = orb.userData;
+    ud.angle += ud.orbitSpeed;
+    const r = Math.sqrt(ud.baseX * ud.baseX + ud.baseZ * ud.baseZ);
+    orb.position.x = Math.cos(ud.angle) * r;
+    orb.position.z = Math.sin(ud.angle) * r;
+    orb.position.y = ud.baseY + Math.sin(t * ud.speed + ud.phase) * ud.radius;
+    orb.material.opacity = 0.3 + Math.abs(Math.sin(t * ud.speed + ud.phase)) * 0.5;
+    orb.scale.setScalar(0.8 + Math.sin(t * ud.speed * 1.3 + ud.phase) * 0.25);
+  });
+
+  // Ground reflections pulse with building color
+  groundReflections.forEach((ref, i) => {
+    const b = BUILDINGS[i];
+    const isActive = b && (b.id === activeBuildingId || b.id === nearBuilding?.id);
+    ref.material.opacity = 0.05 + Math.sin(t * 0.8 + i) * 0.03 + (isActive ? 0.1 : 0);
+    ref.scale.x = 1 + Math.sin(t * 0.5 + i * 0.8) * 0.08;
+    ref.scale.z = 1 + Math.cos(t * 0.4 + i * 0.6) * 0.08;
+  });
+
+  // Window flicker on background buildings
+  scene.children.forEach(child => {
+    if (!child.userData || !child.userData.isWin) return;
+    child.material.opacity = 0.18 + Math.abs(Math.sin(t * child.userData.blinkRate + child.userData.phase)) * 0.45;
+  });
+
+  // Obelisk rings
+  [[1.5, 1.2], [2.5, -0.8], [3.5, 0.5]].forEach(([r, spd]) => {
+    const ring = scene.userData['obRing' + r];
+    if (ring) { ring.rotation.z = t * spd; ring.rotation.x = Math.sin(t * 0.4) * 0.3; }
+  });
+
+  // Atmosphere rings
   if (scene.userData.r1) scene.userData.r1.rotation.z = t * 0.18;
   if (scene.userData.r2) scene.userData.r2.rotation.z = -t * 0.32;
+  if (scene.userData.r3) scene.userData.r3.rotation.z = t * 0.09;
 }
 
 // ── Wave surge: floors light up sequentially on message send ─────────────────
@@ -984,37 +1254,46 @@ function triggerWaveSurge(building) {
 }
 
 function animateTokens(dt) {
-  const t = Date.now()*.001;
-  // Spawn tokens toward nearest building
-  if (nearBuilding && frameCount%10===0) fireToken(nearBuilding);
+  const t = Date.now() * 0.001;
+
+  // Spawn more frequently when near/inside a building
+  if (nearBuilding && frameCount % 6 === 0) fireToken(nearBuilding);
   if (activeBuildingId) {
-    const ab=BUILDINGS.find(b=>b.id===activeBuildingId);
-    if (ab && frameCount%5===0) fireInteriorToken(ab);
+    const ab = BUILDINGS.find(b => b.id === activeBuildingId);
+    if (ab && frameCount % 3 === 0) fireInteriorToken(ab);
   }
 
   tokenBalls.forEach(p => {
-    const ud=p.userData;
+    const ud = p.userData;
     if (!ud.alive) return;
-    ud.t += dt/ud.dur;
-    if (ud.t>=1) { ud.alive=false; p.position.set(0,-500,0); p.material.opacity=0; return; }
-    const e=ud.t*ud.t*(3-2*ud.t);
-    p.position.x = ud.sx+(ud.ex-ud.sx)*e + Math.sin(ud.t*Math.PI*4)*.2;
-    p.position.y = ud.sy+(ud.ey-ud.sy)*e + Math.sin(ud.t*Math.PI)*2.2;
-    p.position.z = ud.sz+(ud.ez-ud.sz)*e;
-    p.material.opacity = .85*Math.sin(ud.t*Math.PI);
-    p.scale.setScalar(.7+Math.sin(ud.t*Math.PI)*.5);
+    ud.t += dt / ud.dur;
+    if (ud.t >= 1) { ud.alive = false; p.position.set(0, -500, 0); p.material.opacity = 0; return; }
+    const e = ud.t * ud.t * (3 - 2 * ud.t); // smooth step
+    // Wider arc + slight spiral
+    p.position.x = ud.sx + (ud.ex - ud.sx) * e + Math.sin(ud.t * Math.PI * 3) * 0.35;
+    p.position.y = ud.sy + (ud.ey - ud.sy) * e + Math.sin(ud.t * Math.PI) * 3.5;
+    p.position.z = ud.sz + (ud.ez - ud.sz) * e + Math.cos(ud.t * Math.PI * 3) * 0.2;
+    p.material.opacity = Math.sin(ud.t * Math.PI) * 0.95;
+    p.scale.setScalar(0.6 + Math.sin(ud.t * Math.PI) * 0.7);
+    // Spin as they fly
+    p.rotation.x += ud.spinX * dt * 4;
+    p.rotation.z += ud.spinZ * dt * 3;
   });
 
   interiorBalls.forEach(p => {
-    const ud=p.userData;
+    const ud = p.userData;
     if (!ud.alive) return;
-    ud.t += dt/ud.dur;
-    if (ud.t>=1) { ud.alive=false; p.position.set(0,-500,0); p.material.opacity=0; return; }
-    const e=ud.t;
-    p.position.x += Math.sin(t*3+e*10)*.008;
-    p.position.y = 1 + e*ud.maxY;
-    p.position.z += Math.cos(t*2+e*8)*.008;
-    p.material.opacity = .8*Math.sin(e*Math.PI);
+    ud.t += dt / ud.dur;
+    if (ud.t >= 1) { ud.alive = false; p.position.set(0, -500, 0); p.material.opacity = 0; return; }
+    const e = ud.t;
+    // Helical rise
+    p.position.x += Math.sin(t * 4 + e * 12) * 0.012;
+    p.position.y = 1 + e * ud.maxY;
+    p.position.z += Math.cos(t * 3 + e * 10) * 0.012;
+    p.material.opacity = Math.sin(e * Math.PI) * 0.9;
+    p.scale.setScalar(0.6 + Math.sin(e * Math.PI) * 0.6);
+    p.rotation.y += ud.spinX * dt * 5;
+    p.rotation.x += ud.spinZ * dt * 3;
   });
 }
 
