@@ -1,0 +1,14 @@
+{
+  "name": "cf_ai_city",
+  "version": "1.0.0",
+  "description": "A walkable 3D AI city — six buildings each teach an AI concept via Llama 3.3 on Cloudflare Workers AI, with persistent memory via Durable Objects.",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

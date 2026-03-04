@@ -1,0 +1,28 @@
+name = "cf-ai-city"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# ── Workers AI binding ────────────────────────────────────────────────────────
+[ai]
+binding = "AI"
+
+# ── Durable Objects ───────────────────────────────────────────────────────────
+[[durable_objects.bindings]]
+name = "CHAT_SESSION"
+class_name = "ChatSession"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ChatSession"]
+
+# ── Static assets (Cloudflare Pages serves ./public) ─────────────────────────
+[assets]
+directory = "./public"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+
+# ── Local dev ─────────────────────────────────────────────────────────────────
+[dev]
+port = 8787
+local_protocol = "http"
