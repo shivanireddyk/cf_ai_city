@@ -10,45 +10,29 @@
 :root{--cyan:#00f5ff;--mag:#ff00aa;--yel:#ffee00;--dark:#010912;--gb:rgba(0,245,255,0.18)}
 body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflow:hidden;height:100vh;width:100vw}
 #cc{position:fixed;inset:0}canvas{display:block}
-
-/* Vignette overlay */
 #vignette{position:fixed;inset:0;pointer-events:none;z-index:8;background:radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(1,9,18,.75) 100%)}
-
-/* Chromatic aberration strips */
 #chroma{position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.018;background:repeating-linear-gradient(0deg,rgba(255,0,100,.4) 0px,transparent 1px,transparent 3px,rgba(0,255,255,.3) 4px,transparent 5px)}
-
-/* HUD */
 #hud{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:14px 20px;pointer-events:none;z-index:10}
 .ht{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--cyan);text-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,245,255,.4);letter-spacing:.15em}
 .ht span{color:var(--mag)}.hm{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(0,245,255,.4);margin-top:2px}
-
-/* Pipeline stage overlay */
 #stage-overlay{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:30;pointer-events:none;opacity:0;transition:opacity .4s}
 #stage-overlay.show{opacity:1}
 #stage-box{background:rgba(1,9,18,.93);border:1px solid var(--gb);border-radius:10px;padding:10px 22px;text-align:center;backdrop-filter:blur(14px);min-width:300px;box-shadow:0 0 30px rgba(0,245,255,.1),inset 0 0 20px rgba(0,245,255,.04)}
 #stage-icon{font-size:1.6rem;display:block;margin-bottom:4px}
 #stage-name{font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;color:var(--cyan);letter-spacing:.12em}
 #stage-desc{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:rgba(255,255,255,.5);margin-top:3px}
-
-/* Tooltip */
 #tt{position:fixed;top:50%;left:50%;transform:translate(-50%,-140px);background:rgba(1,9,18,.92);border:1px solid var(--gb);border-radius:10px;padding:10px 20px;text-align:center;pointer-events:none;z-index:20;opacity:0;transition:opacity .3s;box-shadow:0 0 24px rgba(0,245,255,.12)}
 #tt.show{opacity:1}
 #tt .tn{font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;color:var(--cyan);text-shadow:0 0 12px var(--cyan)}
 #tt .ts{font-size:.65rem;color:rgba(255,255,255,.45);font-family:'Share Tech Mono',monospace;margin-top:3px}
 #tt .te{margin-top:6px;font-size:.62rem;color:var(--mag);font-family:'Share Tech Mono',monospace;animation:blink 1s infinite;text-shadow:0 0 8px var(--mag)}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-
-/* Controls */
 #ctrl{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;pointer-events:none}
-.kh{background:rgba(0,0,0,.7);border:1px solid var(--gb);border-radius:5px;padding:5px 10px;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(0,245,255,.6);backdrop-filter:blur(8px);box-shadow:0 0 10px rgba(0,245,255,.06)}
+.kh{background:rgba(0,0,0,.7);border:1px solid var(--gb);border-radius:5px;padding:5px 10px;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(0,245,255,.6);backdrop-filter:blur(8px)}
 .kh kbd{background:rgba(0,245,255,.1);border:1px solid var(--gb);border-radius:3px;padding:1px 5px;color:var(--cyan)}
-
-/* Minimap */
-#mm{position:fixed;bottom:55px;right:18px;width:120px;height:120px;background:rgba(1,9,18,.88);border:1px solid var(--gb);border-radius:8px;z-index:10;overflow:hidden;box-shadow:0 0 20px rgba(0,245,255,.1)}
+#mm{position:fixed;bottom:55px;right:18px;width:120px;height:120px;background:rgba(1,9,18,.88);border:1px solid var(--gb);border-radius:8px;z-index:10;overflow:hidden}
 #mm canvas{display:block}
 #mml{position:absolute;bottom:3px;left:0;right:0;text-align:center;font-family:'Share Tech Mono',monospace;font-size:.5rem;color:rgba(0,245,255,.3)}
-
-/* BOOM screen */
 #boom{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .2s}
 #boom.on{opacity:1;visibility:visible}
 #boom-bg{position:absolute;inset:0;z-index:0}
@@ -71,14 +55,10 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
 #boom-btn::before{content:'';position:absolute;inset:0;transform:scaleX(0);transform-origin:left;transition:transform .3s}
 #boom-btn:hover{color:#000}#boom-btn:hover::before{transform:scaleX(1)}
 .bcorner{position:absolute;width:36px;height:36px;z-index:3;border-style:solid;opacity:.5}
-.bcorner.tl{top:20px;left:20px;border-width:2px 0 0 2px}
-.bcorner.tr{top:20px;right:20px;border-width:2px 2px 0 0}
-.bcorner.bl{bottom:20px;left:20px;border-width:0 0 2px 2px}
-.bcorner.br{bottom:20px;right:20px;border-width:0 2px 2px 0}
+.bcorner.tl{top:20px;left:20px;border-width:2px 0 0 2px}.bcorner.tr{top:20px;right:20px;border-width:2px 2px 0 0}
+.bcorner.bl{bottom:20px;left:20px;border-width:0 0 2px 2px}.bcorner.br{bottom:20px;right:20px;border-width:0 2px 2px 0}
 #boom-scanlines{position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.05) 2px,rgba(0,0,0,.05) 4px);opacity:.5}
-
-/* Chat */
-#chat{position:fixed;right:-430px;top:0;bottom:0;width:410px;background:linear-gradient(180deg,rgba(1,9,18,.97),rgba(4,16,36,.97));border-left:1px solid var(--gb);display:flex;flex-direction:column;z-index:50;transition:right .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(18px);box-shadow:-8px 0 40px rgba(0,245,255,.08)}
+#chat{position:fixed;right:-430px;top:0;bottom:0;width:410px;background:linear-gradient(180deg,rgba(1,9,18,.97),rgba(4,16,36,.97));border-left:1px solid var(--gb);display:flex;flex-direction:column;z-index:50;transition:right .4s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(18px)}
 #chat.open{right:0}
 .ch{padding:16px 16px 12px;border-bottom:1px solid var(--gb);position:relative}
 .cbn{font-family:'Orbitron',monospace;font-size:.88rem;font-weight:700;color:var(--cyan);text-shadow:0 0 12px var(--cyan)}
@@ -89,8 +69,8 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
 .ccl:hover{background:rgba(0,245,255,.1);color:var(--cyan)}
 #msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px;scrollbar-width:thin;scrollbar-color:var(--gb) transparent}
 .msg{max-width:90%;padding:9px 12px;border-radius:9px;font-size:.76rem;line-height:1.6}
-.msg.u{align-self:flex-end;background:rgba(0,245,255,.09);border:1px solid rgba(0,245,255,.16);color:#cef4ff;box-shadow:0 0 12px rgba(0,245,255,.06)}
-.msg.a{align-self:flex-start;background:rgba(255,0,170,.06);border:1px solid rgba(255,0,170,.15);color:#ffe0f5;box-shadow:0 0 12px rgba(255,0,170,.05)}
+.msg.u{align-self:flex-end;background:rgba(0,245,255,.09);border:1px solid rgba(0,245,255,.16);color:#cef4ff}
+.msg.a{align-self:flex-start;background:rgba(255,0,170,.06);border:1px solid rgba(255,0,170,.15);color:#ffe0f5}
 .msg.s{align-self:center;background:rgba(255,238,0,.04);border:1px solid rgba(255,238,0,.1);color:rgba(255,238,0,.6);font-family:'Share Tech Mono',monospace;font-size:.63rem;text-align:center;max-width:95%}
 .ml{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:rgba(255,255,255,.25);margin-bottom:3px}
 .ti{display:flex;gap:4px;align-items:center;padding:2px 0}
@@ -99,30 +79,68 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
 @keyframes tb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
 .cia{padding:11px 13px;border-top:1px solid var(--gb);display:flex;gap:7px}
 #ci{flex:1;background:rgba(0,245,255,.05);border:1px solid var(--gb);border-radius:7px;padding:8px 12px;color:#e0f4ff;font-family:'Exo 2',sans-serif;font-size:.76rem;outline:none;transition:border-color .2s}
-#ci:focus{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,245,255,.1)}
+#ci:focus{border-color:var(--cyan)}
 #ci::placeholder{color:rgba(255,255,255,.2)}
-#cs{background:linear-gradient(135deg,var(--cyan),var(--mag));border:none;border-radius:7px;padding:8px 14px;color:#000;font-family:'Orbitron',monospace;font-size:.66rem;font-weight:700;cursor:pointer;transition:opacity .2s;box-shadow:0 0 16px rgba(0,245,255,.25)}
+#cs{background:linear-gradient(135deg,var(--cyan),var(--mag));border:none;border-radius:7px;padding:8px 14px;color:#000;font-family:'Orbitron',monospace;font-size:.66rem;font-weight:700;cursor:pointer;transition:opacity .2s}
 #cs:hover{opacity:.82}#cs:disabled{opacity:.3;cursor:not-allowed}
-
-/* Splash */
 #splash{position:fixed;inset:0;background:var(--dark);z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .8s}
 #splash.hide{opacity:0;pointer-events:none}
-.st{font-family:'Orbitron',monospace;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;text-align:center;background:linear-gradient(90deg,var(--cyan),var(--mag),var(--yel));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;filter:drop-shadow(0 0 30px rgba(0,245,255,.3))}
-.ss{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:rgba(0,245,255,.52);text-align:center;max-width:400px;line-height:1.8}
-.se{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;letter-spacing:.2em;padding:13px 38px;border-radius:3px;cursor:pointer;transition:all .3s;box-shadow:0 0 20px rgba(0,245,255,.1),inset 0 0 20px rgba(0,245,255,.04)}
-.se:hover{box-shadow:0 0 40px rgba(0,245,255,.4),inset 0 0 30px rgba(0,245,255,.1)}
-.stags{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:460px}
+.st{font-family:'Orbitron',monospace;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;text-align:center;background:linear-gradient(90deg,var(--cyan),var(--mag),var(--yel));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
+.ss{font-family:'Share Tech Mono',monospace;font-size:.8rem;color:rgba(0,245,255,.52);text-align:center;max-width:440px;line-height:1.8}
+.se{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;letter-spacing:.2em;padding:13px 38px;border-radius:3px;cursor:pointer;transition:all .3s}
+.se:hover{box-shadow:0 0 40px rgba(0,245,255,.4)}
+.stags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:520px}
 .stag{font-family:'Share Tech Mono',monospace;font-size:.6rem;padding:3px 8px;border-radius:20px;border:1px solid}
-/* Scanline — two overlapping for denser effect */
 .scanline{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--cyan),var(--mag),transparent);animation:scan 4s linear infinite;opacity:.12;pointer-events:none;z-index:201}
 .scanline2{position:fixed;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);animation:scan 4s linear infinite;animation-delay:-2s;opacity:.07;pointer-events:none;z-index:201}
 @keyframes scan{from{top:0}to{top:100vh}}
-/* Crosshair — animated rings */
 #xhair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:15;width:22px;height:22px}
 #xhair::before,#xhair::after{content:'';position:absolute;background:rgba(0,245,255,.8)}
 #xhair::before{width:22px;height:1px;top:10px;left:0}#xhair::after{width:1px;height:22px;top:0;left:10px}
 #xhair-ring{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:14;width:36px;height:36px;border:1px solid rgba(0,245,255,.25);border-radius:50%;animation:xring 2s ease-in-out infinite}
 @keyframes xring{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.25}50%{transform:translate(-50%,-50%) scale(1.3);opacity:.5}}
+
+/* ── Progress Panel ── */
+#progress{position:fixed;top:60px;left:16px;width:190px;background:rgba(1,9,18,.92);border:1px solid var(--gb);border-radius:10px;z-index:10;padding:10px 12px;backdrop-filter:blur(14px)}
+#progress h4{font-family:'Orbitron',monospace;font-size:.6rem;font-weight:700;color:var(--cyan);letter-spacing:.18em;margin-bottom:7px}
+.pb{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.pb-icon{font-size:.72rem;width:18px;text-align:center;flex-shrink:0}
+.pb-name{font-family:'Share Tech Mono',monospace;font-size:.52rem;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pb-status{font-size:.55rem;font-family:'Share Tech Mono',monospace;white-space:nowrap}
+.pb-status.visited{color:var(--cyan)}.pb-status.qpass{color:#00ff88}.pb-status.qfail{color:var(--mag)}
+#prog-bar-wrap{margin-top:7px;border-top:1px solid var(--gb);padding-top:6px}
+#prog-label{font-family:'Share Tech Mono',monospace;font-size:.52rem;color:rgba(0,245,255,.5);margin-bottom:4px;display:flex;justify-content:space-between}
+#prog-bar{height:4px;background:rgba(0,245,255,.1);border-radius:2px;overflow:hidden}
+#prog-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--mag));width:0%;transition:width .6s ease;border-radius:2px}
+#export-btn{width:100%;margin-top:7px;background:transparent;border:1px solid rgba(0,245,255,.3);color:rgba(0,245,255,.7);font-family:'Orbitron',monospace;font-size:.5rem;font-weight:700;letter-spacing:.1em;padding:5px;border-radius:4px;cursor:pointer;transition:all .25s}
+#export-btn:hover{background:rgba(0,245,255,.1);border-color:var(--cyan);color:var(--cyan)}
+
+/* ── Quiz Panel ── */
+#quiz{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;background:rgba(1,9,18,.96);backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .4s}
+#quiz.show{opacity:1;visibility:visible}
+#quiz-box{background:linear-gradient(135deg,rgba(4,16,36,.98),rgba(1,9,18,.98));border:1px solid var(--gb);border-radius:14px;padding:28px 30px;max-width:560px;width:90%;box-shadow:0 0 60px rgba(0,245,255,.08)}
+#quiz-title{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;margin-bottom:4px}
+#quiz-sub{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:rgba(255,255,255,.38);margin-bottom:18px;letter-spacing:.1em}
+#quiz-qnum{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--mag);margin-bottom:8px;letter-spacing:.15em}
+#quiz-q{font-family:'Exo 2',sans-serif;font-size:.88rem;color:#e0f4ff;line-height:1.6;margin-bottom:16px;min-height:48px}
+.quiz-opt{width:100%;text-align:left;background:rgba(0,245,255,.04);border:1px solid rgba(0,245,255,.14);border-radius:7px;padding:10px 14px;color:#b0d4f0;font-family:'Share Tech Mono',monospace;font-size:.72rem;cursor:pointer;margin-bottom:8px;transition:all .2s;line-height:1.5;display:block}
+.quiz-opt:hover:not(:disabled){background:rgba(0,245,255,.1);border-color:var(--cyan);color:var(--cyan)}
+.quiz-opt.correct{background:rgba(0,255,136,.1)!important;border-color:#00ff88!important;color:#00ff88!important}
+.quiz-opt.wrong{background:rgba(255,0,170,.1)!important;border-color:var(--mag)!important;color:var(--mag)!important}
+.quiz-opt:disabled{cursor:default}
+#quiz-feedback{font-family:'Share Tech Mono',monospace;font-size:.66rem;line-height:1.6;padding:10px 12px;border-radius:6px;margin-bottom:12px;display:none}
+#quiz-feedback.show{display:block}
+#quiz-feedback.ok{background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.2);color:#a0ffd0}
+#quiz-feedback.bad{background:rgba(255,0,170,.07);border:1px solid rgba(255,0,170,.2);color:#ffb0e0}
+#quiz-actions{display:flex;align-items:center;gap:8px}
+#quiz-next{background:linear-gradient(135deg,var(--cyan),var(--mag));border:none;border-radius:7px;padding:10px 28px;color:#000;font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;cursor:pointer;display:none;transition:opacity .2s}
+#quiz-next:hover{opacity:.85}
+#quiz-skip{background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:10px 18px;color:rgba(255,255,255,.3);font-family:'Share Tech Mono',monospace;font-size:.62rem;cursor:pointer;transition:all .2s}
+#quiz-skip:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.5)}
+#quiz-result{text-align:center;display:none}
+#quiz-score-big{font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;margin:10px 0}
+#quiz-result-msg{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:rgba(255,255,255,.5);margin-bottom:20px}
+#quiz-done{background:linear-gradient(135deg,var(--cyan),var(--mag));border:none;border-radius:7px;padding:12px 36px;color:#000;font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
@@ -133,7 +151,6 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
 <div id="xhair"></div>
 <div id="xhair-ring"></div>
 
-<!-- BOOM screen -->
 <div id="boom">
   <div id="boom-bg"></div><div id="boom-flash"></div><div id="boom-ring"></div>
   <div id="boom-scanlines"></div>
@@ -148,10 +165,9 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
   </div>
 </div>
 
-<!-- Splash -->
 <div id="splash">
   <div class="st">AI CITY<br/><span style="font-size:.4em;color:rgba(255,255,255,.4)">Walk Through the Future of Intelligence</span></div>
-  <div class="ss">Six towering AI buildings.<br/>Ask a question — watch a robot act out the entire pipeline in real time.</div>
+  <div class="ss">Nine AI buildings for developers.<br/>Chat with live AI guides &middot; Take quizzes &middot; Track progress &middot; Export notes.</div>
   <div class="stags">
     <span class="stag" style="border-color:#00f5ff;color:#00f5ff">🏛 LLM TOWER</span>
     <span class="stag" style="border-color:#ff00aa;color:#ff00aa">🧠 NEURAL NET LAB</span>
@@ -159,30 +175,29 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
     <span class="stag" style="border-color:#00ff88;color:#00ff88">👁 VISION CENTER</span>
     <span class="stag" style="border-color:#ff8800;color:#ff8800">🎯 RL ARENA</span>
     <span class="stag" style="border-color:#aa88ff;color:#aa88ff">🌊 DIFFUSION DIST.</span>
+    <span class="stag" style="border-color:#00ffcc;color:#00ffcc">🔍 RAG TOWER</span>
+    <span class="stag" style="border-color:#ff6644;color:#ff6644">🔧 FINETUNE STUDIO</span>
+    <span class="stag" style="border-color:#ddaaff;color:#ddaaff">💡 EMBEDDING LAB</span>
   </div>
   <button class="se" id="startBtn">ENTER THE CITY</button>
 </div>
 
-<!-- HUD -->
 <div id="hud">
-  <div><div class="ht">AI <span>CITY</span></div><div class="hm">// EXPLORE · LEARN · INTERACT</div></div>
+  <div><div class="ht">AI <span>CITY</span></div><div class="hm">// EXPLORE &middot; LEARN &middot; INTERACT</div></div>
   <div style="font-family:'Share Tech Mono',monospace;font-size:.6rem;color:rgba(0,245,255,.35);text-align:right;pointer-events:none">
     <div id="posText">POS: 0.0, 0.0</div>
     <div id="nearText" style="color:rgba(255,0,170,.45);margin-top:2px"></div>
   </div>
 </div>
 
-<!-- Stage overlay -->
 <div id="stage-overlay"><div id="stage-box">
   <span id="stage-icon">🤖</span>
   <div id="stage-name">RECEIVING INPUT</div>
   <div id="stage-desc">Robot reads your question</div>
 </div></div>
 
-<!-- Tooltip -->
 <div id="tt"><div class="tn" id="ttName">Building</div><div class="ts" id="ttSub">-</div><div class="te">[ E TO ENTER ]</div></div>
 
-<!-- Controls -->
 <div id="ctrl">
   <div class="kh"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</div>
   <div class="kh"><kbd>Shift</kbd> Sprint</div>
@@ -191,16 +206,44 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
   <div class="kh"><kbd>ESC</kbd> Exit</div>
 </div>
 
-<!-- Minimap -->
 <div id="mm"><canvas id="mmc" width="120" height="120"></canvas><div id="mml">MAP</div></div>
 
-<!-- Chat -->
+<div id="progress">
+  <h4>DEVELOPER PROGRESS</h4>
+  <div id="pb-list"></div>
+  <div id="prog-bar-wrap">
+    <div id="prog-label"><span>COMPLETION</span><span id="prog-pct">0%</span></div>
+    <div id="prog-bar"><div id="prog-fill"></div></div>
+  </div>
+  <button id="export-btn">EXPORT NOTES PDF</button>
+</div>
+
+<div id="quiz">
+  <div id="quiz-box">
+    <div id="quiz-title"></div>
+    <div id="quiz-sub">KNOWLEDGE CHECK // DEVELOPER LEVEL</div>
+    <div id="quiz-qnum"></div>
+    <div id="quiz-q"></div>
+    <div id="quiz-opts"></div>
+    <div id="quiz-feedback"></div>
+    <div id="quiz-actions">
+      <button id="quiz-next">NEXT QUESTION</button>
+      <button id="quiz-skip">skip quiz</button>
+    </div>
+    <div id="quiz-result">
+      <div id="quiz-score-big"></div>
+      <div id="quiz-result-msg"></div>
+      <button id="quiz-done">BACK TO CITY</button>
+    </div>
+  </div>
+</div>
+
 <div id="chat">
   <div class="ch">
     <div class="cbn" id="cName">Building</div>
     <div class="cbd" id="cDesc">-</div>
     <div class="cag" id="cAgents"></div>
-    <button class="ccl" id="cClose">✕</button>
+    <button class="ccl" id="cClose">&#x2715;</button>
   </div>
   <div id="msgs"></div>
   <div class="cia">
@@ -213,130 +256,302 @@ body{background:var(--dark);color:#e0f4ff;font-family:'Exo 2',sans-serif;overflo
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 'use strict';
-// ================================================================
+
+// ============================================================
 //  BUILDINGS CONFIG
-// ================================================================
-const BUILDINGS = [
-  { id:'llm',         name:'LLM TOWER',        sub:'Large Language Models',      col:0x00f5ff, pos:{x:0,z:-22},   floors:16, bW:7,  tW:2.5, agents:['Tokenizer','Embedder','Attention','Decoder','Output'],
+// ============================================================
+var BUILDINGS = [
+  { id:'llm', name:'LLM TOWER', sub:'Large Language Models', col:0x00f5ff, pos:{x:0,z:-22}, floors:16, bW:7, tW:2.5,
+    agents:['Tokenizer','Embedder','Attention','Decoder','Output'], tagColor:'#00f5ff',
     stages:[
-      {icon:'📥',name:'INPUT RECEIVED',    desc:'Robot reads your question token by token'},
-      {icon:'🔤',name:'TOKENIZATION',      desc:'Breaking text into numerical tokens'},
-      {icon:'🧮',name:'EMBEDDING',         desc:'Tokens mapped to high-dimensional vectors'},
-      {icon:'👁',name:'SELF-ATTENTION',    desc:'Every token attends to every other token'},
+      {icon:'📥',name:'INPUT RECEIVED',desc:'Robot reads your question token by token'},
+      {icon:'🔤',name:'TOKENIZATION',desc:'Breaking text into numerical tokens'},
+      {icon:'🧮',name:'EMBEDDING',desc:'Tokens mapped to high-dimensional vectors'},
+      {icon:'👁',name:'SELF-ATTENTION',desc:'Every token attends to every other token'},
       {icon:'🔁',name:'TRANSFORMER LAYERS',desc:'12-96 layers of deep transformation'},
-      {icon:'🎯',name:'NEXT TOKEN PRED',   desc:'Probability distribution over vocabulary'},
-      {icon:'📤',name:'OUTPUT GENERATED',  desc:'Robot delivers the response!'}
+      {icon:'🎯',name:'NEXT TOKEN PRED',desc:'Probability distribution over vocabulary'},
+      {icon:'📤',name:'OUTPUT GENERATED',desc:'Robot delivers the response!'}
     ],
-    system:`You are the AI guide inside LLM Tower. The robot outside just acted out the entire LLM pipeline for the visitor. Explain Large Language Models with reference to what the robot showed: tokenization, embeddings, attention, transformer layers, next-token prediction. Be vivid. Under 130 words.`,
-    tagColor:'#00f5ff' },
-
-  { id:'neural',      name:'NEURAL NET LAB',    sub:'Deep Learning Architecture', col:0xff00aa, pos:{x:-24,z:-10}, floors:13, bW:8,  tW:3,   agents:['Input Layer','Hidden','Activator','Backprop','Output'],
+    system:'You are the AI guide inside LLM Tower. The robot outside just acted out the entire LLM pipeline. Explain Large Language Models with reference to tokenization, embeddings, attention, transformer layers, next-token prediction. Be vivid. Under 130 words.'
+  },
+  { id:'neural', name:'NEURAL NET LAB', sub:'Deep Learning Architecture', col:0xff00aa, pos:{x:-24,z:-10}, floors:13, bW:8, tW:3,
+    agents:['Input Layer','Hidden','Activator','Backprop','Output'], tagColor:'#ff00aa',
     stages:[
-      {icon:'📥',name:'SIGNAL IN',         desc:'Robot receives raw input data'},
-      {icon:'🔵',name:'INPUT LAYER',       desc:'Data encoded as neuron activations'},
-      {icon:'⚡',name:'FORWARD PASS',      desc:'Signals multiply through weight matrices'},
-      {icon:'🔥',name:'ACTIVATION',        desc:'ReLU fires — dead neurons stay dark'},
-      {icon:'📉',name:'LOSS COMPUTED',     desc:'How wrong was the prediction?'},
-      {icon:'↩️',name:'BACKPROPAGATION',   desc:'Gradients flow backward, weights update'},
-      {icon:'✅',name:'LEARNED!',          desc:'Robot has updated its knowledge'}
+      {icon:'📥',name:'SIGNAL IN',desc:'Robot receives raw input data'},
+      {icon:'🔵',name:'INPUT LAYER',desc:'Data encoded as neuron activations'},
+      {icon:'⚡',name:'FORWARD PASS',desc:'Signals multiply through weight matrices'},
+      {icon:'🔥',name:'ACTIVATION',desc:'ReLU fires — dead neurons stay dark'},
+      {icon:'📉',name:'LOSS COMPUTED',desc:'How wrong was the prediction?'},
+      {icon:'↩️',name:'BACKPROPAGATION',desc:'Gradients flow backward, weights update'},
+      {icon:'✅',name:'LEARNED!',desc:'Robot has updated its knowledge'}
     ],
-    system:`You are the AI guide in the Neural Network Lab. The robot showed the visitor forward pass, activation functions, loss computation and backpropagation. Explain deep learning referencing what they saw. Under 130 words.`,
-    tagColor:'#ff00aa' },
-
-  { id:'transformer', name:'TRANSFORMER HUB',   sub:'Attention Is All You Need',  col:0xffee00, pos:{x:24,z:-10},  floors:15, bW:7,  tW:2.5, agents:['Q-Head','K-Head','V-Head','FFN','LayerNorm'],
+    system:'You are the AI guide in the Neural Network Lab. Explain deep learning: forward pass, activation functions, loss computation and backpropagation. Under 130 words.'
+  },
+  { id:'transformer', name:'TRANSFORMER HUB', sub:'Attention Is All You Need', col:0xffee00, pos:{x:24,z:-10}, floors:15, bW:7, tW:2.5,
+    agents:['Q-Head','K-Head','V-Head','FFN','LayerNorm'], tagColor:'#ffee00',
     stages:[
-      {icon:'📥',name:'QUERY FORMED',      desc:'Robot constructs the Query vector Q'},
-      {icon:'🗝️',name:'KEYS COMPUTED',    desc:'All positions generate Key vectors K'},
-      {icon:'💎',name:'VALUES READY',      desc:'Value vectors V hold the content'},
-      {icon:'⚖️',name:'ATTENTION SCORES',  desc:'Q·Kᵀ — how relevant is each token?'},
-      {icon:'🌡️',name:'SOFTMAX',          desc:'Scores normalized to probabilities'},
-      {icon:'🧵',name:'MULTI-HEAD',        desc:'8-32 attention heads run in parallel'},
-      {icon:'📤',name:'CONTEXT VECTOR',    desc:'Robot outputs enriched representation'}
+      {icon:'📥',name:'QUERY FORMED',desc:'Robot constructs the Query vector Q'},
+      {icon:'🗝️',name:'KEYS COMPUTED',desc:'All positions generate Key vectors K'},
+      {icon:'💎',name:'VALUES READY',desc:'Value vectors V hold the content'},
+      {icon:'⚖️',name:'ATTENTION SCORES',desc:'Q·K^T — how relevant is each token?'},
+      {icon:'🌡️',name:'SOFTMAX',desc:'Scores normalized to probabilities'},
+      {icon:'🧵',name:'MULTI-HEAD',desc:'8-32 attention heads run in parallel'},
+      {icon:'📤',name:'CONTEXT VECTOR',desc:'Robot outputs enriched representation'}
     ],
-    system:`You are the AI guide in the Transformer Hub. The robot acted out Q, K, V attention computation, softmax, and multi-head attention. Reference what the visitor saw. Under 130 words.`,
-    tagColor:'#ffee00' },
-
-  { id:'vision',      name:'VISION CENTER',     sub:'Computer Vision & Perception',col:0x00ff88, pos:{x:-24,z:12}, floors:12, bW:8,  tW:3.5, agents:['EdgeDet','ConvFilter','MaxPool','Feature','Classifier'],
+    system:'You are the AI guide in the Transformer Hub. Explain Q, K, V attention, softmax, multi-head attention. Under 130 words.'
+  },
+  { id:'vision', name:'VISION CENTER', sub:'Computer Vision & Perception', col:0x00ff88, pos:{x:-24,z:12}, floors:12, bW:8, tW:3.5,
+    agents:['EdgeDet','ConvFilter','MaxPool','Feature','Classifier'], tagColor:'#00ff88',
     stages:[
-      {icon:'🖼️',name:'IMAGE RECEIVED',   desc:'Robot scans the raw pixel grid'},
-      {icon:'📐',name:'EDGE DETECTION',    desc:'Convolutional filters find edges'},
-      {icon:'🔍',name:'FEATURE MAPS',      desc:'Hierarchical patterns emerge per layer'},
-      {icon:'🌊',name:'MAX POOLING',       desc:'Downsampling — keeping strongest signals'},
-      {icon:'🧩',name:'DEEP FEATURES',     desc:'Eyes, wheels, faces detected abstractly'},
-      {icon:'📊',name:'CLASSIFICATION',    desc:'Fully connected layers vote on class'},
-      {icon:'🎯',name:'IDENTIFIED!',       desc:'Robot announces what it sees'}
+      {icon:'🖼️',name:'IMAGE RECEIVED',desc:'Robot scans the raw pixel grid'},
+      {icon:'📐',name:'EDGE DETECTION',desc:'Convolutional filters find edges'},
+      {icon:'🔍',name:'FEATURE MAPS',desc:'Hierarchical patterns emerge per layer'},
+      {icon:'🌊',name:'MAX POOLING',desc:'Downsampling — keeping strongest signals'},
+      {icon:'🧩',name:'DEEP FEATURES',desc:'Eyes, wheels, faces detected abstractly'},
+      {icon:'📊',name:'CLASSIFICATION',desc:'Fully connected layers vote on class'},
+      {icon:'🎯',name:'IDENTIFIED!',desc:'Robot announces what it sees'}
     ],
-    system:`You are the AI guide in the Vision Center. The robot showed the visitor edge detection, feature maps, pooling and classification. Explain CNNs and computer vision with reference to this. Under 130 words.`,
-    tagColor:'#00ff88' },
-
-  { id:'rl',          name:'RL ARENA',          sub:'Reinforcement Learning',      col:0xff8800, pos:{x:24,z:12},  floors:11, bW:9,  tW:3,   agents:['Agent','Env','Reward','Policy','Critic'],
+    system:'You are the AI guide in the Vision Center. Explain CNNs, convolutions, pooling, classification. Under 130 words.'
+  },
+  { id:'rl', name:'RL ARENA', sub:'Reinforcement Learning', col:0xff8800, pos:{x:24,z:12}, floors:11, bW:9, tW:3,
+    agents:['Agent','Env','Reward','Policy','Critic'], tagColor:'#ff8800',
     stages:[
-      {icon:'🤖',name:'AGENT SPAWNS',      desc:'Robot enters the environment'},
-      {icon:'🎲',name:'RANDOM ACTION',     desc:'Exploration: tries something random'},
+      {icon:'🤖',name:'AGENT SPAWNS',desc:'Robot enters the environment'},
+      {icon:'🎲',name:'RANDOM ACTION',desc:'Exploration: tries something random'},
       {icon:'⚡',name:'ENVIRONMENT REACTS',desc:'World updates — new state observed'},
-      {icon:'🏆',name:'REWARD SIGNAL',     desc:'Positive or negative reward received'},
-      {icon:'🧠',name:'POLICY UPDATE',     desc:'Q-values updated via Bellman equation'},
-      {icon:'📈',name:'EXPLOITATION',      desc:'Robot now exploits learned strategy'},
-      {icon:'🥇',name:'CONVERGED!',        desc:'Policy optimal — robot masters the task'}
+      {icon:'🏆',name:'REWARD SIGNAL',desc:'Positive or negative reward received'},
+      {icon:'🧠',name:'POLICY UPDATE',desc:'Q-values updated via Bellman equation'},
+      {icon:'📈',name:'EXPLOITATION',desc:'Robot now exploits learned strategy'},
+      {icon:'🥇',name:'CONVERGED!',desc:'Policy optimal — robot masters the task'}
     ],
-    system:`You are the AI guide in the RL Arena. The robot acted out the full RL loop: exploration, environment response, reward, policy update, exploitation. Explain reinforcement learning referencing this. Under 130 words.`,
-    tagColor:'#ff8800' },
-
-  { id:'diffusion',   name:'DIFFUSION DIST.',   sub:'Generative AI & Synthesis',  col:0xaa88ff, pos:{x:0,z:14},   floors:10, bW:9,  tW:4,   agents:['Noiser','U-Net','CLIP','Denoiser','Sampler'],
+    system:'You are the AI guide in the RL Arena. Explain reinforcement learning: exploration, environment response, reward, policy update, exploitation. Under 130 words.'
+  },
+  { id:'diffusion', name:'DIFFUSION DIST.', sub:'Generative AI & Synthesis', col:0xaa88ff, pos:{x:0,z:14}, floors:10, bW:9, tW:4,
+    agents:['Noiser','U-Net','CLIP','Denoiser','Sampler'], tagColor:'#aa88ff',
     stages:[
-      {icon:'🎨',name:'PROMPT ENCODED',    desc:'Robot reads your text via CLIP encoder'},
-      {icon:'❄️',name:'PURE NOISE',        desc:'Start: completely random pixel static'},
-      {icon:'🌊',name:'DENOISING STEP 1',  desc:'U-Net predicts and removes some noise'},
-      {icon:'🖌️',name:'DENOISING STEP 2',  desc:'Structure emerges — shapes visible'},
-      {icon:'✨',name:'DENOISING STEP 3',  desc:'Details sharpen guided by your prompt'},
-      {icon:'🎭',name:'LATENT DECODING',   desc:'VAE decoder maps latent → pixels'},
-      {icon:'🖼️',name:'IMAGE COMPLETE',   desc:'Robot reveals the generated artwork!'}
+      {icon:'🎨',name:'PROMPT ENCODED',desc:'Robot reads your text via CLIP encoder'},
+      {icon:'❄️',name:'PURE NOISE',desc:'Start: completely random pixel static'},
+      {icon:'🌊',name:'DENOISING STEP 1',desc:'U-Net predicts and removes some noise'},
+      {icon:'🖌️',name:'DENOISING STEP 2',desc:'Structure emerges — shapes visible'},
+      {icon:'✨',name:'DENOISING STEP 3',desc:'Details sharpen guided by your prompt'},
+      {icon:'🎭',name:'LATENT DECODING',desc:'VAE decoder maps latent to pixels'},
+      {icon:'🖼️',name:'IMAGE COMPLETE',desc:'Robot reveals the generated artwork!'}
     ],
-    system:`You are the AI guide in the Diffusion District. The robot showed CLIP encoding, iterative denoising steps, and VAE decoding. Explain diffusion models referencing what the visitor saw. Under 130 words.`,
-    tagColor:'#aa88ff' }
+    system:'You are the AI guide in the Diffusion District. Explain diffusion models: CLIP encoding, iterative denoising, VAE decoding. Under 130 words.'
+  },
+  { id:'rag', name:'RAG TOWER', sub:'Retrieval-Augmented Generation', col:0x00ffcc, pos:{x:-14,z:26}, floors:12, bW:7, tW:2.5,
+    agents:['Retriever','Embedder','Ranker','Augmenter','Generator'], tagColor:'#00ffcc',
+    stages:[
+      {icon:'🔍',name:'QUERY ENCODED',desc:'Robot vectorizes your question via embedding model'},
+      {icon:'📚',name:'VECTOR SEARCH',desc:'ANN search finds top-K similar document chunks'},
+      {icon:'🏆',name:'CHUNK RANKING',desc:'Reranker scores chunks by relevance to query'},
+      {icon:'📎',name:'CONTEXT BUILT',desc:'Top chunks injected into the LLM prompt'},
+      {icon:'🧠',name:'LLM AUGMENTED',desc:'LLM generates answer grounded in retrieved facts'},
+      {icon:'✅',name:'CITED ANSWER',desc:'Response includes source attribution'},
+      {icon:'📤',name:'OUTPUT DELIVERED',desc:'Accurate, hallucination-reduced answer!'}
+    ],
+    system:'You are the AI guide in RAG Tower. Explain Retrieval-Augmented Generation for developers: embedding models, ANN indexes (FAISS/Pinecone), chunk strategies, why RAG beats fine-tuning for knowledge tasks. Under 130 words.'
+  },
+  { id:'finetune', name:'FINETUNE STUDIO', sub:'Fine-tuning & PEFT Methods', col:0xff6644, pos:{x:14,z:26}, floors:13, bW:7, tW:3,
+    agents:['DataPreparer','LoRA','Trainer','Evaluator','Deployer'], tagColor:'#ff6644',
+    stages:[
+      {icon:'🗂️',name:'DATASET CURATED',desc:'Robot formats instruction-response pairs'},
+      {icon:'🧊',name:'BASE MODEL FROZEN',desc:'Pretrained weights locked — no catastrophic forgetting'},
+      {icon:'🔧',name:'LORA ADAPTERS',desc:'Low-rank matrices injected into attention layers'},
+      {icon:'⚡',name:'GRADIENT FLOWS',desc:'Only adapter weights updated — 99% fewer params'},
+      {icon:'📊',name:'EVAL LOOP',desc:'Perplexity + task metrics measured each epoch'},
+      {icon:'🔀',name:'ADAPTER MERGED',desc:'LoRA weights merged back into base model'},
+      {icon:'🚀',name:'DEPLOYED!',desc:'Domain-specialized model ready for inference'}
+    ],
+    system:'You are the AI guide in Fine-tune Studio. Explain fine-tuning vs PEFT (LoRA, QLoRA, prefix tuning) for developers. Cover when to fine-tune vs RAG, rank r in LoRA, low-rank decomposition math. Under 130 words.'
+  },
+  { id:'embeddings', name:'EMBEDDING LAB', sub:'Vector Representations & Search', col:0xddaaff, pos:{x:0,z:-38}, floors:11, bW:8, tW:3,
+    agents:['Encoder','Projector','Indexer','Searcher','Clusterer'], tagColor:'#ddaaff',
+    stages:[
+      {icon:'📝',name:'TEXT INGESTED',desc:'Robot reads raw text — sentence or document'},
+      {icon:'🔄',name:'ENCODER FORWARD',desc:'Transformer encodes text into dense representation'},
+      {icon:'📍',name:'VECTOR PRODUCED',desc:'768 or 1536 floats capture semantic meaning'},
+      {icon:'🗺️',name:'SPACE MAPPED',desc:'Similar meanings cluster nearby in vector space'},
+      {icon:'📦',name:'INDEX BUILT',desc:'HNSW or IVF index for sub-millisecond retrieval'},
+      {icon:'🎯',name:'NEAREST NEIGHBOR',desc:'Cosine/dot-product similarity ranks candidates'},
+      {icon:'🔗',name:'SEMANTIC MATCH',desc:'Robot found meaning beyond keyword matching!'}
+    ],
+    system:'You are the AI guide in the Embedding Lab. Explain embeddings for developers: contrastive training, cosine vs dot-product similarity, HNSW vs IVF indexes, practical use cases. Under 130 words.'
+  }
 ];
 
-// ================================================================
-//  State
-// ================================================================
-let scene, camera, renderer, clock;
-let player = { x:0, z:22 };
-let keys = {};
-let nearBuilding = null;
-let activeBuildingId = null;
-let chatOpen = false;
-let convHistory = {};
-let visitedBuildings = new Set();
-let mmCtx;
-let buildingData = [];   // {group, b, tipLight, glassPlanes}
-let extAgents = [];
-let tokenBalls = [];     // simple spheres flying player→tower
-let interiorBalls = [];  // spheres rising inside towers
-let outputBeams = [];
-let frameCount = 0;
-let totalIn = 0, totalOut = 0;
+// ============================================================
+//  QUIZ DATA
+// ============================================================
+var QUIZ_DATA = {
+  llm: [
+    { q:"What does the d_k term in the attention formula Q*K^T / sqrt(d_k) accomplish?",
+      opts:["Normalizes scores to prevent softmax saturation from large dot products","Adds positional encoding to key vectors","Scales the query by number of attention heads","Controls the learning rate of attention weights"],
+      correct:0, exp:"Without sqrt(d_k), dot products grow with dimension size, pushing softmax into tiny-gradient regions. Dividing by sqrt(d_k) keeps variance stable — a key insight from 'Attention Is All You Need'." },
+    { q:"What makes LoRA efficient for adapting a 70B parameter foundation model?",
+      opts:["Retrains all weights at a lower learning rate","Decomposes weight updates into low-rank matrices A*B, training only those","Prunes the model to fewer layers for the target task","Quantizes weights to INT4 before fine-tuning"],
+      correct:1, exp:"LoRA represents delta_W = A*B where A is d x r and B is r x d. With rank r=8 on a 4096x4096 matrix, you train 64K params instead of 16M — 250x fewer, while base weights stay frozen." },
+    { q:"Why does increasing temperature in LLM sampling make outputs more creative but less reliable?",
+      opts:["Higher temperature slows inference, reducing accuracy","Temperature divides logits before softmax, flattening the distribution and sampling less-probable tokens more often","Temperature controls number of transformer layers used","Higher temperature increases context window size"],
+      correct:1, exp:"logits/T then softmax: at T=0.1 the model greedily picks top tokens; at T=1.5 the distribution flattens so rare tokens get sampled frequently. Great for creativity, bad for factual precision." }
+  ],
+  neural: [
+    { q:"Why does Batch Normalization help training deep networks?",
+      opts:["It prevents vanishing gradients by keeping activation distributions stable throughout training","It reduces number of parameters in each layer","It adds L2 regularization automatically","It enables training without a learning rate scheduler"],
+      correct:0, exp:"Internal covariate shift — changing input distributions to each layer — slows training. BatchNorm normalizes each mini-batch to mean=0, std=1, then applies learnable gamma and beta. This stabilizes gradients and allows much higher learning rates." },
+    { q:"A network has vanishing gradients in early layers. Which change most directly fixes this?",
+      opts:["Adding more neurons to the final layer","Switching from sigmoid to ReLU activations and adding skip connections","Increasing batch size to 1024","Using a smaller learning rate throughout"],
+      correct:1, exp:"Sigmoid compresses gradients to [0,1] — multiply many together and they vanish. ReLU passes gradients unchanged for positive activations. Skip connections (ResNet) create gradient highways that bypass many layers." },
+    { q:"What is the dying ReLU problem and how does Leaky ReLU fix it?",
+      opts:["ReLU is slow; Leaky ReLU uses lookup tables","Neurons with all-negative inputs always output zero and receive zero gradients, becoming unrecoverable; Leaky ReLU outputs alpha*x (alpha~0.01) for x<0","ReLU causes exploding gradients; Leaky ReLU clips at 1.0","Dead neurons transmit noise; Leaky ReLU normalizes outputs"],
+      correct:1, exp:"Once a ReLU neuron's weights push all inputs negative, its output is always 0 and gradient is always 0 — neuron is dead. Leaky ReLU: f(x) = x if x>0, else 0.01x. The small slope keeps gradients flowing." }
+  ],
+  transformer: [
+    { q:"What is the key benefit of multi-head attention vs. one large head?",
+      opts:["Multiple heads reduce memory by sharing weights","Each head can specialize in different relationships (syntax, coreference, semantics) and attend to different positions simultaneously","Multiple heads provide ensemble predictions averaged for stability","Parallel heads enable faster training via data parallelism"],
+      correct:1, exp:"Each head projects Q, K, V to subspace of dim d_k = d_model/H. Different heads learn to capture different dependency patterns. Concat + project combines all perspectives." },
+    { q:"What advantage does RoPE (Rotary Position Embedding) provide over learned positional encodings?",
+      opts:["RoPE eliminates positional encoding entirely","RoPE encodes position by rotating Q and K vectors, enabling relative positions via dot products, and extrapolates to longer sequences than seen in training","RoPE compresses positional info to reduce KV cache size","RoPE allows bidirectional attention in decoder-only models"],
+      correct:1, exp:"RoPE rotates Q and K by angles proportional to position. The dot product Q*K naturally encodes relative position, so the model generalizes to sequence lengths beyond training — critical for long-context models." },
+    { q:"During inference, what exactly does the KV cache optimize?",
+      opts:["It avoids recomputing all previous token embeddings from scratch each generation step","It caches the most likely next tokens to avoid sampling overhead","It stores gradient info for online learning during inference","It pre-computes positional encodings for all lengths"],
+      correct:0, exp:"Without KV cache, attention over T tokens requires T-squared compute per step. With KV cache, only the new token's Q is computed; K and V for all past tokens are retrieved from cache. O(T) per step instead of O(T^2)." }
+  ],
+  vision: [
+    { q:"A 3x3 conv kernel slides over a 224x224x3 image with stride=1, padding=1. What is the output spatial size?",
+      opts:["222x222","224x224","226x226","112x112"],
+      correct:1, exp:"Output size = (W - K + 2P)/S + 1 = (224 - 3 + 2)/1 + 1 = 224. Padding=1 preserves spatial dimensions. This is 'same' padding — standard for maintaining resolution through early conv layers." },
+    { q:"Why do ResNets use skip connections F(x)+x instead of plain deep stacks?",
+      opts:["Skip connections reduce parameters by sharing weights","They allow gradients to flow directly to early layers, solving vanishing gradient, while also letting the network learn identity mappings if deeper layers are unhelpful","Skip connections implement attention between distant layers","They enable multi-resolution processing"],
+      correct:1, exp:"ResNet's insight: it's easier to learn residual F(x)=H(x)-x than H(x) directly. If a layer is unnecessary, F(x) goes to 0 and the block becomes identity. Gradient highway via addition makes depth of 152+ trainable." },
+    { q:"What is the main limitation of Vision Transformers (ViT) vs CNNs for small datasets?",
+      opts:["ViT cannot process images larger than 384x384","ViT lacks inductive biases (translation equivariance, locality) that CNNs have built-in, requiring much more data to learn these from scratch","ViT computations are not parallelizable on GPUs","ViT patch embeddings cannot capture color"],
+      correct:1, exp:"CNNs hardcode locality and equivariance. ViT must learn these from data. With ImageNet-scale data (1M+ images) ViT matches CNNs; with 10K images CNNs win. DeiT and knowledge distillation help bridge this gap." }
+  ],
+  rl: [
+    { q:"What does the Bellman equation Q(s,a) = r + gamma * max_a' Q(s',a') represent?",
+      opts:["The average reward across all episodes seen so far","The expected total discounted future reward from taking action a in state s, using the best possible policy afterward","The probability that action a leads to a terminal state","The gradient of the policy with respect to the reward signal"],
+      correct:1, exp:"Q(s,a) is the quality of being in state s taking action a. The Bellman equation says: immediate reward r + discounted best future value gamma * max Q(s',.). gamma<1 ensures finite sums and biases toward sooner rewards." },
+    { q:"Why is PPO's clipping of the policy update ratio critical?",
+      opts:["Clipping prevents policy outputting probabilities above 1.0","Without clipping, large gradient steps could destroy the current policy; PPO clips r(theta) = pi_new/pi_old to [1-eps, 1+eps] keeping updates conservative","Clipping implements entropy regularization to encourage exploration","It prevents the critic network from diverging"],
+      correct:1, exp:"Policy gradient methods can take large steps that collapse performance. PPO's clip bounds how much new policy can deviate from old per update. Combined with multiple minibatch SGD epochs, it's stable and sample-efficient." },
+    { q:"What role does the neural network play in AlphaZero's MCTS?",
+      opts:["The network replaces MCTS entirely after sufficient training","The network provides P(move|state) priors to guide tree expansion and V(state) value estimates to replace rollouts, making MCTS much more efficient","The network evaluates only terminal states; MCTS handles intermediate nodes","The network compresses the game tree to fit in GPU memory"],
+      correct:1, exp:"Classical MCTS uses random rollouts to estimate state value — very slow in deep games. AlphaZero's NN provides: (1) policy head to bias which branches to explore, (2) value head to evaluate non-terminal states. 1000x more efficient." }
+  ],
+  diffusion: [
+    { q:"Stable Diffusion operates in latent space (64x64) rather than pixel space (512x512). What is the relationship via the VAE?",
+      opts:["The VAE directly downsamples pixels by averaging 8x8 blocks","A VAE encoder maps x to z=E(x) (8x spatial compression), diffusion runs on z, then VAE decoder maps z to x_hat=D(z). The latent captures semantic content discarding pixel redundancy","The latent space is a frequency-domain representation like DCT","The VAE quantizes pixel values to 64x64 discrete tokens"],
+      correct:1, exp:"Pixel-space diffusion on 512^2 requires 262K-dim vectors. VAE compresses to 64x64x4=16K dims — 16x smaller. Diffusion on this latent is dramatically cheaper while the VAE decoder recovers full image detail. (Rombach et al. 2022)" },
+    { q:"What does the CFG (Classifier-Free Guidance) scale parameter control?",
+      opts:["Number of denoising steps","CFG interpolates between conditional and unconditional predictions: eps = eps_uncond + w*(eps_cond - eps_uncond). Higher w amplifies text alignment but reduces diversity","The classifier model's confidence threshold","Strength of VAE regularization during latent encoding"],
+      correct:1, exp:"CFG scale w=1: pure conditional. w=7.5: typical quality/diversity balance. w=20: hyper-aligned to prompt but repetitive. The formula pushes the denoising direction away from unconditional toward text-conditional, amplifying the signal." },
+    { q:"How does DDIM achieve 20-step generation vs DDPM's 1000 steps without retraining?",
+      opts:["DDIM uses a smaller neural network that processes fewer timesteps","DDIM redefines denoising as a non-Markovian deterministic mapping, allowing large timestep jumps while maintaining trajectory consistency — same model, different sampler","DDIM applies distillation to compress 1000 steps into 20","DDIM skips denoising in high-frequency regions"],
+      correct:1, exp:"DDPM's Markov chain requires small steps. DDIM's insight: the same denoising model can be used with a non-Markovian process where we jump from t=980 to t=900 directly. Quality degrades only slightly while inference is 50x faster." }
+  ],
+  rag: [
+    { q:"Your RAG system returns irrelevant chunks despite correct embeddings. What is the most likely cause?",
+      opts:["The embedding model has too many dimensions","The chunking strategy is wrong — chunks too large (diluting signal) or split at wrong boundaries (breaking semantic units)","The vector index needs more training data","Cosine similarity is the wrong metric"],
+      correct:1, exp:"Embedding quality is often fine; chunking is the hard part. 2000-token chunks dilute specific facts. Splitting mid-sentence breaks semantic context. Best practice: 256-512 tokens, 50-100 token overlap, chunk at paragraph boundaries." },
+    { q:"When would you choose HNSW over FAISS IVF in production?",
+      opts:["HNSW when you have more than 100M vectors and need minimal RAM","HNSW for low-latency queries on datasets up to ~10M vectors where recall matters more than RAM — no training phase required","HNSW when vectors are binary (Hamming distance)","HNSW for batch processing millions of queries"],
+      correct:1, exp:"HNSW builds a hierarchical navigable small-world graph — no training required, excellent recall (>95%), fast queries. IVF clusters into Voronoi cells, requires training and nprobe tuning, but scales to 1B+ vectors with quantization." },
+    { q:"What is semantic chunking and why is it superior to fixed-size chunking for RAG?",
+      opts:["Semantic chunking uses keyword extraction to identify important sentences","Semantic chunking uses embedding similarity to detect topic boundaries — chunks split where cosine similarity between adjacent sentences drops, keeping semantically coherent units together","Semantic chunking applies TF-IDF to select informative sentences","Semantic chunking uses NER to chunk by entity mentions"],
+      correct:1, exp:"Fixed chunks at 512 tokens split arbitrarily. Semantic chunking embeds each sentence, computes adjacent similarity, and splits where similarity drops (topic shift). Result: coherent chunks that retrieve better." }
+  ],
+  finetune: [
+    { q:"LoRA uses rank-r matrices. If d_model=4096 and rank r=16, how many trainable parameters does one LoRA adapter add per attention weight matrix?",
+      opts:["4096 * 4096 = 16.7M","4096 * 16 + 16 * 4096 = 131,072","4096 / 16 = 256","16 * 16 = 256"],
+      correct:1, exp:"LoRA: delta_W = B*A where A is r x d (down) and B is d x r (up). Params = r*d + d*r = 2*16*4096 = 131,072. Compare to full 4096*4096=16.7M. LoRA trains ~0.8% of params while achieving comparable task performance." },
+    { q:"What are QLoRA's two key techniques that enable fine-tuning 70B models on a single 48GB GPU?",
+      opts:["Gradient checkpointing + pipeline parallelism across CPU and GPU","4-bit NormalFloat (NF4) quantization of base weights + double quantization of quantization constants, with LoRA adapters in bf16","8-bit Adam optimizer + activation checkpointing","Tensor parallelism + ZeRO-3 optimizer state sharding"],
+      correct:1, exp:"QLoRA (Dettmers et al. 2023): (1) NF4 quantization — base model in 4-bit (optimal for normally-distributed weights), (2) double quantization — quantize the quantization constants too. 70B model fits in ~35GB. Adapters remain in bf16." },
+    { q:"When should you prefer RAG over fine-tuning for adding new knowledge to an LLM?",
+      opts:["Always prefer fine-tuning as it permanently incorporates knowledge","RAG is better when knowledge changes frequently, needs citations, or exceeds fine-tuning data requirements — fine-tuning is better for teaching new skills or style adaptation","RAG is always preferable as fine-tuning causes catastrophic forgetting","Fine-tuning is always better because it eliminates retrieval latency"],
+      correct:1, exp:"Mental model: fine-tuning teaches skills and style (how to reason, format, behave). RAG provides facts (current information). Fine-tuning bakes in knowledge and can cause hallucination. RAG keeps facts in an updatable index. Many systems use both." }
+  ],
+  embeddings: [
+    { q:"What does a cosine similarity value of -1 indicate vs +1?",
+      opts:["-1 means orthogonal (unrelated); +1 means identical","-1 means vectors point in opposite directions (maximally dissimilar); +1 means identical direction (most similar). Cosine measures angle, not magnitude","-1 means one document contains the other; +1 means complete overlap","-1 indicates the embedding model failed"],
+      correct:1, exp:"Cosine similarity = (A*B)/(|A||B|). Range [-1,1]: +1=same direction (similar meaning), 0=orthogonal (unrelated), -1=opposite direction (semantic opposites). Sentence embeddings trained with contrastive loss rarely go below 0." },
+    { q:"What makes in-batch negatives efficient for contrastive learning (e.g. SimCSE)?",
+      opts:["In-batch negatives use data augmentation to create synthetic negatives","For a batch of N pairs, every other example serves as a negative — providing N-1 negatives per example for free without extra forward passes","In-batch negatives eliminate the need for negative mining","They cache computed embeddings to reuse across epochs"],
+      correct:1, exp:"SimCSE's key efficiency: in a batch of 64 sentences, for each anchor you have 63 negatives at zero additional compute — you've already computed their embeddings. Hard negatives (similar but different meaning) from top-K ANN results improve training further." },
+    { q:"For 10M documents, what is the approximate RAM difference between 3072-dim vs 384-dim float32 embeddings?",
+      opts:["3072-dim: ~117GB vs 384-dim: ~15GB, a 7.5x difference","3072-dim: 10GB vs 384-dim: 1.3GB","3072-dim: 1.5TB vs 384-dim: 200GB","Dimension has no effect on storage — only document count matters"],
+      correct:0, exp:"Storage = N * D * 4 bytes (float32). 10M * 3072 * 4 = 122.9GB. 10M * 384 * 4 = 15.4GB. An 8x RAM difference. Solutions: fp16 halves it, int8 quantization halves again, PQ compresses to ~1-4 bytes/dim at slight recall cost." }
+  ]
+};
 
-// Robot system
-let robotGroup = null;
-let robotBuilding = null;  // which building's robot
-let robotStageIdx = -1;
-let robotStageTimer = 0;
-let robotActive = false;
-let robotPipeline = [];
+// ============================================================
+//  FALLBACK ANSWERS
+// ============================================================
+var FALLBACK_KW = {
+  llm:[['token','tokeniz','word','split'],['embed','vector','dimension','semantic'],['attention','attend','self','focus'],['layer','transform','deep','stack'],['predict','next','generat','output'],['train','learn','data','corpus']],
+  neural:[['neuron','node','percep','signal'],['weight','param','matrix','bias'],['relu','sigmoid','activat','fire'],['backprop','gradient','loss','error'],['overfit','dropout','regulariz'],['forward','pass','infer']],
+  transformer:[['query','key','value','qkv'],['head','multi','parallel'],['softmax','score','normaliz'],['posit','encod','order','sinusoidal'],['ffn','feed','mlp'],['bert','gpt','architec']],
+  vision:[['pixel','image','raw','grid'],['filter','kernel','convol','slide'],['pool','max','downsample'],['feature','edge','detect','pattern'],['classif','label','category'],['vit','patch','resnet']],
+  rl:[['agent','actor','player','decision'],['reward','signal','positive','negative'],['policy','strategy','action','choose'],['bellman','q-value','equation'],['explore','exploit','epsilon','greedy'],['alphago','atari','game','episode']],
+  diffusion:[['noise','random','static','gaussian'],['denoise','step','iter','reverse'],['clip','prompt','text','encode'],['unet','u-net','skip','architecture'],['latent','space','vae','encode'],['stable','dall','midjourney','generate']],
+  rag:[['retriev','fetch','search','find'],['embed','vector','chunk','split','index'],['rank','rerank','score','relevance'],['context','inject','augment','ground'],['hallucin','accur','fact','cite'],['faiss','pinecone','weaviate','hnsw']],
+  finetune:[['lora','rank','adapter','peft'],['freeze','base','pretrain','catastrophic'],['instruct','dataset','format','sft'],['qlora','quantiz','4-bit','int4'],['overfit','epoch','eval','perplexity'],['merge','deploy','inference']],
+  embeddings:[['cosine','similar','dot','distance'],['dimension','768','1536','dense'],['contrastive','simcse','positive','negative'],['hnsw','ivf','annoy','approximate'],['semantic','meaning','cluster','nearest'],['dedup','classif','retriev','downstream']]
+};
+var FALLBACK_REPLIES = {
+  llm:["Tokenization slices your text into ~4-char chunks called tokens. 'Hello world' becomes ['Hello',' world']. Everything is tokens, not raw characters. The robot picked up each token individually before processing!","Every token maps to a high-dimensional vector (~768-4096 floats) called an embedding. Similar meanings cluster together — 'king'-'man'+'woman' ~ 'queen'. The robot navigated that geometric space to find meaning!","Self-attention: every token simultaneously scores its relevance to every other token. Score = Q*K^T/sqrt(d), softmaxed, then applied to V vectors. The robot's scanning head showed this parallel look-up!","I have 12-96 transformer layers stacked. Each layer refines representations — early layers catch syntax, deep layers capture semantics. The robot's repeated bouncing showed data being refined layer by layer.","At the final layer I compute probability over ~50k vocabulary tokens. Temperature controls randomness. The highest-probability token is selected. The robot's arm extending = token selection happening!","Training exposed me to ~1T tokens. Each forward pass predicted the next token, cross-entropy loss was computed, and backprop nudged billions of weights. Millions of steps = a language model!"],
+  neural:["A neuron takes N inputs, multiplies each by a learned weight, sums them, adds bias, then squashes through activation. Simple math stacked millions of times = intelligence. The robot received your signal and multiplied!","Weights are the learnable parameters. A layer is a matrix multiply: y = Wx + b. Gradient descent nudges W to minimize loss. The robot's data-packet = the weight matrix being applied to your input!","ReLU(x) = max(0,x). Negative activations die to zero, positives pass unchanged. The robot going still on certain frames showed neurons that didn't fire!","Backprop uses the chain rule to compute dLoss/dweight for every weight simultaneously. Error flows backward from output to input. The robot's shaking = gradient signal propagating backward!","Overfitting = memorizing training data. Dropout randomly zeros activations during training, forcing redundant representations. The robot forgetting some moves prevents overfitting!","Forward pass: input -> layer1 -> layer2 -> output. That's inference. Backward pass reverses it during training only. You just saw the forward pass!"],
+  transformer:["Q=what am I looking for?, K=what do I contain?, V=what info do I hold?. Score = Q*K^T/sqrt(d_k), softmaxed, applied to V. The robot computed all three vectors simultaneously for every token!","Multi-head attention runs 8-32 heads in parallel, each attending to different relationship types — syntax, coreference, semantics. Outputs concatenated and projected. See the robot split focus across multiple heads!","Softmax(xi) = exp(xi) / sum(exp(xj)) — converts raw attention scores to probabilities summing to 1. Each output position becomes a weighted average of all value vectors. The robot normalized its attention!","Transformers have no built-in positional sense, so sinusoidal encodings are added to embeddings. Without this, 'cat sat mat' and 'mat sat cat' would look identical to the model!","After attention, each position passes through FFN(x) = max(0,xW1+b1)W2+b2. This is ~2/3 of all parameters where factual knowledge is stored. The robot's chest-screen lit up during this phase!","BERT = bidirectional encoder (sees full context). GPT = causal decoder (left-to-right, predicts next token). Both use the architecture from 'Attention Is All You Need' (Vaswani et al. 2017)!"],
+  vision:["Raw input is a 3D tensor: H x W x 3 (RGB). Values 0-255 normalized to [-1,1]. The robot scanned your input as a grid of pixel values — the very first operation before any learning!","A conv filter (3x3 or 5x5) slides across the image. At each position: element-wise multiply + sum = one output pixel. The robot's back-and-forth scan IS the convolution operation!","Max pooling takes a 2x2 region and keeps only the maximum value, halving spatial dimensions. Discards weak signals, retains strong ones. The robot's compression showed throwing away irrelevant spatial detail!","Layer 1 detects edges. Layer 3 detects shapes. Layer 8 detects eyes and wheels. The robot's progressive zoom-out showed simple features combining into complex semantic representations!","The final fully-connected layer flattens all features into a vector, outputs class logits over 1000 categories. Softmax converts to probabilities. The robot's triumphant pose = the winning classification!","Vision Transformers (ViT) split images into 16x16 patches, treat each as a visual token, then apply standard transformer attention. No convolutions! The robot's patch-stepping showed tokenization of visual space."],
+  rl:["The agent perceives state s, picks action a from policy pi(a|s), receives reward r, observes new state s'. This cycle repeats thousands of times. The robot IS the agent — it just ran one complete cycle!","Reward is the scalar feedback signal — the only supervision in RL. Dense rewards (every step) are easier. Sparse rewards (only at episode end) are harder but more powerful. Green glow = reward received!","Policy pi maps states to action probabilities. Off-policy (Q-learning) learns from any data. On-policy (PPO) learns from current policy only. The robot followed its current policy to pick that action!","Q(s,a) = expected cumulative reward from state s taking action a. Bellman equation: Q(s,a) = r + gamma*max_a'Q(s',a'). gamma=0.99 discounts future rewards slightly. The robot updated this Q-table!","Epsilon-greedy: with probability epsilon take random action (explore), otherwise take argmax Q (exploit). Epsilon starts at 1.0, decays toward 0.05 over training. The robot's random stumbles are epsilon-exploration!","AlphaGo played 4.9M self-play games using MCTS + policy/value networks with RL. OpenAI Five played 45,000 years of Dota 2 in 10 real days. The robot runs the same loop — at smaller scale!"],
+  diffusion:["CLIP encodes your text prompt into a 512-dim semantic vector. This conditions every denoising step — steering the image toward your words. The robot reading your prompt = CLIP encoding your meaning!","Start with x_T ~ N(0,I): pure Gaussian noise. The forward process adds noise over T=1000 steps. The reverse process removes it step by step. The robot covered in static = this initialization!","The U-Net predicts the noise to subtract at each step, conditioned on your text. Then x_{t-1} = (x_t - predicted noise) / scale. The robot's careful undoing = one denoising step!","U-Net: encoder downsamples (context), bottleneck (global features), decoder upsamples (detail) with skip connections. Cross-attention injects your text at each scale. The robot's symmetric moves show this U-shape!","Stable Diffusion works in 64x64 latent space, not pixel space — 8x more efficient. VAE encodes: z=E(x), diffusion runs on z, VAE decodes: x=D(z). The robot's final reveal = the VAE decoder producing pixels!","DALL-E 3, Stable Diffusion, Midjourney, Flux — all use diffusion. The key innovation: instead of generating pixels directly, learn to reverse a noising process. The robot shows this reversal!"],
+  rag:["RAG embeds your query into a vector, searches a vector store (FAISS, Pinecone, Weaviate) for top-K similar chunks, injects them into the LLM prompt, and generates a grounded answer. The robot's search = ANN lookup across millions of vectors!","Chunking strategy is critical: 256-512 token chunks with 50-token overlap, split at paragraph boundaries. Too large = diluted signal. Too small = missing context. The robot split documents carefully before indexing!","A reranker (cross-encoder) rescores top-K retrieved chunks using full attention between query and document — much more accurate than bi-encoder similarity but too slow for the full corpus. The robot ranked results before injecting!","Retrieved chunks are concatenated into the LLM's context window as grounding evidence. This is why RAG reduces hallucination — the model generates from facts, not parametric memory. The robot built the context packet!","RAG beats fine-tuning for knowledge-intensive tasks: facts can be updated in the index without retraining. Fine-tuning bakes in knowledge and can introduce hallucinations. Use RAG for facts, fine-tuning for behavior!","FAISS IVF+PQ scales to 1B+ vectors with quantization. HNSW is better for less than 10M vectors with high recall requirements. Pinecone and Weaviate manage infrastructure. The robot indexed every vector for millisecond retrieval!"],
+  finetune:["LoRA (Low-Rank Adaptation): freeze the base model, inject trainable rank-r matrices A (d x r) and B (r x d) into attention layers. delta_W = B*A. At r=16, you train ~131K params per layer instead of 16M. 99% fewer params!","Full fine-tuning risks catastrophic forgetting. PEFT methods (LoRA, prefix tuning, adapters) freeze base weights entirely. The robot locked the base weights before injecting adapters — preserving everything it already knew!","Instruction tuning formats data as (system, user, assistant) triplets. Quality beats quantity: 1K high-quality examples often beats 100K noisy ones. The robot curated each training pair carefully!","QLoRA: 4-bit NF4 quantization of base weights (35GB for 70B) + 16-bit LoRA adapters. Double quantization compresses quantization constants too. Enables 70B fine-tuning on a single 48GB GPU!","Monitor perplexity on held-out eval each epoch. Stop when eval loss stops decreasing (early stopping). Track task-specific metrics. The robot checked performance after every training cycle before proceeding!","After training, LoRA weights merge: W_final = W_base + B*A. The merged model runs at full inference speed — zero overhead. The robot's final merge step = integrating everything learned back into the base model!"],
+  embeddings:["Cosine similarity = (A*B)/(|A||B|) — measures angle between vectors, not magnitude. Range [-1,+1]: +1=same direction (similar), 0=orthogonal (unrelated), -1=opposite. Dot product is faster if vectors are unit-normalized!","text-embedding-3-large outputs 3072 dims; smaller models use 768. More dims = more expressive but more RAM (10M x 3072 x 4 bytes = 117GB). Matryoshka embeddings let you truncate to any size with graceful quality degradation!","SimCSE trains with contrastive loss: push positive pairs (same sentence, different dropout masks) together, push negatives apart. In-batch negatives provide N-1 negatives per example for free — very efficient!","HNSW builds a multi-layer graph — top layers are long-range connections, bottom layers dense local connections. Query: navigate from top to bottom, greedily approaching the query. Sub-millisecond at 99% recall!","Semantic search retrieves by meaning, not keywords. 'Cardiac arrest' matches 'heart attack' because embeddings cluster by semantic similarity. The robot mapped both phrases to nearby points in embedding space!","Downstream tasks: semantic search, deduplication (cosine >0.95 = duplicate), clustering (k-means on embeddings), classification (kNN), anomaly detection. The embedding is a universal representation for many tasks!"]
+};
 
-// Smooth mouse
-let yaw = Math.PI, pitch = 0, tYaw = Math.PI, tPitch = 0;
-let pLocked = false;
-const SMOOTH = 0.13, SENS = 0.002, SPD = 0.13, NEAR = 10;
+// ============================================================
+//  STATE
+// ============================================================
+var scene, camera, renderer, clock;
+var player = { x:0, z:22 };
+var keys = {};
+var nearBuilding = null;
+var activeBuildingId = null;
+var chatOpen = false;
+var convHistory = {};
+var visitedBuildings = new Set();
+var quizScores = {};
+var mmCtx;
+var buildingData = [];
+var extAgents = [];
+var tokenBalls = [];
+var interiorBalls = [];
+var outputBeams = [];
+var frameCount = 0;
+var robotGroup = null;
+var robotBuilding = null;
+var robotStageIdx = -1;
+var robotStageTimer = 0;
+var robotActive = false;
+var robotPipeline = [];
+var rainGeo, rainSystem;
+var auroraStrips = [];
+var floatingOrbs = [];
+var groundReflections = [];
+var yaw = Math.PI, pitch = 0, tYaw = Math.PI, tPitch = 0;
+var pLocked = false;
+var SMOOTH = 0.13, SENS = 0.002, SPD = 0.13, NEAR = 10;
+var SESSION_ID = 'sid_' + Math.random().toString(36).slice(2,10);
 
-// ================================================================
+// ============================================================
 //  INIT
-// ================================================================
+// ============================================================
 function init() {
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x010912);
   scene.fog = new THREE.FogExp2(0x010912, 0.013);
-
   camera = new THREE.PerspectiveCamera(70, innerWidth/innerHeight, 0.05, 150);
   renderer = new THREE.WebGLRenderer({ antialias:true });
   renderer.setSize(innerWidth, innerHeight);
@@ -345,516 +560,273 @@ function init() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   document.getElementById('cc').appendChild(renderer.domElement);
   clock = new THREE.Clock();
-
   buildScene();
   buildCity();
   buildRobot();
   spawnTokenPool();
-
   window.addEventListener('resize', onResize);
-  document.addEventListener('keydown', e => { keys[e.key.toLowerCase()] = true; });
-  document.addEventListener('keyup',   e => { keys[e.key.toLowerCase()] = false; });
+  document.addEventListener('keydown', function(e){ keys[e.key.toLowerCase()] = true; });
+  document.addEventListener('keyup', function(e){ keys[e.key.toLowerCase()] = false; });
   document.addEventListener('keydown', onKey);
-  renderer.domElement.addEventListener('click', () => { if (!chatOpen) renderer.domElement.requestPointerLock(); });
-  document.addEventListener('pointerlockchange', () => { pLocked = document.pointerLockElement === renderer.domElement; });
+  renderer.domElement.addEventListener('click', function(){ if (!chatOpen) renderer.domElement.requestPointerLock(); });
+  document.addEventListener('pointerlockchange', function(){ pLocked = document.pointerLockElement === renderer.domElement; });
   document.addEventListener('mousemove', onMouse);
   mmCtx = document.getElementById('mmc').getContext('2d');
+  initProgressPanel();
   loop();
 }
 
-// ================================================================
-//  SCENE / ENVIRONMENT — full visual upgrade
-// ================================================================
-let rainGeo, rainSystem;
-let auroraStrips = [];
-let floatingOrbs = [];
-let groundReflections = [];
-
+// ============================================================
+//  SCENE
+// ============================================================
 function buildScene() {
-  // 3 lights only — no PointLights to avoid uniform overflow
   scene.add(new THREE.AmbientLight(0x0a1830, 1.8));
-  const dir = new THREE.DirectionalLight(0x4466cc, 0.6);
+  var dir = new THREE.DirectionalLight(0x4466cc, 0.6);
   dir.position.set(30, 60, 20);
   dir.castShadow = true;
-  dir.shadow.mapSize.width = 1024;
-  dir.shadow.mapSize.height = 1024;
   scene.add(dir);
   scene.add(new THREE.HemisphereLight(0x001133, 0x050e20, 0.7));
 
-  // ── Ground — dark base + neon glow overlay ──────────────────────
-  const gnd = new THREE.Mesh(
-    new THREE.PlaneGeometry(400, 400),
-    new THREE.MeshBasicMaterial({ color: 0x03080f })
-  );
-  gnd.rotation.x = -Math.PI / 2;
-  gnd.receiveShadow = true;
+  var gnd = new THREE.Mesh(new THREE.PlaneGeometry(400,400), new THREE.MeshBasicMaterial({color:0x03080f}));
+  gnd.rotation.x = -Math.PI/2;
   scene.add(gnd);
 
-  // Reflective puddle layer — a slightly lighter plane that gives
-  // a wet-street look by showing building colors as faint blobs
-  const puddle = new THREE.Mesh(
-    new THREE.PlaneGeometry(400, 400),
-    new THREE.MeshBasicMaterial({ color: 0x050e1e, transparent: true, opacity: 0.7 })
-  );
-  puddle.rotation.x = -Math.PI / 2;
+  var puddle = new THREE.Mesh(new THREE.PlaneGeometry(400,400), new THREE.MeshBasicMaterial({color:0x050e1e,transparent:true,opacity:0.7}));
+  puddle.rotation.x = -Math.PI/2;
   puddle.position.y = 0.003;
   scene.add(puddle);
 
-  // Ground color glow under each building (fake reflection)
-  BUILDINGS.forEach(b => {
-    const ref = new THREE.Mesh(
-      new THREE.PlaneGeometry(b.bW + 8, b.bW + 8),
-      new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.07, side: THREE.DoubleSide })
-    );
-    ref.rotation.x = -Math.PI / 2;
+  BUILDINGS.forEach(function(b) {
+    var ref = new THREE.Mesh(new THREE.PlaneGeometry(b.bW+8,b.bW+8), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.07,side:THREE.DoubleSide}));
+    ref.rotation.x = -Math.PI/2;
     ref.position.set(b.pos.x, 0.004, b.pos.z);
-    ref.userData = { isGroundRef: true, col: b.col };
+    ref.userData = { isGroundRef:true };
     scene.add(ref);
     groundReflections.push(ref);
   });
 
-  // ── Neon grid — bright cyan lines ────────────────────────────────
-  const grid = new THREE.GridHelper(300, 60, 0x003344, 0x001a26);
+  var grid = new THREE.GridHelper(300, 60, 0x003344, 0x001a26);
   grid.position.y = 0.005;
   scene.add(grid);
 
-  // Bright neon accent lines crossing the city
-  const neonLineMat = new THREE.MeshBasicMaterial({ color: 0x00f5ff, transparent: true, opacity: 0.12 });
-  for (let i = -3; i <= 3; i++) {
-    const hLine = new THREE.Mesh(new THREE.PlaneGeometry(200, 0.06), neonLineMat);
-    hLine.rotation.x = -Math.PI / 2;
-    hLine.position.set(0, 0.006, i * 8);
-    scene.add(hLine);
-    const vLine = new THREE.Mesh(new THREE.PlaneGeometry(0.06, 200), neonLineMat);
-    vLine.rotation.x = -Math.PI / 2;
-    vLine.position.set(i * 8, 0.006, 0);
-    scene.add(vLine);
+  var neonMat = new THREE.MeshBasicMaterial({color:0x00f5ff,transparent:true,opacity:0.12});
+  for (var i=-3; i<=3; i++) {
+    var h = new THREE.Mesh(new THREE.PlaneGeometry(200,0.06), neonMat);
+    h.rotation.x = -Math.PI/2; h.position.set(0,0.006,i*8); scene.add(h);
+    var v = new THREE.Mesh(new THREE.PlaneGeometry(0.06,200), neonMat);
+    v.rotation.x = -Math.PI/2; v.position.set(i*8,0.006,0); scene.add(v);
   }
 
-  // ── Roads with neon lane markings ────────────────────────────────
-  [{ w:220,d:7,x:0,z:0,rot:0 }, { w:7,d:220,x:0,z:0,rot:0 }].forEach(r => {
-    const m = new THREE.Mesh(
-      new THREE.PlaneGeometry(r.w, r.d),
-      new THREE.MeshBasicMaterial({ color: 0x020912 })
-    );
-    m.rotation.x = -Math.PI / 2;
-    m.position.set(r.x, 0.007, r.z);
-    scene.add(m);
-  });
-  // Dashed lane markers
-  const dashMat = new THREE.MeshBasicMaterial({ color: 0xffee00, transparent: true, opacity: 0.25 });
-  for (let i = -10; i <= 10; i++) {
-    const dash = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 0.08), dashMat);
-    dash.rotation.x = -Math.PI / 2;
-    dash.position.set(i * 10, 0.009, 0);
-    scene.add(dash);
-    const dash2 = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 2.5), dashMat);
-    dash2.rotation.x = -Math.PI / 2;
-    dash2.position.set(0, 0.009, i * 10);
-    scene.add(dash2);
+  var dashMat = new THREE.MeshBasicMaterial({color:0xffee00,transparent:true,opacity:0.25});
+  for (var d=-10; d<=10; d++) {
+    var da = new THREE.Mesh(new THREE.PlaneGeometry(2.5,0.08), dashMat);
+    da.rotation.x = -Math.PI/2; da.position.set(d*10,0.009,0); scene.add(da);
+    var db2 = new THREE.Mesh(new THREE.PlaneGeometry(0.08,2.5), dashMat);
+    db2.rotation.x = -Math.PI/2; db2.position.set(0,0.009,d*10); scene.add(db2);
   }
 
-  // ── Stars — 3 layers: white, blue-tinted, colored ────────────────
-  [[5000, 0xaaccff, 0.18, 0.24], [1500, 0x88bbff, 0.35, 0.4], [400, 0xff88ff, 0.55, 0.7]].forEach(([count, col, sz, op]) => {
-    const sg = new THREE.BufferGeometry();
-    const sp = [];
-    for (let i = 0; i < count; i++) {
-      sp.push((Math.random() - 0.5) * 600, 60 + Math.random() * 140, (Math.random() - 0.5) * 600);
-    }
-    sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
-    scene.add(new THREE.Points(sg, new THREE.PointsMaterial({ color: col, size: sz, transparent: true, opacity: op })));
+  var starDefs = [[5000,0xaaccff,0.18,0.24],[1500,0x88bbff,0.35,0.4],[400,0xff88ff,0.55,0.7]];
+  starDefs.forEach(function(s) {
+    var sg = new THREE.BufferGeometry();
+    var sp = [];
+    for (var si=0; si<s[0]; si++) sp.push((Math.random()-.5)*600, 60+Math.random()*140, (Math.random()-.5)*600);
+    sg.setAttribute('position', new THREE.Float32BufferAttribute(sp,3));
+    scene.add(new THREE.Points(sg, new THREE.PointsMaterial({color:s[1],size:s[2],transparent:true,opacity:s[3]})));
   });
 
-  // ── AURORA BOREALIS — animated sine-wave geometry bands ───────────
-  const auroraColors = [0x00ffaa, 0x0088ff, 0xaa00ff, 0x00f5ff, 0xff00aa];
-  for (let a = 0; a < 5; a++) {
-    const aGeo = new THREE.BufferGeometry();
-    const pts = [];
-    const W = 300, segs = 80;
-    for (let i = 0; i <= segs; i++) {
-      const x = (i / segs - 0.5) * W;
-      pts.push(x, 0, 0, x, 0, 0); // top + bottom of ribbon (will be updated each frame)
-    }
-    aGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
-    const indices = [];
-    for (let i = 0; i < segs; i++) {
-      const b2 = i * 2;
-      indices.push(b2, b2+1, b2+2, b2+2, b2+1, b2+3);
-    }
-    aGeo.setIndex(indices);
-    const aMat = new THREE.MeshBasicMaterial({
-      color: auroraColors[a], transparent: true, opacity: 0.0,
-      side: THREE.DoubleSide
-    });
-    const aMesh = new THREE.Mesh(aGeo, aMat);
-    aMesh.userData = {
-      isAurora: true,
-      baseY: 80 + a * 15,
-      height: 18 + a * 6,
-      speed: 0.18 + a * 0.07,
-      phase: a * 1.3,
-      waveAmp: 8 + a * 4,
-      segs,
-      W
-    };
+  var auroraColors = [0x00ffaa,0x0088ff,0xaa00ff,0x00f5ff,0xff00aa];
+  for (var a=0; a<5; a++) {
+    var aGeo = new THREE.BufferGeometry();
+    var pts = [];
+    var W=300, segs=80;
+    for (var si=0; si<=segs; si++) { var ax=(si/segs-.5)*W; pts.push(ax,0,0,ax,0,0); }
+    aGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts,3));
+    var idx = [];
+    for (var si=0; si<segs; si++) { var b2=si*2; idx.push(b2,b2+1,b2+2,b2+2,b2+1,b2+3); }
+    aGeo.setIndex(idx);
+    var aMesh = new THREE.Mesh(aGeo, new THREE.MeshBasicMaterial({color:auroraColors[a],transparent:true,opacity:0,side:THREE.DoubleSide}));
+    aMesh.userData = {isAurora:true,baseY:80+a*15,height:18+a*6,speed:0.18+a*0.07,phase:a*1.3,waveAmp:8+a*4,segs:segs,W:W};
     scene.add(aMesh);
     auroraStrips.push(aMesh);
   }
 
-  // ── RAIN particle system ──────────────────────────────────────────
-  const RAIN_COUNT = 2500;
+  var RAIN_COUNT = 2500;
   rainGeo = new THREE.BufferGeometry();
-  const rainPos = new Float32Array(RAIN_COUNT * 3);
-  const rainVel = new Float32Array(RAIN_COUNT); // fall speed per drop
-  for (let i = 0; i < RAIN_COUNT; i++) {
-    rainPos[i*3]   = (Math.random() - 0.5) * 180;
-    rainPos[i*3+1] = Math.random() * 120;
-    rainPos[i*3+2] = (Math.random() - 0.5) * 180;
-    rainVel[i] = 18 + Math.random() * 14;
+  var rainPos = new Float32Array(RAIN_COUNT*3);
+  var rainVel = new Float32Array(RAIN_COUNT);
+  for (var ri=0; ri<RAIN_COUNT; ri++) {
+    rainPos[ri*3]=(Math.random()-.5)*180; rainPos[ri*3+1]=Math.random()*120; rainPos[ri*3+2]=(Math.random()-.5)*180;
+    rainVel[ri]=18+Math.random()*14;
   }
-  rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
+  rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos,3));
   rainGeo.userData.vel = rainVel;
-  rainSystem = new THREE.Points(rainGeo, new THREE.PointsMaterial({
-    color: 0x4488aa, size: 0.12, transparent: true, opacity: 0.35
-  }));
+  rainSystem = new THREE.Points(rainGeo, new THREE.PointsMaterial({color:0x4488aa,size:0.12,transparent:true,opacity:0.35}));
   scene.add(rainSystem);
 
-  // ── Floating data orbs throughout city ───────────────────────────
-  const orbColors = [0x00f5ff, 0xff00aa, 0xffee00, 0x00ff88, 0xff8800, 0xaa88ff];
-  for (let i = 0; i < 60; i++) {
-    const col = orbColors[i % orbColors.length];
-    const orb = new THREE.Mesh(
-      new THREE.SphereGeometry(0.06 + Math.random() * 0.1, 5, 5),
-      new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.5 + Math.random() * 0.4 })
-    );
-    const angle = Math.random() * Math.PI * 2;
-    const radius = 8 + Math.random() * 35;
-    orb.position.set(
-      Math.cos(angle) * radius,
-      2 + Math.random() * 30,
-      Math.sin(angle) * radius
-    );
-    orb.userData = {
-      isOrb: true,
-      baseX: orb.position.x, baseY: orb.position.y, baseZ: orb.position.z,
-      phase: Math.random() * Math.PI * 2,
-      speed: 0.3 + Math.random() * 0.6,
-      radius: 0.5 + Math.random() * 1.5,
-      orbitSpeed: (Math.random() - 0.5) * 0.008,
-      angle
-    };
+  var orbColors = [0x00f5ff,0xff00aa,0xffee00,0x00ff88,0xff8800,0xaa88ff];
+  for (var oi=0; oi<60; oi++) {
+    var oc = orbColors[oi%orbColors.length];
+    var orb = new THREE.Mesh(new THREE.SphereGeometry(0.06+Math.random()*0.1,5,5), new THREE.MeshBasicMaterial({color:oc,transparent:true,opacity:0.5+Math.random()*0.4}));
+    var angle = Math.random()*Math.PI*2;
+    var radius = 8+Math.random()*35;
+    orb.position.set(Math.cos(angle)*radius, 2+Math.random()*30, Math.sin(angle)*radius);
+    orb.userData = {isOrb:true,baseX:orb.position.x,baseY:orb.position.y,baseZ:orb.position.z,phase:Math.random()*Math.PI*2,speed:0.3+Math.random()*0.6,radius:0.5+Math.random()*1.5,orbitSpeed:(Math.random()-.5)*0.008,angle:angle};
     scene.add(orb);
     floatingOrbs.push(orb);
   }
 
-  // ── Central obelisk — upgraded with neon rings ────────────────────
-  const ob = new THREE.Mesh(
-    new THREE.ConeGeometry(0.5, 6, 4),
-    new THREE.MeshBasicMaterial({ color: 0x00f5ff, transparent: true, opacity: 0.9 })
-  );
-  ob.position.y = 3;
-  scene.add(ob);
-  // Rotating rings around obelisk
-  [[1.5, 0x00f5ff, 0.5], [2.5, 0xff00aa, 0.35], [3.5, 0xffee00, 0.25]].forEach(([r, c, op]) => {
-    const ring = new THREE.Mesh(
-      new THREE.TorusGeometry(r, 0.04, 5, 32),
-      new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: op })
-    );
-    ring.userData = { isObeliskRing: true };
-    ring.position.y = 2 + r * 0.5;
+  var ob = new THREE.Mesh(new THREE.ConeGeometry(0.5,6,4), new THREE.MeshBasicMaterial({color:0x00f5ff,transparent:true,opacity:0.9}));
+  ob.position.y = 3; scene.add(ob);
+  [[1.5,0x00f5ff,0.5],[2.5,0xff00aa,0.35],[3.5,0xffee00,0.25]].forEach(function(r) {
+    var ring = new THREE.Mesh(new THREE.TorusGeometry(r[0],0.04,5,32), new THREE.MeshBasicMaterial({color:r[1],transparent:true,opacity:r[2]}));
+    ring.userData = {isObeliskRing:true};
+    ring.position.y = 2+r[0]*0.5;
     scene.add(ring);
-    scene.userData['obRing' + r] = ring;
+    scene.userData['obRing'+r[0]] = ring;
   });
 
-  // ── Atmosphere rings ──────────────────────────────────────────────
-  const mkRing = (r, c, op) => {
-    const m = new THREE.Mesh(
-      new THREE.TorusGeometry(r, 0.12, 6, 80),
-      new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: op })
-    );
-    m.rotation.x = Math.PI / 2;
-    m.position.y = 0.5;
-    scene.add(m); return m;
-  };
-  scene.userData.r1 = mkRing(14, 0x00f5ff, 0.16);
-  scene.userData.r2 = mkRing(9, 0xff00aa, 0.11);
-  scene.userData.r3 = mkRing(20, 0xffee00, 0.06);
+  function mkRing(r,c,op) {
+    var m = new THREE.Mesh(new THREE.TorusGeometry(r,0.12,6,80), new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:op}));
+    m.rotation.x = Math.PI/2; m.position.y = 0.5; scene.add(m); return m;
+  }
+  scene.userData.r1 = mkRing(14,0x00f5ff,0.16);
+  scene.userData.r2 = mkRing(9,0xff00aa,0.11);
+  scene.userData.r3 = mkRing(20,0xffee00,0.06);
 
-  // ── Background city — more buildings, lit windows ─────────────────
-  const bgCols = [0x001a2e, 0x0d1a0a, 0x1a000d, 0x0a0a1a, 0x0d0d00];
-  for (let i = 0; i < 80; i++) {
-    const x = (Math.random() - 0.5) * 220, z = (Math.random() - 0.5) * 220;
-    if (Math.sqrt(x*x+z*z) < 38) continue;
-    const h = 5 + Math.random() * 28, w = 2 + Math.random() * 5;
-    const bldg = new THREE.Mesh(
-      new THREE.BoxGeometry(w, h, w + Math.random() * 2),
-      new THREE.MeshBasicMaterial({ color: bgCols[i % bgCols.length] })
-    );
-    bldg.position.set(x, h / 2, z);
+  var bgCols = [0x001a2e,0x0d1a0a,0x1a000d,0x0a0a1a,0x0d0d00];
+  for (var bi=0; bi<80; bi++) {
+    var bx=(Math.random()-.5)*220, bz=(Math.random()-.5)*220;
+    if (Math.sqrt(bx*bx+bz*bz)<38) continue;
+    var bh=5+Math.random()*28, bw=2+Math.random()*5;
+    var bldg = new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bw+Math.random()*2), new THREE.MeshBasicMaterial({color:bgCols[bi%bgCols.length]}));
+    bldg.position.set(bx,bh/2,bz);
     scene.add(bldg);
-
-    // Random lit windows on background buildings
-    const winCount = Math.floor(Math.random() * 6) + 2;
-    const winColors = [0x00f5ff, 0xff8800, 0xffee00, 0xff00aa, 0x00ff88];
-    for (let w2 = 0; w2 < winCount; w2++) {
-      const wc = winColors[Math.floor(Math.random() * winColors.length)];
-      const win = new THREE.Mesh(
-        new THREE.PlaneGeometry(0.4 + Math.random() * 0.6, 0.3 + Math.random() * 0.4),
-        new THREE.MeshBasicMaterial({ color: wc, transparent: true, opacity: 0.3 + Math.random() * 0.4 })
-      );
-      win.position.set(
-        x + (Math.random() - 0.5) * (w - 0.2),
-        (Math.random() * 0.8 + 0.1) * h,
-        z + (w / 2 + 0.01) * (Math.random() > 0.5 ? 1 : -1)
-      );
-      win.userData = { isWin: true, phase: Math.random() * Math.PI * 2, blinkRate: 0.3 + Math.random() * 2 };
+    var winColors=[0x00f5ff,0xff8800,0xffee00,0xff00aa,0x00ff88];
+    for (var wi=0; wi<Math.floor(Math.random()*6)+2; wi++) {
+      var wc=winColors[Math.floor(Math.random()*winColors.length)];
+      var win=new THREE.Mesh(new THREE.PlaneGeometry(0.4+Math.random()*0.6,0.3+Math.random()*0.4), new THREE.MeshBasicMaterial({color:wc,transparent:true,opacity:0.3+Math.random()*0.4}));
+      win.position.set(bx+(Math.random()-.5)*(bw-.2),(Math.random()*0.8+0.1)*bh,bz+(bw/2+0.01)*(Math.random()>.5?1:-1));
+      win.userData = {isWin:true,phase:Math.random()*Math.PI*2,blinkRate:0.3+Math.random()*2};
       scene.add(win);
     }
   }
 }
 
-// ================================================================
-//  BUILD BURJ KHALIFA TOWERS — rich glass interiors
-// ================================================================
+// ============================================================
+//  BUILD CITY
+// ============================================================
 function buildCity() {
-  BUILDINGS.forEach(b => {
-    const group = new THREE.Group();
-    const FH = 2.3, totalH = b.floors * FH;
-    const glassPlanes = [];
+  BUILDINGS.forEach(function(b) {
+    var group = new THREE.Group();
+    var FH=2.3, totalH=b.floors*FH;
+    var glassPlanes=[];
 
-    for (let f=0; f<b.floors; f++) {
-      const t = f / (b.floors - 1);
-      // Burj Khalifa taper: Math.pow(t,1.4) gives realistic setback curve
-      const w = b.bW - (b.bW - b.tW) * Math.pow(t, 1.4);
-      const y = f * FH;
-      const pH = FH - 0.22;
+    for (var f=0; f<b.floors; f++) {
+      var t=f/(b.floors-1);
+      var w=b.bW-(b.bW-b.tW)*Math.pow(t,1.4);
+      var y=f*FH, pH=FH-0.22;
 
-      // ── Floor slab ───────────────────────────────────────────────
-      const slab = new THREE.Mesh(
-        new THREE.BoxGeometry(w + 0.3, 0.18, w + 0.3),
-        new THREE.MeshBasicMaterial({ color: 0x0c1b2e })
-      );
-      slab.position.y = y + 0.09;
-      group.add(slab);
+      var slab=new THREE.Mesh(new THREE.BoxGeometry(w+0.3,0.18,w+0.3), new THREE.MeshBasicMaterial({color:0x0c1b2e}));
+      slab.position.y=y+0.09; group.add(slab);
 
-      // ── Spandrel beam (dark band between floors) ─────────────────
-      const spandrel = new THREE.Mesh(
-        new THREE.BoxGeometry(w + 0.05, 0.18, w + 0.05),
-        new THREE.MeshBasicMaterial({ color: 0x060f1e })
-      );
-      spandrel.position.y = y + pH + 0.09;
-      group.add(spandrel);
+      var spandrel=new THREE.Mesh(new THREE.BoxGeometry(w+0.05,0.18,w+0.05), new THREE.MeshBasicMaterial({color:0x060f1e}));
+      spandrel.position.y=y+pH+0.09; group.add(spandrel);
 
-      // ── 4 glass faces with mullions ──────────────────────────────
-      for (let side = 0; side < 4; side++) {
-        const isX = side < 2, sign = side % 2 === 0 ? 1 : -1;
-        const glassCol = new THREE.Color(b.col).multiplyScalar(0.09);
-        const glassMat = new THREE.MeshBasicMaterial({
-          color: glassCol, transparent: true, opacity: 0.28
-        });
-        const glass = new THREE.Mesh(new THREE.PlaneGeometry(w - 0.08, pH), glassMat);
-        glass.position.y = y + FH / 2;
-        if (isX) { glass.position.x = sign * (w / 2 + 0.01); glass.rotation.y = sign > 0 ? -Math.PI / 2 : Math.PI / 2; }
-        else      { glass.position.z = sign * (w / 2 + 0.01); if (sign < 0) glass.rotation.y = Math.PI; }
+      for (var side=0; side<4; side++) {
+        var isX=side<2, sign=side%2===0?1:-1;
+        var glassCol=new THREE.Color(b.col).multiplyScalar(0.09);
+        var glassMat=new THREE.MeshBasicMaterial({color:glassCol,transparent:true,opacity:0.28});
+        var glass=new THREE.Mesh(new THREE.PlaneGeometry(w-0.08,pH), glassMat);
+        glass.position.y=y+FH/2;
+        if (isX) { glass.position.x=sign*(w/2+0.01); glass.rotation.y=sign>0?-Math.PI/2:Math.PI/2; }
+        else { glass.position.z=sign*(w/2+0.01); if(sign<0) glass.rotation.y=Math.PI; }
         group.add(glass);
         glassPlanes.push(glassMat);
-
-        // Mullion verticals
-        const divs = Math.max(2, Math.floor((w - 0.2) / 1.5));
-        for (let d = 0; d <= divs; d++) {
-          const dm = -w / 2 + d * (w / divs);
-          const mul = new THREE.Mesh(
-            new THREE.PlaneGeometry(0.04, pH),
-            new THREE.MeshBasicMaterial({ color: 0x1a3a55, transparent: true, opacity: 0.6 })
-          );
-          mul.position.copy(glass.position);
-          mul.rotation.copy(glass.rotation);
-          if (isX) mul.position.z += dm; else mul.position.x += dm;
+        var divs=Math.max(2,Math.floor((w-.2)/1.5));
+        for (var di=0; di<=divs; di++) {
+          var dm=-w/2+di*(w/divs);
+          var mul=new THREE.Mesh(new THREE.PlaneGeometry(0.04,pH), new THREE.MeshBasicMaterial({color:0x1a3a55,transparent:true,opacity:0.6}));
+          mul.position.copy(glass.position); mul.rotation.copy(glass.rotation);
+          if (isX) mul.position.z+=dm; else mul.position.x+=dm;
           group.add(mul);
         }
       }
 
-      // ── Floor activation plane (pipeline wave target) ─────────────
-      const activation = new THREE.Mesh(
-        new THREE.PlaneGeometry(w * 0.85, w * 0.85),
-        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.04, side: THREE.DoubleSide })
-      );
-      activation.rotation.x = Math.PI / 2;
-      activation.position.set(0, y + 0.06, 0);
-      activation.userData = { isActivation: true, floor: f, floors: b.floors, baseOp: 0.04 };
+      var activation=new THREE.Mesh(new THREE.PlaneGeometry(w*0.85,w*0.85), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.04,side:THREE.DoubleSide}));
+      activation.rotation.x=Math.PI/2; activation.position.set(0,y+0.06,0);
+      activation.userData={isActivation:true,floor:f,floors:b.floors,baseOp:0.04};
       group.add(activation);
 
-      // ── Central core orb per floor ────────────────────────────────
-      const coreOrb = new THREE.Mesh(
-        new THREE.SphereGeometry(0.09, 6, 6),
-        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.55 })
-      );
-      coreOrb.position.set(0, y + FH / 2, 0);
-      coreOrb.userData = { isCoreOrb: true, floor: f, phase: f * 0.4 };
+      var coreOrb=new THREE.Mesh(new THREE.SphereGeometry(0.09,6,6), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.55}));
+      coreOrb.position.set(0,y+FH/2,0);
+      coreOrb.userData={isCoreOrb:true,floor:f,phase:f*0.4};
       group.add(coreOrb);
 
-      // ── Token pipe spine ─────────────────────────────────────────
-      const pipe = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.025, 0.025, FH * 0.85, 5),
-        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.18 })
-      );
-      pipe.position.set(0, y + FH / 2, 0);
-      pipe.userData = { isPipe: true, floor: f, floors: b.floors };
+      var pipe=new THREE.Mesh(new THREE.CylinderGeometry(0.025,0.025,FH*0.85,5), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.18}));
+      pipe.position.set(0,y+FH/2,0);
+      pipe.userData={isPipe:true,floor:f,floors:b.floors};
       group.add(pipe);
 
-      // ── Horizontal data bus lines ─────────────────────────────────
-      for (let db = 0; db < 2; db++) {
-        const busLen = w * 0.7;
-        const bus = new THREE.Mesh(
-          new THREE.BoxGeometry(busLen, 0.015, 0.015),
-          new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.2 })
-        );
-        bus.position.set(0, y + FH * (0.3 + db * 0.35), (db % 2 === 0 ? 1 : -1) * w * 0.18);
-        bus.userData = { isDataBus: true, phase: db * Math.PI + f * 0.3 };
+      for (var dbi=0; dbi<2; dbi++) {
+        var bus=new THREE.Mesh(new THREE.BoxGeometry(w*0.7,0.015,0.015), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.2}));
+        bus.position.set(0,y+FH*(0.3+dbi*0.35),(dbi%2===0?1:-1)*w*0.18);
+        bus.userData={isDataBus:true,phase:dbi*Math.PI+f*0.3};
         group.add(bus);
       }
 
-      // ── Interior agent figures (1-2 per floor, visible through glass) ──
-      const numAgents = 1 + (f % 3 === 0 ? 1 : 0);
-      for (let ag = 0; ag < numAgents; ag++) {
-        const agGroup = new THREE.Group();
-        const side = ag % 2 === 0 ? 1 : -1;
-        const xOff = side * (w * 0.22 + Math.random() * 0.15);
-        const zOff = (Math.random() - 0.5) * (w * 0.3);
-
-        // Agent body
-        const agBody = new THREE.Mesh(
-          new THREE.BoxGeometry(0.18, 0.28, 0.12),
-          new THREE.MeshBasicMaterial({ color: new THREE.Color(b.col).multiplyScalar(0.5) })
-        );
-        agGroup.add(agBody);
-
-        // Agent head (glowing)
-        const agHead = new THREE.Mesh(
-          new THREE.SphereGeometry(0.1, 6, 6),
-          new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.9 })
-        );
-        agHead.position.y = 0.24;
-        agGroup.add(agHead);
-
-        // Spinning data cube held by agent
-        const dataCube = new THREE.Mesh(
-          new THREE.BoxGeometry(0.09, 0.09, 0.09),
-          new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.85 })
-        );
-        dataCube.position.set(0.18, 0.1, 0);
-        dataCube.userData = { isDataCube: true };
-        agGroup.add(dataCube);
-
-        agGroup.position.set(xOff, y + FH * 0.38, zOff);
-        agGroup.userData = {
-          isAgent: true,
-          baseY: y + FH * 0.38,
-          phase: Math.random() * Math.PI * 2,
-          speed: 0.4 + Math.random() * 0.5,
-          floor: f
-        };
-        group.add(agGroup);
-      }
-
-      // ── Glow plane (kept for animateBuildings wave) ───────────────
-      const glow = new THREE.Mesh(
-        new THREE.PlaneGeometry(w * 0.6, w * 0.6),
-        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.02, side: THREE.DoubleSide })
-      );
-      glow.rotation.x = Math.PI / 2;
-      glow.position.set(0, y + 0.05, 0);
-      glow.userData = { isGlow: true, floor: f, floors: b.floors };
+      var glow=new THREE.Mesh(new THREE.PlaneGeometry(w*0.6,w*0.6), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.02,side:THREE.DoubleSide}));
+      glow.rotation.x=Math.PI/2; glow.position.set(0,y+0.05,0);
+      glow.userData={isGlow:true,floor:f,floors:b.floors};
       group.add(glow);
     }
 
-    // ── 8-section tapered spire ───────────────────────────────────────
-    for (let s = 0; s < 8; s++) {
-      const sr = b.tW * 0.28 * (1 - s / 8);
-      const spire = new THREE.Mesh(
-        new THREE.CylinderGeometry(sr * 0.45, sr, 1.5, 8),
-        new THREE.MeshBasicMaterial({ color: s < 4 ? 0x132540 : 0x0d1e35 })
-      );
-      spire.position.y = totalH + s * 1.5 + 0.75;
+    for (var s=0; s<8; s++) {
+      var sr=b.tW*0.28*(1-s/8);
+      var spire=new THREE.Mesh(new THREE.CylinderGeometry(sr*0.45,sr,1.5,8), new THREE.MeshBasicMaterial({color:s<4?0x132540:0x0d1e35}));
+      spire.position.y=totalH+s*1.5+0.75;
       group.add(spire);
     }
 
-    // ── Beacon + halo (no PointLight — avoids uniform overflow) ──────
-    const beacon = new THREE.Mesh(
-      new THREE.SphereGeometry(0.28, 8, 8),
-      new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 1.0 })
-    );
-    beacon.position.y = totalH + 8 * 1.5 + 0.2;
-    beacon.userData = { isBeacon: true };
+    var beacon=new THREE.Mesh(new THREE.SphereGeometry(0.28,8,8), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:1.0}));
+    beacon.position.y=totalH+8*1.5+0.2;
+    beacon.userData={isBeacon:true};
     group.add(beacon);
 
-    const halo = new THREE.Mesh(
-      new THREE.TorusGeometry(0.75, 0.07, 5, 20),
-      new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.5 })
-    );
-    halo.rotation.x = Math.PI / 2;
-    halo.position.y = totalH + 8 * 1.5 + 0.2;
-    halo.userData = { isHalo: true };
+    var halo=new THREE.Mesh(new THREE.TorusGeometry(0.75,0.07,5,20), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.5}));
+    halo.rotation.x=Math.PI/2; halo.position.y=totalH+8*1.5+0.2;
+    halo.userData={isHalo:true};
     group.add(halo);
 
-    const tipLight = { intensity: 2.5 }; // plain JS — no PointLight
+    var pod=new THREE.Mesh(new THREE.BoxGeometry(b.bW+4.5,1.2,b.bW+4.5), new THREE.MeshBasicMaterial({color:0x0c1a2e}));
+    pod.position.y=0.6; group.add(pod);
 
-    // ── Podium ────────────────────────────────────────────────────────
-    const pod = new THREE.Mesh(
-      new THREE.BoxGeometry(b.bW + 4.5, 1.2, b.bW + 4.5),
-      new THREE.MeshBasicMaterial({ color: 0x0c1a2e })
-    );
-    pod.position.y = 0.6;
-    group.add(pod);
-
-    // ── Corner neon pillars ───────────────────────────────────────────
-    [[1,1],[-1,1],[1,-1],[-1,-1]].forEach(([cx, cz]) => {
-      const pillar = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.05, 0.06, totalH, 5),
-        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.22 })
-      );
-      pillar.position.set(cx * (b.bW / 2 + 0.1), totalH / 2, cz * (b.bW / 2 + 0.1));
+    [[1,1],[-1,1],[1,-1],[-1,-1]].forEach(function(cx) {
+      var pillar=new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.06,totalH,5), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.22}));
+      pillar.position.set(cx[0]*(b.bW/2+0.1),totalH/2,cx[1]*(b.bW/2+0.1));
       group.add(pillar);
     });
 
-    // ── Entrance portal glow ──────────────────────────────────────────
-    const portal = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.6, 3.4),
-      new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.14, side: THREE.DoubleSide })
-    );
-    portal.position.set(0, 1.7, (b.bW + 4.5) / 2 + 0.02);
+    var portal=new THREE.Mesh(new THREE.PlaneGeometry(2.6,3.4), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.14,side:THREE.DoubleSide}));
+    portal.position.set(0,1.7,(b.bW+4.5)/2+0.02);
     group.add(portal);
 
-    group.position.set(b.pos.x, 0, b.pos.z);
+    group.position.set(b.pos.x,0,b.pos.z);
     scene.add(group);
-    buildingData.push({ group, b, tipLight, glassPlanes });
+    buildingData.push({group:group,b:b,glassPlanes:glassPlanes});
 
-    // Floating label sprite
-    addLabel(b, totalH + 8 * 1.5 + 3.5);
+    addLabel(b, totalH+8*1.5+3.5);
 
-    // External orbiting mini-agents
-    for (let i = 0; i < 3; i++) {
-      const ag = new THREE.Group();
-      ag.add(new THREE.Mesh(
-        new THREE.CylinderGeometry(0.12, 0.16, 0.85, 7),
-        new THREE.MeshBasicMaterial({ color: new THREE.Color(b.col).multiplyScalar(0.7) })
-      ));
-      const agHead = new THREE.Mesh(
-        new THREE.SphereGeometry(0.15, 6, 6),
-        new THREE.MeshBasicMaterial({ color: b.col })
-      );
-      agHead.position.y = 0.62;
-      ag.add(agHead);
-      const pkt = new THREE.Mesh(
-        new THREE.BoxGeometry(0.14, 0.14, 0.14),
-        new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0.85 })
-      );
-      pkt.position.set(0.28, 0.28, 0);
-      ag.add(pkt);
-      const or = b.bW / 2 + 2.5 + Math.random() * 3;
-      const oa = (i / 3) * Math.PI * 2;
-      ag.position.set(b.pos.x + Math.cos(oa) * or, 0.5, b.pos.z + Math.sin(oa) * or);
-      ag.userData = { bPos: b.pos, or, oa, os: 0.005 + Math.random() * 0.007, bp: Math.random() * Math.PI * 2, pkt };
+    for (var ai=0; ai<3; ai++) {
+      var ag=new THREE.Group();
+      ag.add(new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.16,0.85,7), new THREE.MeshBasicMaterial({color:new THREE.Color(b.col).multiplyScalar(0.7)})));
+      var agHead=new THREE.Mesh(new THREE.SphereGeometry(0.15,6,6), new THREE.MeshBasicMaterial({color:b.col}));
+      agHead.position.y=0.62; ag.add(agHead);
+      var pkt=new THREE.Mesh(new THREE.BoxGeometry(0.14,0.14,0.14), new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0.85}));
+      pkt.position.set(0.28,0.28,0); ag.add(pkt);
+      var or=b.bW/2+2.5+Math.random()*3;
+      var oa=(ai/3)*Math.PI*2;
+      ag.position.set(b.pos.x+Math.cos(oa)*or,0.5,b.pos.z+Math.sin(oa)*or);
+      ag.userData={bPos:b.pos,or:or,oa:oa,os:0.005+Math.random()*0.007,bp:Math.random()*Math.PI*2,pkt:pkt};
       scene.add(ag);
       extAgents.push(ag);
     }
@@ -862,139 +834,75 @@ function buildCity() {
 }
 
 function addLabel(b, yOff) {
-  const cvs = document.createElement('canvas');
-  cvs.width=512; cvs.height=90;
-  const ctx = cvs.getContext('2d');
-  ctx.font='bold 28px monospace';
-  ctx.fillStyle='#'+new THREE.Color(b.col).getHexString();
-  ctx.textAlign='center';
-  ctx.fillText(b.name, 256, 34);
-  ctx.font='18px monospace';
-  ctx.fillStyle='rgba(255,255,255,0.4)';
-  ctx.fillText(b.sub, 256, 62);
-  const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map:new THREE.CanvasTexture(cvs), transparent:true, depthWrite:false }));
-  spr.scale.set(12, 2.1, 1);
-  spr.position.set(b.pos.x, yOff, b.pos.z);
-  spr.userData = { baseY: yOff };
+  var cvs=document.createElement('canvas'); cvs.width=512; cvs.height=90;
+  var ctx=cvs.getContext('2d');
+  ctx.font='bold 28px monospace'; ctx.fillStyle='#'+new THREE.Color(b.col).getHexString(); ctx.textAlign='center';
+  ctx.fillText(b.name,256,34);
+  ctx.font='18px monospace'; ctx.fillStyle='rgba(255,255,255,0.4)';
+  ctx.fillText(b.sub,256,62);
+  var spr=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cvs),transparent:true,depthWrite:false}));
+  spr.scale.set(12,2.1,1); spr.position.set(b.pos.x,yOff,b.pos.z);
+  spr.userData={baseY:yOff};
   scene.add(spr);
 }
 
-// ================================================================
-//  ROBOT CHARACTER
-// ================================================================
+// ============================================================
+//  ROBOT
+// ============================================================
 function buildRobot() {
   robotGroup = new THREE.Group();
-
-  // Body
-  const body = new THREE.Mesh(
-    new THREE.BoxGeometry(0.5, 0.65, 0.35),
-    new THREE.MeshBasicMaterial({ color:0x2a4a66 })
-  );
-  robotGroup.add(body);
-
-  // Head
-  const head = new THREE.Mesh(
-    new THREE.BoxGeometry(0.38, 0.35, 0.32),
-    new THREE.MeshBasicMaterial({ color:0x3a5e80 })
-  );
-  head.position.y = 0.52;
-  robotGroup.add(head);
-
-  // Eyes (glowing)
-  [-1,1].forEach(sx => {
-    const eye = new THREE.Mesh(
-      new THREE.SphereGeometry(0.055, 6, 6),
-      new THREE.MeshBasicMaterial({ color:0x00f5ff })
-    );
-    eye.position.set(sx*0.1, 0.54, 0.17);
-    eye.userData = { isEye:true };
-    robotGroup.add(eye);
+  robotGroup.add(new THREE.Mesh(new THREE.BoxGeometry(0.5,0.65,0.35), new THREE.MeshBasicMaterial({color:0x2a4a66})));
+  var head=new THREE.Mesh(new THREE.BoxGeometry(0.38,0.35,0.32), new THREE.MeshBasicMaterial({color:0x3a5e80}));
+  head.position.y=0.52; robotGroup.add(head);
+  [-1,1].forEach(function(sx) {
+    var eye=new THREE.Mesh(new THREE.SphereGeometry(0.055,6,6), new THREE.MeshBasicMaterial({color:0x00f5ff}));
+    eye.position.set(sx*0.1,0.54,0.17); eye.userData={isEye:true}; robotGroup.add(eye);
   });
-
-  // Chest screen
-  const screen = new THREE.Mesh(
-    new THREE.PlaneGeometry(0.3, 0.2),
-    new THREE.MeshBasicMaterial({ color:0x00f5ff, transparent:true, opacity:0.35, side:THREE.DoubleSide })
-  );
-  screen.position.set(0, 0.05, 0.18);
-  screen.userData = { isScreen:true };
-  robotGroup.add(screen);
-
-  // Arms
-  [-1,1].forEach(sx => {
-    const arm = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.06, 0.06, 0.45, 6),
-      new THREE.MeshBasicMaterial({ color:0x2a4a66 })
-    );
-    arm.position.set(sx*0.35, 0.04, 0);
-    arm.rotation.z = sx * 0.25;
-    arm.userData = { isArm:true, sx };
-    robotGroup.add(arm);
+  var screen=new THREE.Mesh(new THREE.PlaneGeometry(0.3,0.2), new THREE.MeshBasicMaterial({color:0x00f5ff,transparent:true,opacity:0.35,side:THREE.DoubleSide}));
+  screen.position.set(0,0.05,0.18); screen.userData={isScreen:true}; robotGroup.add(screen);
+  [-1,1].forEach(function(sx) {
+    var arm=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.06,0.45,6), new THREE.MeshBasicMaterial({color:0x2a4a66}));
+    arm.position.set(sx*0.35,0.04,0); arm.rotation.z=sx*0.25; arm.userData={isArm:true,sx:sx}; robotGroup.add(arm);
+    var leg=new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.07,0.4,6), new THREE.MeshBasicMaterial({color:0x1e3850}));
+    leg.position.set(sx*0.14,-0.55,0); leg.userData={isLeg:true,sx:sx}; robotGroup.add(leg);
   });
-
-  // Legs
-  [-1,1].forEach(sx => {
-    const leg = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.07, 0.07, 0.4, 6),
-      new THREE.MeshBasicMaterial({ color:0x1e3850 })
-    );
-    leg.position.set(sx*0.14, -0.55, 0);
-    leg.userData = { isLeg:true, sx };
-    robotGroup.add(leg);
-  });
-
-  // Data packet the robot carries
-  const dataPkt = new THREE.Mesh(
-    new THREE.BoxGeometry(0.2, 0.2, 0.2),
-    new THREE.MeshBasicMaterial({ color:0x00f5ff, transparent:true, opacity:0 })
-  );
-  dataPkt.position.set(0.45, 0.25, 0);
-  dataPkt.userData = { isDataPkt:true };
-  robotGroup.add(dataPkt);
-
-  robotGroup.visible = false;
-  robotGroup.position.set(0, 1, 0);
+  var dataPkt=new THREE.Mesh(new THREE.BoxGeometry(0.2,0.2,0.2), new THREE.MeshBasicMaterial({color:0x00f5ff,transparent:true,opacity:0}));
+  dataPkt.position.set(0.45,0.25,0); dataPkt.userData={isDataPkt:true}; robotGroup.add(dataPkt);
+  robotGroup.visible=false; robotGroup.position.set(0,1,0);
   scene.add(robotGroup);
 }
 
-// ================================================================
-//  TOKEN POOL  (simple spheres, shared material per building)
-// ================================================================
-const TOKEN_MATS = {};
-const TOKEN_GEOS = [
-  new THREE.SphereGeometry(0.1, 5, 5),
-  new THREE.OctahedronGeometry(0.1),
-  new THREE.TetrahedronGeometry(0.1),
-  new THREE.BoxGeometry(0.12, 0.12, 0.12),
-];
+// ============================================================
+//  TOKEN POOL
+// ============================================================
+var TOKEN_MATS = {};
+var TOKEN_GEOS = [new THREE.SphereGeometry(0.1,5,5),new THREE.OctahedronGeometry(0.1),new THREE.TetrahedronGeometry(0.1),new THREE.BoxGeometry(0.12,0.12,0.12)];
+
 function spawnTokenPool() {
-  BUILDINGS.forEach(b => {
-    TOKEN_MATS[b.id] = new THREE.MeshBasicMaterial({ color: b.col, transparent: true, opacity: 0 });
+  BUILDINGS.forEach(function(b) {
+    TOKEN_MATS[b.id]=new THREE.MeshBasicMaterial({color:b.col,transparent:true,opacity:0});
   });
-  BUILDINGS.forEach(b => {
-    for (let i = 0; i < 8; i++) {
-      const geo = TOKEN_GEOS[i % TOKEN_GEOS.length];
-      const m = new THREE.Mesh(geo, TOKEN_MATS[b.id].clone());
-      m.position.set(0, -500, 0);
-      m.userData = { alive:false, t:0, dur:1.3, sx:0, sy:0, sz:0, ex:0, ey:0, ez:0, bid:b.id, spinX: Math.random()*3, spinZ: Math.random()*2 };
-      scene.add(m);
-      tokenBalls.push(m);
+  BUILDINGS.forEach(function(b) {
+    for (var i=0; i<8; i++) {
+      var m=new THREE.Mesh(TOKEN_GEOS[i%TOKEN_GEOS.length], TOKEN_MATS[b.id].clone());
+      m.position.set(0,-500,0);
+      m.userData={alive:false,t:0,dur:1.3,sx:0,sy:0,sz:0,ex:0,ey:0,ez:0,bid:b.id,spinX:Math.random()*3,spinZ:Math.random()*2};
+      scene.add(m); tokenBalls.push(m);
     }
-    for (let i = 0; i < 8; i++) {
-      const geo = TOKEN_GEOS[i % TOKEN_GEOS.length];
-      const m = new THREE.Mesh(geo, TOKEN_MATS[b.id].clone());
-      m.position.set(0, -500, 0);
-      m.userData = { alive:false, t:0, dur:2, bx:b.pos.x, bz:b.pos.z, bW:b.bW, maxY:b.floors*2.3*.9, bid:b.id, spinX: Math.random()*4, spinZ: Math.random()*3 };
-      scene.add(m);
-      interiorBalls.push(m);
+    for (var i=0; i<8; i++) {
+      var m=new THREE.Mesh(TOKEN_GEOS[i%TOKEN_GEOS.length], TOKEN_MATS[b.id].clone());
+      m.position.set(0,-500,0);
+      m.userData={alive:false,t:0,dur:2,bx:b.pos.x,bz:b.pos.z,bW:b.bW,maxY:b.floors*2.3*.9,bid:b.id,spinX:Math.random()*4,spinZ:Math.random()*3};
+      scene.add(m); interiorBalls.push(m);
     }
   });
 }
 
 function fireToken(building) {
-  const free = tokenBalls.find(t=>!t.userData.alive && t.userData.bid===building.id);
+  var free=null;
+  for (var i=0; i<tokenBalls.length; i++) { if (!tokenBalls[i].userData.alive && tokenBalls[i].userData.bid===building.id) { free=tokenBalls[i]; break; } }
   if (!free) return;
-  const ud = free.userData;
+  var ud=free.userData;
   ud.alive=true; ud.t=0; ud.dur=1.1+Math.random()*.7;
   ud.sx=player.x+(Math.random()-.5)*.4; ud.sy=1.7; ud.sz=player.z+(Math.random()-.5)*.4;
   ud.ex=building.pos.x+(Math.random()-.5)*2; ud.ey=building.floors*2.3*.55; ud.ez=building.pos.z+(Math.random()-.5)*2;
@@ -1002,24 +910,25 @@ function fireToken(building) {
 }
 
 function fireInteriorToken(building) {
-  const free = interiorBalls.find(t=>!t.userData.alive && t.userData.bid===building.id);
+  var free=null;
+  for (var i=0; i<interiorBalls.length; i++) { if (!interiorBalls[i].userData.alive && interiorBalls[i].userData.bid===building.id) { free=interiorBalls[i]; break; } }
   if (!free) return;
-  const ud = free.userData;
+  var ud=free.userData;
   ud.alive=true; ud.t=0; ud.dur=1.6+Math.random();
-  const w=building.bW*.5;
-  free.position.set(building.pos.x+(Math.random()-.5)*w, 1, building.pos.z+(Math.random()-.5)*w);
+  var w=building.bW*.5;
+  free.position.set(building.pos.x+(Math.random()-.5)*w,1,building.pos.z+(Math.random()-.5)*w);
   free.material.opacity=0.8;
 }
 
-// ================================================================
+// ============================================================
 //  GAME LOOP
-// ================================================================
+// ============================================================
 function loop() {
   requestAnimationFrame(loop);
-  const dt = clock.getDelta();
+  var dt=clock.getDelta();
   frameCount++;
-  yaw   += (tYaw  -yaw)  *SMOOTH;
-  pitch += (tPitch-pitch)*SMOOTH;
+  yaw+=(tYaw-yaw)*SMOOTH;
+  pitch+=(tPitch-pitch)*SMOOTH;
   movePlayer(dt);
   animateAgents(dt);
   animateBuildings(dt);
@@ -1029,822 +938,697 @@ function loop() {
   animateBeams(dt);
   checkProximity();
   drawMinimap();
-  renderer.render(scene, camera);
+  renderer.render(scene,camera);
 }
 
 function movePlayer(dt) {
-  const spd = keys['shift'] ? SPD*2 : SPD;
-  const fx=Math.sin(yaw), fz=Math.cos(yaw), rx=Math.cos(yaw), rz=-Math.sin(yaw);
+  var spd=keys['shift']?SPD*2:SPD;
+  var fx=Math.sin(yaw), fz=Math.cos(yaw), rx=Math.cos(yaw), rz=-Math.sin(yaw);
   if (keys['w']||keys['arrowup'])    { player.x+=fx*spd; player.z+=fz*spd; }
   if (keys['s']||keys['arrowdown'])  { player.x-=fx*spd; player.z-=fz*spd; }
   if (keys['a']||keys['arrowleft'])  { player.x-=rx*spd; player.z-=rz*spd; }
   if (keys['d']||keys['arrowright']) { player.x+=rx*spd; player.z+=rz*spd; }
   player.x=Math.max(-90,Math.min(90,player.x));
   player.z=Math.max(-90,Math.min(90,player.z));
-  camera.position.set(player.x, 1.75, player.z);
+  camera.position.set(player.x,1.75,player.z);
   camera.rotation.order='YXZ';
   camera.rotation.y=yaw+Math.PI;
   camera.rotation.x=pitch;
-  document.getElementById('posText').textContent=`POS: ${player.x.toFixed(1)}, ${player.z.toFixed(1)}`;
+  document.getElementById('posText').textContent='POS: '+player.x.toFixed(1)+', '+player.z.toFixed(1);
 }
 
 function onMouse(e) {
   if (!pLocked||chatOpen) return;
-  tYaw   -= e.movementX*SENS;
-  tPitch -= e.movementY*SENS;
-  tPitch  = Math.max(-1.1, Math.min(1.1, tPitch));
+  tYaw-=e.movementX*SENS;
+  tPitch-=e.movementY*SENS;
+  tPitch=Math.max(-1.1,Math.min(1.1,tPitch));
 }
 
 function animateAgents(dt) {
-  const t = Date.now()*.001;
-  extAgents.forEach(ag => {
-    const ud=ag.userData;
-    ud.oa += ud.os;
-    ag.position.x = ud.bPos.x + Math.cos(ud.oa)*ud.or;
-    ag.position.z = ud.bPos.z + Math.sin(ud.oa)*ud.or;
-    ag.position.y = 0.5 + Math.sin(t*1.2+ud.bp)*.16;
-    ag.rotation.y = -ud.oa + Math.PI/2;
+  var t=Date.now()*.001;
+  extAgents.forEach(function(ag) {
+    var ud=ag.userData;
+    ud.oa+=ud.os;
+    ag.position.x=ud.bPos.x+Math.cos(ud.oa)*ud.or;
+    ag.position.z=ud.bPos.z+Math.sin(ud.oa)*ud.or;
+    ag.position.y=0.5+Math.sin(t*1.2+ud.bp)*.16;
+    ag.rotation.y=-ud.oa+Math.PI/2;
     if (ud.pkt) { ud.pkt.rotation.y=t*2.2; ud.pkt.rotation.x=t*1.4; }
   });
 }
 
 function animateBuildings(dt) {
-  const t = Date.now() * 0.001;
-  const wave = (t * 0.75) % 1;
-  const activeId = activeBuildingId || (nearBuilding?.id);
-
-  buildingData.forEach(({group, b, glassPlanes}) => {
-    const isActive = b.id === activeId;
-    const waveStr  = isActive ? 1 : 0.3;
-
-    // Glass pulse — slightly brighter when active
-    glassPlanes.forEach((mat, i) => {
-      mat.opacity = 0.22 + Math.abs(Math.sin(t * 0.5 + i * 0.2)) * 0.1 * (isActive ? 1.4 : 1);
+  var t=Date.now()*0.001;
+  var wave=(t*0.75)%1;
+  var activeId=activeBuildingId||(nearBuilding?nearBuilding.id:null);
+  buildingData.forEach(function(d) {
+    var b=d.b, group=d.group, glassPlanes=d.glassPlanes;
+    var isActive=b.id===activeId;
+    var waveStr=isActive?1:0.3;
+    glassPlanes.forEach(function(mat,i) {
+      mat.opacity=0.22+Math.abs(Math.sin(t*0.5+i*0.2))*0.1*(isActive?1.4:1);
     });
+    group.children.forEach(function(child) {
+      if (!child||!child.userData) return;
+      var ud=child.userData;
+      if (ud.isBeacon) { var p=0.8+Math.sin(t*2+b.pos.x*0.1)*0.3; child.scale.setScalar(p*(isActive?1.6:1.0)); child.material.opacity=0.6+Math.sin(t*2)*0.4; }
+      if (ud.isHalo) { child.material.opacity=(0.25+Math.sin(t*1.7)*0.2)*(isActive?2.2:1.0); child.scale.setScalar(1+Math.sin(t*1.1)*0.18); }
+      if (ud.isActivation) { var ff=ud.floor/ud.floors; var wd=Math.abs(wave-ff); var pk=Math.max(0,1-wd*6)*waveStr; child.material.opacity=ud.baseOp+pk*0.28+Math.abs(Math.sin(t*0.4+ud.floor*0.5))*0.02; }
+      if (ud.isCoreOrb) { var ff=ud.floor/(ud.floors||1); var wd=Math.abs(wave-ff); var pk=Math.max(0,1-wd*6)*waveStr; child.scale.setScalar(1+pk*1.8+Math.sin(t*1.5+ud.phase)*0.12); child.material.opacity=0.4+pk*0.55+Math.sin(t*1.5+ud.phase)*0.12; }
+      if (ud.isPipe) { var ff=ud.floor/ud.floors; var wd=Math.abs(wave-ff); var pk=Math.max(0,1-wd*8)*waveStr; child.material.opacity=0.12+pk*0.5; child.scale.x=child.scale.z=1+pk*1.2; }
+      if (ud.isGlow) { var ff=ud.floor/ud.floors; var wd=Math.abs(wave-ff); child.material.opacity=0.015+Math.max(0,1-wd*7)*waveStr*0.1; }
+      if (ud.isDataBus) { child.material.opacity=0.12+Math.abs(Math.sin(t*1.8+ud.phase))*0.28*waveStr; child.scale.x=0.6+Math.abs(Math.sin(t*2.2+ud.phase))*0.6; }
+    });
+  });
+  scene.children.forEach(function(c) {
+    if (c.isSprite&&c.userData.baseY) c.position.y=c.userData.baseY+Math.sin(t*0.75+c.position.x*0.1)*0.4;
+  });
+}
 
-    group.children.forEach(child => {
-      if (!child || !child.userData) return;
-      const ud = child.userData;
+function animateEnvironment(dt) {
+  var t=Date.now()*0.001;
+  if (rainGeo) {
+    var pos=rainGeo.attributes.position.array;
+    var vel=rainGeo.userData.vel;
+    for (var i=0; i<pos.length/3; i++) {
+      pos[i*3+1]-=vel[i]*dt;
+      if (pos[i*3+1]<0) { pos[i*3]=(Math.random()-.5)*180; pos[i*3+1]=80+Math.random()*40; pos[i*3+2]=(Math.random()-.5)*180; }
+    }
+    rainGeo.attributes.position.needsUpdate=true;
+  }
+  auroraStrips.forEach(function(mesh) {
+    var ud=mesh.userData;
+    var pos=mesh.geometry.attributes.position.array;
+    var segs=ud.segs;
+    for (var i=0; i<=segs; i++) {
+      var ax=(i/segs-.5)*ud.W;
+      var wav=Math.sin(i*0.12+t*ud.speed+ud.phase)*ud.waveAmp;
+      var wav2=Math.sin(i*0.07+t*ud.speed*0.7+ud.phase+1.2)*(ud.waveAmp*0.5);
+      pos[i*6]=ax; pos[i*6+1]=ud.baseY+wav+wav2; pos[i*6+2]=0;
+      pos[i*6+3]=ax; pos[i*6+4]=ud.baseY+wav+wav2+ud.height; pos[i*6+5]=0;
+    }
+    mesh.geometry.attributes.position.needsUpdate=true;
+    mesh.material.opacity=Math.max(0,Math.sin(t*0.08+ud.phase))*(0.03+Math.sin(t*0.22+ud.phase)*0.025);
+  });
+  floatingOrbs.forEach(function(orb) {
+    var ud=orb.userData;
+    ud.angle+=ud.orbitSpeed;
+    var r=Math.sqrt(ud.baseX*ud.baseX+ud.baseZ*ud.baseZ);
+    orb.position.x=Math.cos(ud.angle)*r;
+    orb.position.z=Math.sin(ud.angle)*r;
+    orb.position.y=ud.baseY+Math.sin(t*ud.speed+ud.phase)*ud.radius;
+    orb.material.opacity=0.3+Math.abs(Math.sin(t*ud.speed+ud.phase))*0.5;
+  });
+  groundReflections.forEach(function(ref,i) {
+    var b=BUILDINGS[i];
+    var isActive=b&&(b.id===activeBuildingId||(nearBuilding&&b.id===nearBuilding.id));
+    ref.material.opacity=0.05+Math.sin(t*0.8+i)*0.03+(isActive?0.1:0);
+  });
+  scene.children.forEach(function(child) {
+    if (child.userData&&child.userData.isWin) child.material.opacity=0.18+Math.abs(Math.sin(t*child.userData.blinkRate+child.userData.phase))*0.45;
+  });
+  [[1.5,1.2],[2.5,-0.8],[3.5,0.5]].forEach(function(r) {
+    var ring=scene.userData['obRing'+r[0]];
+    if (ring) { ring.rotation.z=t*r[1]; ring.rotation.x=Math.sin(t*0.4)*0.3; }
+  });
+  if (scene.userData.r1) scene.userData.r1.rotation.z=t*0.18;
+  if (scene.userData.r2) scene.userData.r2.rotation.z=-t*0.32;
+  if (scene.userData.r3) scene.userData.r3.rotation.z=t*0.09;
+}
 
-      if (ud.isBeacon) {
-        const p = 0.8 + Math.sin(t * 2 + b.pos.x * 0.1) * 0.3;
-        child.scale.setScalar(p * (isActive ? 1.6 : 1.0));
-        child.material.opacity = 0.6 + Math.sin(t * 2) * 0.4;
-      }
-      if (ud.isHalo) {
-        child.material.opacity = (0.25 + Math.sin(t * 1.7) * 0.2) * (isActive ? 2.2 : 1.0);
-        child.scale.setScalar(1 + Math.sin(t * 1.1) * 0.18);
-      }
-      if (ud.isActivation) {
-        const ff = ud.floor / ud.floors;
-        const wd = Math.abs(wave - ff);
-        const pk = Math.max(0, 1 - wd * 6) * waveStr;
-        child.material.opacity = ud.baseOp + pk * 0.28 + Math.abs(Math.sin(t * 0.4 + ud.floor * 0.5)) * 0.02;
-      }
-      if (ud.isCoreOrb) {
-        const ff = ud.floor / (ud.floors || 1);
-        const wd = Math.abs(wave - ff);
-        const pk = Math.max(0, 1 - wd * 6) * waveStr;
-        child.scale.setScalar(1 + pk * 1.8 + Math.sin(t * 1.5 + ud.phase) * 0.12);
-        child.material.opacity = 0.4 + pk * 0.55 + Math.sin(t * 1.5 + ud.phase) * 0.12;
-      }
-      if (ud.isPipe) {
-        const ff = ud.floor / ud.floors;
-        const wd = Math.abs(wave - ff);
-        const pk = Math.max(0, 1 - wd * 8) * waveStr;
-        child.material.opacity = 0.12 + pk * 0.5;
-        child.scale.x = child.scale.z = 1 + pk * 1.2;
-      }
-      if (ud.isGlow) {
-        const ff = ud.floor / ud.floors;
-        const wd = Math.abs(wave - ff);
-        child.material.opacity = 0.015 + Math.max(0, 1 - wd * 7) * waveStr * 0.1;
-      }
-      if (ud.isDataBus) {
-        child.material.opacity = 0.12 + Math.abs(Math.sin(t * 1.8 + ud.phase)) * 0.28 * waveStr;
-        child.scale.x = 0.6 + Math.abs(Math.sin(t * 2.2 + ud.phase)) * 0.6;
-      }
-      // Interior agent groups — bob, rotate, spin data cubes
-      if (ud.isAgent) {
-        child.position.y = ud.baseY + Math.sin(t * ud.speed + ud.phase) * 0.09;
-        child.rotation.y = t * 0.35 * (ud.phase > Math.PI ? 1 : -1);
-        child.children.forEach(part => {
-          if (part.userData && part.userData.isDataCube) {
-            part.rotation.y = t * 2.8;
-            part.rotation.x = t * 1.7;
-            part.material.opacity = 0.6 + Math.sin(t * 3 + ud.phase) * 0.35;
+function triggerWaveSurge(building) {
+  var bd=null;
+  for (var i=0; i<buildingData.length; i++) { if (buildingData[i].b.id===building.id) { bd=buildingData[i]; break; } }
+  if (!bd) return;
+  for (var f=0; f<building.floors; f++) {
+    (function(floor) {
+      setTimeout(function() {
+        bd.group.children.forEach(function(child) {
+          if (!child||!child.userData) return;
+          var ud=child.userData;
+          if ((ud.isActivation||ud.isCoreOrb||ud.isPipe)&&ud.floor===floor) {
+            child.material.opacity=ud.isActivation?0.65:ud.isCoreOrb?1.0:0.9;
+            setTimeout(function() { if (child.material) child.material.opacity=ud.isActivation?0.04:ud.isCoreOrb?0.5:0.18; }, 250);
           }
         });
-      }
-    });
-  });
-
-  scene.children.forEach(c => {
-    if (c.isSprite && c.userData.baseY) {
-      c.position.y = c.userData.baseY + Math.sin(t * 0.75 + c.position.x * 0.1) * 0.4;
-    }
-  });
-
-  // Ring rotations moved to animateEnvironment
-}
-
-// ================================================================
-//  ENVIRONMENT ANIMATION — rain, aurora, orbs, windows, reflections
-// ================================================================
-function animateEnvironment(dt) {
-  const t = Date.now() * 0.001;
-
-  // Rain: drops fall, reset at top
-  if (rainGeo) {
-    const pos = rainGeo.attributes.position.array;
-    const vel = rainGeo.userData.vel;
-    for (let i = 0; i < pos.length / 3; i++) {
-      pos[i*3+1] -= vel[i] * dt;
-      if (pos[i*3+1] < 0) {
-        pos[i*3]   = (Math.random() - 0.5) * 180;
-        pos[i*3+1] = 80 + Math.random() * 40;
-        pos[i*3+2] = (Math.random() - 0.5) * 180;
-      }
-    }
-    rainGeo.attributes.position.needsUpdate = true;
-    rainSystem.position.x = Math.sin(t * 0.3) * 1.5;
-  }
-
-  // Aurora: animate sine-wave ribbons at high altitude
-  auroraStrips.forEach(mesh => {
-    const ud = mesh.userData;
-    const pos = mesh.geometry.attributes.position.array;
-    const segs = ud.segs;
-    for (let i = 0; i <= segs; i++) {
-      const x = (i / segs - 0.5) * ud.W;
-      const wave  = Math.sin(i * 0.12 + t * ud.speed + ud.phase) * ud.waveAmp;
-      const wave2 = Math.sin(i * 0.07 + t * ud.speed * 0.7 + ud.phase + 1.2) * (ud.waveAmp * 0.5);
-      const yBot = ud.baseY + wave + wave2;
-      const yTop = yBot + ud.height;
-      pos[i*6]   = x; pos[i*6+1] = yBot; pos[i*6+2] = 0;
-      pos[i*6+3] = x; pos[i*6+4] = yTop; pos[i*6+5] = 0;
-    }
-    mesh.geometry.attributes.position.needsUpdate = true;
-    mesh.material.opacity = Math.max(0, Math.sin(t * 0.08 + ud.phase)) * (0.03 + Math.sin(t * 0.22 + ud.phase) * 0.025);
-  });
-
-  // Floating orbs — orbit + bob
-  floatingOrbs.forEach(orb => {
-    const ud = orb.userData;
-    ud.angle += ud.orbitSpeed;
-    const r = Math.sqrt(ud.baseX * ud.baseX + ud.baseZ * ud.baseZ);
-    orb.position.x = Math.cos(ud.angle) * r;
-    orb.position.z = Math.sin(ud.angle) * r;
-    orb.position.y = ud.baseY + Math.sin(t * ud.speed + ud.phase) * ud.radius;
-    orb.material.opacity = 0.3 + Math.abs(Math.sin(t * ud.speed + ud.phase)) * 0.5;
-    orb.scale.setScalar(0.8 + Math.sin(t * ud.speed * 1.3 + ud.phase) * 0.25);
-  });
-
-  // Ground reflections pulse with building color
-  groundReflections.forEach((ref, i) => {
-    const b = BUILDINGS[i];
-    const isActive = b && (b.id === activeBuildingId || b.id === nearBuilding?.id);
-    ref.material.opacity = 0.05 + Math.sin(t * 0.8 + i) * 0.03 + (isActive ? 0.1 : 0);
-    ref.scale.x = 1 + Math.sin(t * 0.5 + i * 0.8) * 0.08;
-    ref.scale.z = 1 + Math.cos(t * 0.4 + i * 0.6) * 0.08;
-  });
-
-  // Window flicker on background buildings
-  scene.children.forEach(child => {
-    if (!child.userData || !child.userData.isWin) return;
-    child.material.opacity = 0.18 + Math.abs(Math.sin(t * child.userData.blinkRate + child.userData.phase)) * 0.45;
-  });
-
-  // Obelisk rings
-  [[1.5, 1.2], [2.5, -0.8], [3.5, 0.5]].forEach(([r, spd]) => {
-    const ring = scene.userData['obRing' + r];
-    if (ring) { ring.rotation.z = t * spd; ring.rotation.x = Math.sin(t * 0.4) * 0.3; }
-  });
-
-  // Atmosphere rings
-  if (scene.userData.r1) scene.userData.r1.rotation.z = t * 0.18;
-  if (scene.userData.r2) scene.userData.r2.rotation.z = -t * 0.32;
-  if (scene.userData.r3) scene.userData.r3.rotation.z = t * 0.09;
-}
-
-// ── Wave surge: floors light up sequentially on message send ─────────────────
-function triggerWaveSurge(building) {
-  const bd = buildingData.find(d => d.b.id === building.id);
-  if (!bd) return;
-  const totalFloors = building.floors;
-
-  for (let f = 0; f < totalFloors; f++) {
-    const delay = f * 90; // 90ms per floor = wave travels bottom→top
-    setTimeout(() => {
-      bd.group.children.forEach(child => {
-        if (!child || !child.userData) return;
-        const ud = child.userData;
-        if ((ud.isActivation || ud.isCoreOrb || ud.isPipe) && ud.floor === f) {
-          // Spike opacity high then let animateBuildings take over
-          child.material.opacity = ud.isActivation ? 0.65 : ud.isCoreOrb ? 1.0 : 0.9;
-          setTimeout(() => {
-            if (child.material) child.material.opacity = ud.isActivation ? 0.04 : ud.isCoreOrb ? 0.5 : 0.18;
-          }, 250);
-        }
-      });
-      // Fire interior tokens at each floor's position
-      if (f % 3 === 0) fireInteriorToken(building);
-    }, delay);
+        if (floor%3===0) fireInteriorToken(building);
+      }, floor*90);
+    })(f);
   }
 }
 
 function animateTokens(dt) {
-  const t = Date.now() * 0.001;
-
-  // Spawn more frequently when near/inside a building
-  if (nearBuilding && frameCount % 6 === 0) fireToken(nearBuilding);
+  var t=Date.now()*0.001;
+  if (nearBuilding&&frameCount%6===0) fireToken(nearBuilding);
   if (activeBuildingId) {
-    const ab = BUILDINGS.find(b => b.id === activeBuildingId);
-    if (ab && frameCount % 3 === 0) fireInteriorToken(ab);
+    var ab=null;
+    for (var i=0; i<BUILDINGS.length; i++) { if (BUILDINGS[i].id===activeBuildingId) { ab=BUILDINGS[i]; break; } }
+    if (ab&&frameCount%3===0) fireInteriorToken(ab);
   }
-
-  tokenBalls.forEach(p => {
-    const ud = p.userData;
+  tokenBalls.forEach(function(p) {
+    var ud=p.userData;
     if (!ud.alive) return;
-    ud.t += dt / ud.dur;
-    if (ud.t >= 1) { ud.alive = false; p.position.set(0, -500, 0); p.material.opacity = 0; return; }
-    const e = ud.t * ud.t * (3 - 2 * ud.t); // smooth step
-    // Wider arc + slight spiral
-    p.position.x = ud.sx + (ud.ex - ud.sx) * e + Math.sin(ud.t * Math.PI * 3) * 0.35;
-    p.position.y = ud.sy + (ud.ey - ud.sy) * e + Math.sin(ud.t * Math.PI) * 3.5;
-    p.position.z = ud.sz + (ud.ez - ud.sz) * e + Math.cos(ud.t * Math.PI * 3) * 0.2;
-    p.material.opacity = Math.sin(ud.t * Math.PI) * 0.95;
-    p.scale.setScalar(0.6 + Math.sin(ud.t * Math.PI) * 0.7);
-    // Spin as they fly
-    p.rotation.x += ud.spinX * dt * 4;
-    p.rotation.z += ud.spinZ * dt * 3;
+    ud.t+=dt/ud.dur;
+    if (ud.t>=1) { ud.alive=false; p.position.set(0,-500,0); p.material.opacity=0; return; }
+    var e=ud.t*ud.t*(3-2*ud.t);
+    p.position.x=ud.sx+(ud.ex-ud.sx)*e+Math.sin(ud.t*Math.PI*3)*0.35;
+    p.position.y=ud.sy+(ud.ey-ud.sy)*e+Math.sin(ud.t*Math.PI)*3.5;
+    p.position.z=ud.sz+(ud.ez-ud.sz)*e+Math.cos(ud.t*Math.PI*3)*0.2;
+    p.material.opacity=Math.sin(ud.t*Math.PI)*0.95;
+    p.scale.setScalar(0.6+Math.sin(ud.t*Math.PI)*0.7);
+    p.rotation.x+=ud.spinX*dt*4; p.rotation.z+=ud.spinZ*dt*3;
   });
-
-  interiorBalls.forEach(p => {
-    const ud = p.userData;
+  interiorBalls.forEach(function(p) {
+    var ud=p.userData;
     if (!ud.alive) return;
-    ud.t += dt / ud.dur;
-    if (ud.t >= 1) { ud.alive = false; p.position.set(0, -500, 0); p.material.opacity = 0; return; }
-    const e = ud.t;
-    // Helical rise
-    p.position.x += Math.sin(t * 4 + e * 12) * 0.012;
-    p.position.y = 1 + e * ud.maxY;
-    p.position.z += Math.cos(t * 3 + e * 10) * 0.012;
-    p.material.opacity = Math.sin(e * Math.PI) * 0.9;
-    p.scale.setScalar(0.6 + Math.sin(e * Math.PI) * 0.6);
-    p.rotation.y += ud.spinX * dt * 5;
-    p.rotation.x += ud.spinZ * dt * 3;
+    ud.t+=dt/ud.dur;
+    if (ud.t>=1) { ud.alive=false; p.position.set(0,-500,0); p.material.opacity=0; return; }
+    var e=ud.t;
+    p.position.x+=Math.sin(t*4+e*12)*0.012;
+    p.position.y=1+e*ud.maxY;
+    p.position.z+=Math.cos(t*3+e*10)*0.012;
+    p.material.opacity=Math.sin(e*Math.PI)*0.9;
+    p.rotation.y+=ud.spinX*dt*5; p.rotation.x+=ud.spinZ*dt*3;
   });
 }
 
-// ================================================================
-//  ROBOT PIPELINE ANIMATION
-// ================================================================
+// ============================================================
+//  ROBOT PIPELINE
+// ============================================================
 function startRobotPipeline(building) {
-  robotBuilding = building;
-  robotPipeline = building.stages;
-  robotStageIdx = 0;
-  robotStageTimer = 0;
-  robotActive = true;
-  // Place robot outside the building facing it
-  const angle = Math.atan2(player.x - building.pos.x, player.z - building.pos.z);
-  const dist = building.bW/2 + 5;
-  robotGroup.position.set(
-    building.pos.x + Math.sin(angle)*dist,
-    1,
-    building.pos.z + Math.cos(angle)*dist
-  );
-  robotGroup.rotation.y = angle + Math.PI;
-  robotGroup.visible = true;
-  showStage(robotPipeline[0], building.col);
+  robotBuilding=building; robotPipeline=building.stages;
+  robotStageIdx=0; robotStageTimer=0; robotActive=true;
+  var angle=Math.atan2(player.x-building.pos.x,player.z-building.pos.z);
+  var dist=building.bW/2+5;
+  robotGroup.position.set(building.pos.x+Math.sin(angle)*dist,1,building.pos.z+Math.cos(angle)*dist);
+  robotGroup.rotation.y=angle+Math.PI;
+  robotGroup.visible=true;
+  showStage(robotPipeline[0],building.col);
 }
 
-function showStage(stage, col) {
-  const el = document.getElementById('stage-overlay');
-  document.getElementById('stage-icon').textContent = stage.icon;
-  document.getElementById('stage-name').textContent = stage.name;
-  document.getElementById('stage-desc').textContent = stage.desc;
-  el.classList.add('show');
-  // Tint the stage box border with building color
-  document.getElementById('stage-box').style.borderColor = '#'+new THREE.Color(col).getHexString();
-  document.getElementById('stage-name').style.color = '#'+new THREE.Color(col).getHexString();
+function showStage(stage,col) {
+  document.getElementById('stage-icon').textContent=stage.icon;
+  document.getElementById('stage-name').textContent=stage.name;
+  document.getElementById('stage-desc').textContent=stage.desc;
+  document.getElementById('stage-overlay').classList.add('show');
+  document.getElementById('stage-box').style.borderColor='#'+new THREE.Color(col).getHexString();
+  document.getElementById('stage-name').style.color='#'+new THREE.Color(col).getHexString();
 }
 
-function hideStage() {
-  document.getElementById('stage-overlay').classList.remove('show');
-}
+function hideStage() { document.getElementById('stage-overlay').classList.remove('show'); }
 
 function animateRobot(dt) {
-  if (!robotActive || !robotGroup.visible) return;
-  const t = Date.now()*.001;
-
-  robotStageTimer += dt;
-  // Advance stage every 1.4s
-  if (robotStageTimer > 1.4) {
-    robotStageTimer = 0;
-    robotStageIdx++;
-    if (robotStageIdx >= robotPipeline.length) {
-      // Pipeline complete
-      robotActive = false;
-      // Keep robot visible for 2s then hide
-      setTimeout(() => { robotGroup.visible=false; hideStage(); }, 2000);
+  if (!robotActive||!robotGroup.visible) return;
+  var t=Date.now()*.001;
+  robotStageTimer+=dt;
+  if (robotStageTimer>1.4) {
+    robotStageTimer=0; robotStageIdx++;
+    if (robotStageIdx>=robotPipeline.length) {
+      robotActive=false;
+      setTimeout(function(){ robotGroup.visible=false; hideStage(); },2000);
       return;
     }
-    showStage(robotPipeline[robotStageIdx], robotBuilding.col);
-    // Burst interior tokens on each stage
-    for (let i=0;i<4;i++) setTimeout(()=>fireInteriorToken(robotBuilding),i*80);
+    showStage(robotPipeline[robotStageIdx],robotBuilding.col);
+    for (var i=0;i<4;i++) (function(ii){setTimeout(function(){fireInteriorToken(robotBuilding);},ii*80);})(i);
   }
-
-  // Stage-specific robot animations
-  const stage = robotPipeline[robotStageIdx];
-  const stageT = robotStageTimer / 1.4; // 0→1 within this stage
-
-  // Base idle bob
-  robotGroup.position.y = 1 + Math.sin(t*2)*.05;
-
-  // Find child parts
-  const eyes = robotGroup.children.filter(c=>c&&c.userData&&c.userData.isEye);
-  const screen = robotGroup.children.find(c=>c&&c.userData&&c.userData.isScreen);
-  const arms = robotGroup.children.filter(c=>c&&c.userData&&c.userData.isArm);
-  const legs = robotGroup.children.filter(c=>c&&c.userData&&c.userData.isLeg);
-  const pkt = robotGroup.children.find(c=>c&&c.userData&&c.userData.isDataPkt);
-
-  // Eye color based on stage
-  const eyeColor = new THREE.Color(robotBuilding.col);
-  eyes.forEach(e => { e.material.color.copy(eyeColor); });
-
-  // Screen flash
-  if (screen) screen.material.opacity = 0.3 + Math.sin(t*4+robotStageIdx)*.15;
-
-  // Stage animations
-  if (stage.name.includes('INPUT') || stage.name.includes('RECEIVED') || stage.name.includes('RECEIVED')) {
-    // Robot leans toward building, arms out
-    robotGroup.rotation.x = -0.15 * Math.sin(stageT*Math.PI);
-    arms.forEach(a => a.rotation.z = a.userData.sx*0.5*Math.sin(stageT*Math.PI));
-    if (pkt) pkt.material.opacity = stageT*.9;
-  }
-  else if (stage.name.includes('TOKEN') || stage.name.includes('EMBED') || stage.name.includes('QUERY')) {
-    // Robot hands glow, pkt spins
-    if (pkt) { pkt.rotation.y=t*5; pkt.rotation.z=t*3; pkt.material.opacity=.8; }
-    arms.forEach(a => a.rotation.z = a.userData.sx*(0.3+Math.sin(t*3)*.2));
-  }
-  else if (stage.name.includes('ATTENTION') || stage.name.includes('KEYS') || stage.name.includes('VALUES')) {
-    // Robot head rotates, scanning
-    const head = robotGroup.children[1];
-    if (head) head.rotation.y = Math.sin(t*2.5)*.4;
-    if (pkt) { pkt.material.opacity=.85; pkt.rotation.y=t*4; }
-  }
-  else if (stage.name.includes('LAYER') || stage.name.includes('FORWARD') || stage.name.includes('DEEP')) {
-    // Robot bounces/pulses
-    robotGroup.position.y = 1 + Math.sin(t*5)*.1;
-    eyes.forEach(e => { e.material.color.setHex(0xffee00); });
-  }
-  else if (stage.name.includes('LOSS') || stage.name.includes('BACKPROP') || stage.name.includes('UPDATE') || stage.name.includes('POLICY')) {
-    // Robot shakes slightly
-    robotGroup.position.x = robotGroup.position.x + Math.sin(t*15)*.012;
-    eyes.forEach(e => { e.material.color.setHex(0xff4400); });
-  }
-  else if (stage.name.includes('OUTPUT') || stage.name.includes('GENERAT') || stage.name.includes('IMAGE') || stage.name.includes('IDENTIFIED') || stage.name.includes('CONVERGED') || stage.name.includes('LEARNED')) {
-    // Robot raises arms triumphantly
-    arms.forEach(a => a.rotation.z = a.userData.sx*(-1.0+Math.sin(t*3)*.2));
-    robotGroup.position.y = 1.2 + Math.sin(t*4)*.1;
-    eyes.forEach(e => { e.material.color.setHex(0x00ff88); });
-    if (pkt) pkt.material.opacity = 1-stageT;
-  }
-  else {
-    // Default — arms swing
-    arms.forEach(a => a.rotation.z = a.userData.sx*(0.2+Math.sin(t*2)*.15));
-    legs.forEach(l => l.rotation.z = l.userData.sx*Math.sin(t*1.5)*.08);
+  var stage=robotPipeline[robotStageIdx];
+  var stageT=robotStageTimer/1.4;
+  robotGroup.position.y=1+Math.sin(t*2)*.05;
+  var eyes=robotGroup.children.filter(function(c){return c&&c.userData&&c.userData.isEye;});
+  var screen=null; for(var i=0;i<robotGroup.children.length;i++){if(robotGroup.children[i].userData&&robotGroup.children[i].userData.isScreen){screen=robotGroup.children[i];break;}}
+  var arms=robotGroup.children.filter(function(c){return c&&c.userData&&c.userData.isArm;});
+  var legs=robotGroup.children.filter(function(c){return c&&c.userData&&c.userData.isLeg;});
+  var pkt=null; for(var i=0;i<robotGroup.children.length;i++){if(robotGroup.children[i].userData&&robotGroup.children[i].userData.isDataPkt){pkt=robotGroup.children[i];break;}}
+  var eyeColor=new THREE.Color(robotBuilding.col);
+  eyes.forEach(function(e){e.material.color.copy(eyeColor);});
+  if (screen) screen.material.opacity=0.3+Math.sin(t*4+robotStageIdx)*.15;
+  var sn=stage.name;
+  if (sn.includes('INPUT')||sn.includes('RECEIVED')||sn.includes('QUERY FORMED')) {
+    robotGroup.rotation.x=-0.15*Math.sin(stageT*Math.PI);
+    arms.forEach(function(a){a.rotation.z=a.userData.sx*0.5*Math.sin(stageT*Math.PI);});
+    if (pkt) pkt.material.opacity=stageT*.9;
+  } else if (sn.includes('TOKEN')||sn.includes('EMBED')||sn.includes('KEYS')) {
+    if (pkt){pkt.rotation.y=t*5;pkt.rotation.z=t*3;pkt.material.opacity=.8;}
+    arms.forEach(function(a){a.rotation.z=a.userData.sx*(0.3+Math.sin(t*3)*.2);});
+  } else if (sn.includes('ATTENTION')||sn.includes('VALUES')||sn.includes('SOFTMAX')) {
+    var head2=robotGroup.children[1]; if(head2) head2.rotation.y=Math.sin(t*2.5)*.4;
+    if (pkt){pkt.material.opacity=.85;pkt.rotation.y=t*4;}
+  } else if (sn.includes('LAYER')||sn.includes('FORWARD')||sn.includes('DEEP')||sn.includes('CONTEXT')) {
+    robotGroup.position.y=1+Math.sin(t*5)*.1;
+    eyes.forEach(function(e){e.material.color.setHex(0xffee00);});
+  } else if (sn.includes('LOSS')||sn.includes('BACKPROP')||sn.includes('UPDATE')||sn.includes('POLICY')) {
+    robotGroup.position.x+=Math.sin(t*15)*.012;
+    eyes.forEach(function(e){e.material.color.setHex(0xff4400);});
+  } else if (sn.includes('OUTPUT')||sn.includes('GENERAT')||sn.includes('IMAGE')||sn.includes('IDENTIFIED')||sn.includes('CONVERGED')||sn.includes('LEARNED')||sn.includes('DELIVERED')||sn.includes('DEPLOYED')||sn.includes('MATCH')) {
+    arms.forEach(function(a){a.rotation.z=a.userData.sx*(-1.0+Math.sin(t*3)*.2);});
+    robotGroup.position.y=1.2+Math.sin(t*4)*.1;
+    eyes.forEach(function(e){e.material.color.setHex(0x00ff88);});
+    if (pkt) pkt.material.opacity=1-stageT;
+  } else {
+    arms.forEach(function(a){a.rotation.z=a.userData.sx*(0.2+Math.sin(t*2)*.15);});
+    legs.forEach(function(l){l.rotation.z=l.userData.sx*Math.sin(t*1.5)*.08;});
   }
 }
 
-// ================================================================
+// ============================================================
 //  OUTPUT BEAMS
-// ================================================================
+// ============================================================
 function fireOutputBeam(building) {
-  const totalH = building.floors * 2.3;
-  const topY = totalH + 8 * 1.5 + 2;
-
-  // Main sky beam — shoots upward
-  const beam = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.04, 0.35, 0.1, 8),
-    new THREE.MeshBasicMaterial({ color: building.col, transparent: true, opacity: 0.95 })
-  );
-  beam.position.set(building.pos.x, topY, building.pos.z);
-  beam.userData = { t: 0, dur: 1.4, topY, isBeam: true };
-  scene.add(beam);
-  outputBeams.push(beam);
-
-  // 3 expanding shockwave rings at different delays
-  for (let ri = 0; ri < 3; ri++) {
-    setTimeout(() => {
-      const r = new THREE.Mesh(
-        new THREE.TorusGeometry(0.3 + ri * 0.15, 0.05, 5, 22),
-        new THREE.MeshBasicMaterial({ color: building.col, transparent: true, opacity: 0.9 - ri * 0.2 })
-      );
-      r.rotation.x = Math.PI / 2;
-      r.position.set(building.pos.x, topY - ri * 0.5, building.pos.z);
-      r.userData = { t: 0, dur: 0.7 + ri * 0.15, isRing: true };
-      scene.add(r);
-      outputBeams.push(r);
-    }, ri * 80);
+  var totalH=building.floors*2.3;
+  var topY=totalH+8*1.5+2;
+  var beam=new THREE.Mesh(new THREE.CylinderGeometry(0.04,0.35,0.1,8), new THREE.MeshBasicMaterial({color:building.col,transparent:true,opacity:0.95}));
+  beam.position.set(building.pos.x,topY,building.pos.z);
+  beam.userData={t:0,dur:1.4,topY:topY,isBeam:true};
+  scene.add(beam); outputBeams.push(beam);
+  for (var ri=0;ri<3;ri++) {
+    (function(r2){setTimeout(function(){
+      var ring=new THREE.Mesh(new THREE.TorusGeometry(0.3+r2*0.15,0.05,5,22), new THREE.MeshBasicMaterial({color:building.col,transparent:true,opacity:0.9-r2*0.2}));
+      ring.rotation.x=Math.PI/2; ring.position.set(building.pos.x,topY-r2*0.5,building.pos.z);
+      ring.userData={t:0,dur:0.7+r2*0.15,isRing:true};
+      scene.add(ring); outputBeams.push(ring);
+    },r2*80);})(ri);
   }
-
-  // Burst of 18 interior tokens upward
-  for (let i = 0; i < 18; i++) setTimeout(() => fireInteriorToken(building), i * 45);
+  for (var i=0;i<18;i++) (function(ii){setTimeout(function(){fireInteriorToken(building);},ii*45);})(i);
 }
 
 function animateBeams(dt) {
-  outputBeams = outputBeams.filter(b => {
-    b.userData.t += dt/b.userData.dur;
-    if (b.userData.t>=1) { scene.remove(b); return false; }
-    const e=b.userData.t;
-    if (b.userData.isRing) { const s=1+e*10; b.scale.set(s,1,s); b.material.opacity=(1-e)*.8; }
-    else { b.scale.y=1+e*20; b.position.y=b.userData.topY+e*18; b.material.opacity=(1-e)*.9; }
+  outputBeams=outputBeams.filter(function(b) {
+    b.userData.t+=dt/b.userData.dur;
+    if (b.userData.t>=1){scene.remove(b);return false;}
+    var e=b.userData.t;
+    if (b.userData.isRing){var s=1+e*10;b.scale.set(s,1,s);b.material.opacity=(1-e)*.8;}
+    else{b.scale.y=1+e*20;b.position.y=b.userData.topY+e*18;b.material.opacity=(1-e)*.9;}
     return true;
   });
 }
 
-// ================================================================
-//  PROXIMITY CHECK
-// ================================================================
+// ============================================================
+//  PROXIMITY
+// ============================================================
 function checkProximity() {
-  let closest=null, cd=Infinity;
-  BUILDINGS.forEach(b => {
-    const d=Math.hypot(player.x-b.pos.x, player.z-b.pos.z);
-    if (d<NEAR && d<cd) { closest=b; cd=d; }
+  var closest=null, cd=Infinity;
+  BUILDINGS.forEach(function(b) {
+    var d=Math.hypot(player.x-b.pos.x,player.z-b.pos.z);
+    if (d<NEAR&&d<cd){closest=b;cd=d;}
   });
-  nearBuilding = closest;
-  const tt=document.getElementById('tt'), nt=document.getElementById('nearText');
+  nearBuilding=closest;
+  var tt=document.getElementById('tt'), nt=document.getElementById('nearText');
   if (closest) {
     document.getElementById('ttName').textContent=closest.name;
     document.getElementById('ttSub').textContent=closest.agents.join(' · ');
-    tt.classList.add('show'); nt.textContent='◆ NEAR: '+closest.name;
-    // Visual highlight handled by isActive flag in animateBuildings
+    tt.classList.add('show'); nt.textContent='NEAR: '+closest.name;
   } else {
     tt.classList.remove('show'); nt.textContent='';
   }
 }
 
-// ================================================================
+// ============================================================
 //  MINIMAP
-// ================================================================
+// ============================================================
 function drawMinimap() {
-  const ctx=mmCtx,W=120,H=120;
+  var ctx=mmCtx,W=120,H=120;
   ctx.clearRect(0,0,W,H);
   ctx.fillStyle='rgba(1,9,18,.9)'; ctx.fillRect(0,0,W,H);
-  BUILDINGS.forEach(b=>{
-    const mx=W/2+b.pos.x*1.1, my=H/2+b.pos.z*1.1;
+  BUILDINGS.forEach(function(b){
+    var mx=W/2+b.pos.x*1.0, my=H/2+b.pos.z*1.0;
     ctx.fillStyle='#'+new THREE.Color(b.col).getHexString();
     ctx.globalAlpha=visitedBuildings.has(b.id)?1:.4;
-    ctx.fillRect(mx-4,my-4,8,8); ctx.globalAlpha=1;
+    ctx.fillRect(mx-3,my-3,6,6); ctx.globalAlpha=1;
   });
-  const px=W/2+player.x*1.1,py=H/2+player.z*1.1;
+  var px=W/2+player.x*1.0, py=H/2+player.z*1.0;
   ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(px,py,3,0,Math.PI*2); ctx.fill();
   ctx.strokeStyle='rgba(255,255,255,.7)'; ctx.lineWidth=1.5;
   ctx.beginPath(); ctx.moveTo(px,py);
   ctx.lineTo(px+Math.sin(yaw+Math.PI)*9,py+Math.cos(yaw+Math.PI)*9); ctx.stroke();
 }
 
-// ================================================================
-//  KEY INPUT + BOOM SCREEN
-// ================================================================
+// ============================================================
+//  BOOM SCREEN
+// ============================================================
 function onKey(e) {
-  const boomOn = document.getElementById('boom').classList.contains('on');
-  if (e.key.toLowerCase()==='e' && nearBuilding && !chatOpen && !boomOn) showBoom(nearBuilding);
-  if (e.key==='Escape' && chatOpen) closeChat();
-  if (e.key==='Escape' && boomOn) hideBoom();
+  var boomOn=document.getElementById('boom').classList.contains('on');
+  if (e.key.toLowerCase()==='e'&&nearBuilding&&!chatOpen&&!boomOn) showBoom(nearBuilding);
+  if (e.key==='Escape'&&chatOpen) closeChat();
+  if (e.key==='Escape'&&boomOn) hideBoom();
 }
 
 function showBoom(building) {
   if (document.pointerLockElement) document.exitPointerLock();
-  const boom=document.getElementById('boom');
-  const hex='#'+new THREE.Color(building.col).getHexString();
-  const mid=new THREE.Color(building.col).multiplyScalar(.15);
-  document.getElementById('boom-bg').style.background=
-    `radial-gradient(ellipse at center,rgb(${Math.floor(mid.r*255)},${Math.floor(mid.g*255)},${Math.floor(mid.b*255)}) 0%,rgba(1,9,18,.97) 65%)`;
-  document.getElementById('boom-ring').style.border=`3px solid ${hex}`;
+  var boom=document.getElementById('boom');
+  var hex='#'+new THREE.Color(building.col).getHexString();
+  var mid=new THREE.Color(building.col).multiplyScalar(.15);
+  document.getElementById('boom-bg').style.background='radial-gradient(ellipse at center,rgb('+Math.floor(mid.r*255)+','+Math.floor(mid.g*255)+','+Math.floor(mid.b*255)+') 0%,rgba(1,9,18,.97) 65%)';
+  document.getElementById('boom-ring').style.border='3px solid '+hex;
   document.getElementById('boom-title').textContent=building.name;
-  document.getElementById('boom-title').style.textShadow=`0 0 35px ${hex}, 0 0 70px ${hex}`;
+  document.getElementById('boom-title').style.textShadow='0 0 35px '+hex+', 0 0 70px '+hex;
   document.getElementById('boom-sub').textContent=building.sub.toUpperCase();
   document.getElementById('boom-entered').style.color=hex;
   document.getElementById('boom-btn').style.borderColor=hex;
   document.getElementById('boom-btn').style.color=hex;
-  document.getElementById('boom-btn').style.setProperty('--bc',hex);
-  // Tint btn fill
-  const btnBefore = document.createElement('style');
-  btnBefore.textContent=`#boom-btn::before{background:${hex}}`;
-  document.head.appendChild(btnBefore);
-  // Chips
-  const chips=document.getElementById('boom-chips');
+  var chips=document.getElementById('boom-chips');
   chips.innerHTML='';
-  building.agents.forEach((a,i)=>{
-    const c=document.createElement('div');
-    c.className='bchip'; c.textContent='⚡ '+a;
-    c.style.borderColor=hex; c.style.color=hex;
-    c.style.animationDelay=(i*.22)+'s';
+  building.agents.forEach(function(a,i){
+    var c=document.createElement('div'); c.className='bchip'; c.textContent='⚡ '+a;
+    c.style.borderColor=hex; c.style.color=hex; c.style.animationDelay=(i*.22)+'s';
     chips.appendChild(c);
   });
-  // Corner colors
-  document.querySelectorAll('.bcorner').forEach(el=>el.style.borderColor=hex);
-  // Reset + trigger animations
-  const animEls=[
-    document.getElementById('boom-flash'),
-    document.getElementById('boom-ring'),
-    ...document.querySelectorAll('.boom-in')
-  ];
-  animEls.forEach(el=>{el.classList.remove('go');void el.offsetWidth;});
+  document.querySelectorAll('.bcorner').forEach(function(el){el.style.borderColor=hex;});
+  var animEls=[document.getElementById('boom-flash'),document.getElementById('boom-ring')].concat(Array.from(document.querySelectorAll('.boom-in')));
+  animEls.forEach(function(el){el.classList.remove('go');void el.offsetWidth;});
   boom.classList.add('on');
-  requestAnimationFrame(()=>{
+  boom.dataset.pid=building.id;
+  requestAnimationFrame(function(){
     document.getElementById('boom-flash').classList.add('go');
     document.getElementById('boom-ring').classList.add('go');
-    document.querySelectorAll('.boom-in').forEach((el,i)=>el.classList.add('go'));
+    document.querySelectorAll('.boom-in').forEach(function(el){el.classList.add('go');});
   });
-  boom.dataset.pid = building.id;
 }
 
 function hideBoom() {
-  const boom=document.getElementById('boom');
+  var boom=document.getElementById('boom');
   boom.style.opacity='0';
-  setTimeout(()=>{ boom.classList.remove('on'); boom.style.opacity=''; },300);
+  setTimeout(function(){boom.classList.remove('on');boom.style.opacity='';},300);
 }
 
-// ================================================================
+// ============================================================
 //  CHAT
-// ================================================================
+// ============================================================
 function enterBuilding(building) {
   hideBoom();
   activeBuildingId=building.id;
   chatOpen=true;
-  if (!visitedBuildings.has(building.id)) visitedBuildings.add(building.id);
+  visitedBuildings.add(building.id);
+  updateProgress();
   document.getElementById('cName').textContent=building.name;
   document.getElementById('cDesc').textContent=building.sub;
-  const ag=document.getElementById('cAgents');
+  var ag=document.getElementById('cAgents');
   ag.innerHTML='';
-  building.agents.forEach((a,i)=>{
-    const b=document.createElement('div');
-    b.className='cab'; b.textContent='⚡ '+a;
-    b.style.borderColor=building.tagColor; b.style.color=building.tagColor;
-    b.style.animationDelay=(i*.25)+'s';
+  building.agents.forEach(function(a,i){
+    var b=document.createElement('div'); b.className='cab'; b.textContent='⚡ '+a;
+    b.style.borderColor=building.tagColor; b.style.color=building.tagColor; b.style.animationDelay=(i*.25)+'s';
     ag.appendChild(b);
   });
   document.getElementById('chat').classList.add('open');
   if (!convHistory[building.id]) {
     convHistory[building.id]=[];
-    const w=`Welcome to ${building.name}! Watch the robot outside — it will act out the entire ${building.sub} pipeline as you interact. What would you like to know?`;
+    var w='Welcome to '+building.name+'! Watch the robot outside — it will act out the entire '+building.sub+' pipeline as you interact. What would you like to know?';
     addMsg('a',w,building); convHistory[building.id].push({role:'assistant',content:w});
-    // Start robot pipeline on enter
     startRobotPipeline(building);
   } else {
     document.getElementById('msgs').innerHTML='';
-    convHistory[building.id].forEach(m=>addMsg(m.role==='user'?'u':'a',m.content,building));
-    addMsg('s','📍 Returned to '+building.name);
+    convHistory[building.id].forEach(function(m){addMsg(m.role==='user'?'u':'a',m.content,building);});
+    addMsg('s','Returned to '+building.name);
   }
   document.getElementById('ci').focus();
 }
 
 function closeChat() {
+  var building=null;
+  for (var i=0; i<BUILDINGS.length; i++) { if (BUILDINGS[i].id===activeBuildingId) { building=BUILDINGS[i]; break; } }
   chatOpen=false;
   document.getElementById('chat').classList.remove('open');
   activeBuildingId=null;
   robotActive=false;
   if (robotGroup) robotGroup.visible=false;
   hideStage();
+  if (building && QUIZ_DATA[building.id]) {
+    var hist=convHistory[building.id]||[];
+    var existing=quizScores[building.id];
+    if (hist.length>=3 && (!existing||!existing.passed)) {
+      setTimeout(function(){ startQuiz(building); }, 400);
+    }
+  }
 }
 
 async function sendMsg() {
-  const inp=document.getElementById('ci');
-  const text=inp.value.trim();
+  var inp=document.getElementById('ci');
+  var text=inp.value.trim();
   if (!text||!activeBuildingId) return;
-  const building=BUILDINGS.find(b=>b.id===activeBuildingId);
+  var building=null;
+  for (var i=0; i<BUILDINGS.length; i++) { if (BUILDINGS[i].id===activeBuildingId) { building=BUILDINGS[i]; break; } }
   if (!building) return;
   inp.value='';
   document.getElementById('cs').disabled=true;
-  totalIn+=text.split(' ').length;
   addMsg('u',text,building);
   convHistory[building.id].push({role:'user',content:text});
-
-  // Robot acts out the pipeline
   startRobotPipeline(building);
-  // Token burst from player to tower
-  for(let i=0;i<8;i++) setTimeout(()=>fireToken(building),i*70);
-  for(let i=0;i<6;i++) setTimeout(()=>fireInteriorToken(building),i*90);
-  // Wave surge travels floor by floor through the building
+  for (var i=0;i<8;i++) (function(ii){setTimeout(function(){fireToken(building);},ii*70);})(i);
+  for (var i=0;i<6;i++) (function(ii){setTimeout(function(){fireInteriorToken(building);},ii*90);})(i);
   triggerWaveSurge(building);
+  var tid=addTyping();
+  var reply=null;
 
-  const tid=addTyping();
-  let reply=null;
-
-  // 1️⃣ Try Cloudflare Worker /api/chat (Workers AI + Durable Object memory)
+  // 1. Try Cloudflare Worker
   try {
-    const r=await fetch('/api/chat',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        buildingId:building.id,
-        systemPrompt:building.system,
-        messages:convHistory[building.id].map(m=>({role:m.role,content:m.content})),
-        sessionId:SESSION_ID
-      }),
-      signal:AbortSignal.timeout(12000)
-    });
-    if(r.ok){ const d=await r.json(); reply=d.response||null; }
-  } catch{ /* Worker not running — try direct API */ }
+    var r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({buildingId:building.id,systemPrompt:building.system,messages:convHistory[building.id].map(function(m){return{role:m.role,content:m.content};}),sessionId:SESSION_ID}),
+      signal:AbortSignal.timeout(12000)});
+    if (r.ok){var d=await r.json(); reply=d.response||null;}
+  } catch(e){}
 
-  // 2️⃣ Fallback: Anthropic API directly (works when running index.html standalone)
-  if(!reply){
-    try{
-      const res=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-          'anthropic-version':'2023-06-01',
-          'anthropic-dangerous-direct-browser-access':'true'
-        },
-        body:JSON.stringify({
-          model:'claude-haiku-4-5-20251001',
-          max_tokens:220,
-          system:building.system,
-          messages:convHistory[building.id].map(m=>({role:m.role,content:m.content}))
-        }),
-        signal:AbortSignal.timeout(12000)
-      });
-      if(res.ok){ const d=await res.json(); reply=d.content?.[0]?.text||null; }
-    } catch{ /* both failed */ }
+  // 2. Fallback: Anthropic direct
+  if (!reply) {
+    try {
+      var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+        headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:220,system:building.system,messages:convHistory[building.id].map(function(m){return{role:m.role,content:m.content};})}),
+        signal:AbortSignal.timeout(12000)});
+      if (res.ok){var d2=await res.json(); reply=d2.content&&d2.content[0]?d2.content[0].text:null;}
+    } catch(e){}
   }
 
   removeTyping(tid);
-  if(!reply) reply=getFallback(building, text);
+  if (!reply) reply=getFallback(building,text);
   addMsg('a',reply,building);
   convHistory[building.id].push({role:'assistant',content:reply});
-  totalOut+=reply.split(' ').length;
   fireOutputBeam(building);
-  for(let i=0;i<10;i++) setTimeout(()=>fireInteriorToken(building),i*55);
+  for (var i=0;i<10;i++) (function(ii){setTimeout(function(){fireInteriorToken(building);},ii*55);})(i);
   document.getElementById('cs').disabled=false;
   document.getElementById('ci').focus();
 }
 
-// Unique session ID for Durable Object keying (persists this tab session)
-const SESSION_ID = 'sid_' + Math.random().toString(36).slice(2, 10);
-
-function getFallback(b, question='') {
-  const q=(question||'').toLowerCase();
-  const answers={
-    llm:[
-      ['token','tokeniz','word','split','chunk'],
-      ['embed','vector','dimension','space','semantic'],
-      ['attention','attend','self','focus','weight'],
-      ['layer','transform','deep','stack','forward'],
-      ['predict','next','generat','output','sample'],
-      ['train','learn','data','corpus','pretrain'],
-    ],
-    neural:[
-      ['neuron','node','percep','signal','unit'],
-      ['weight','param','matrix','bias','linear'],
-      ['relu','sigmoid','activat','fire','nonlin'],
-      ['backprop','gradient','loss','error','chain'],
-      ['overfit','regulariz','dropout','generali'],
-      ['forward','pass','infer','predict'],
-    ],
-    transformer:[
-      ['query','key','value','q k','qkv','qk'],
-      ['head','multi','parallel','h='],
-      ['softmax','score','normaliz','prob'],
-      ['posit','encod','order','sinusoidal'],
-      ['ffn','feed','mlp','linear'],
-      ['bert','gpt','llm','architec'],
-    ],
-    vision:[
-      ['pixel','image','raw','input','grid'],
-      ['filter','kernel','convol','slide','scan'],
-      ['pool','max','downsample','shrink'],
-      ['feature','edge','detect','pattern','map'],
-      ['classif','label','output','category','predict'],
-      ['vit','patch','resnet','imagenet'],
-    ],
-    rl:[
-      ['agent','robot','actor','player','decision'],
-      ['reward','signal','positive','negative','score'],
-      ['policy','strategy','pi','action','choose'],
-      ['q-value','bellman','equation','q(s','value'],
-      ['explore','exploit','epsilon','greedy','random'],
-      ['alphago','atari','game','episode','self-play'],
-    ],
-    diffusion:[
-      ['noise','random','static','gaussian','forward'],
-      ['denoise','step','iter','reverse','remove'],
-      ['clip','prompt','text','encode','condition'],
-      ['unet','u-net','skip','architecture','predict'],
-      ['latent','space','compress','vae','encode'],
-      ['stable','dall','midjourney','generate','image'],
-    ]
-  };
-  const replies={
-    llm:[
-      `Tokenization is the first step — your text is sliced into ~4-char chunks called tokens. "Hello world" → ["Hello"," world"]. Everything I process is tokens, not raw characters. The robot picked up each token individually before processing!`,
-      `Every token maps to a high-dimensional vector (~768–4096 floats) called an embedding. Similar meanings cluster together in that space — "king"−"man"+"woman" ≈ "queen". The robot navigated that geometric space to find meaning!`,
-      `Self-attention: every token simultaneously scores its relevance to every other token. Score = Q·Kᵀ/√d, softmaxed, then applied to V vectors. The robot's scanning head showed this parallel look-up across the entire sequence!`,
-      `I have 12–96 transformer layers stacked. Each layer refines representations — early layers catch syntax, deep layers capture semantics. The robot's repeated bouncing showed the same data being refined layer by layer.`,
-      `At the final layer I compute probability over ~50k vocabulary tokens. Temperature controls randomness. The highest-probability token is selected — or sampled. The robot's arm extending = token selection happening!`,
-      `Training exposed me to ~1T tokens of text. Each forward pass predicted the next token, cross-entropy loss was computed, and backprop nudged billions of weights. Millions of steps = a language model!`,
-    ],
-    neural:[
-      `A neuron takes N inputs, multiplies each by a learned weight, sums them, adds a bias, then squashes through an activation function. Simple mathematics stacked millions of times = intelligence. The robot received your signal and multiplied!`,
-      `Weights are the learnable parameters. A layer is a matrix multiply: y = Wx + b. During training, gradient descent nudges W to minimize loss. The robot's data-packet = the weight matrix being applied to your input!`,
-      `ReLU(x) = max(0, x) — dead simple, revolutionary. Negative activations die to zero ("dead neurons"), positives pass through unchanged. The robot going still on certain frames showed neurons that didn't fire!`,
-      `Backprop uses the chain rule to compute ∂Loss/∂weight for every weight simultaneously. Error flows backward from output to input layer. The robot's shaking = that gradient signal propagating backward through layers!`,
-      `Overfitting = memorizing training data, failing to generalize. Dropout randomly zeros activations during training, forcing the network to learn redundant representations. The robot "forgetting" some moves prevents overfitting!`,
-      `Forward pass: input → layer₁ → layer₂ → … → output. That's inference — the full path the robot ran. Backward pass reverses it during training only. You saw the forward pass just now!`,
-    ],
-    transformer:[
-      `Q (Query) = "what am I looking for?", K (Key) = "what do I contain?", V (Value) = "what info do I hold?". Score = Q·Kᵀ/√d_k, softmaxed, applied to V. The robot computed all three vectors simultaneously for every token!`,
-      `Multi-head attention runs 8–32 attention heads in parallel, each attending to different relationship types — syntax, coreference, semantics. Outputs concatenated and projected. See the robot split focus across multiple heads!`,
-      `Softmax(xᵢ) = eˣⁱ / Σeˣʲ — converts raw attention scores into a probability distribution summing to 1. Each output position becomes a weighted average of all value vectors. The robot normalized its attention across all tokens!`,
-      `Transformers have no built-in positional sense, so sinusoidal encodings PE(pos,2i) = sin(pos/10000^(2i/d)) are added to embeddings. Without this, "cat sat mat" and "mat sat cat" would look identical to the model!`,
-      `After attention, each position passes through FFN(x) = max(0,xW₁+b₁)W₂+b₂. This is ~2/3 of all parameters. The FFN is where factual knowledge is stored. The robot's chest-screen lit up during this phase!`,
-      `BERT = bidirectional encoder (sees full context both directions). GPT = causal decoder (left-to-right only, predicts next token). Both use the architecture from "Attention Is All You Need" (Vaswani et al., 2017)!`,
-    ],
-    vision:[
-      `Raw input is a 3D tensor: Height × Width × 3 (RGB). Values 0–255, normalized to [-1,1]. The robot scanned your input as a grid of pixel values — that's the very first operation before any learning happens!`,
-      `A convolutional filter is a small matrix (3×3 or 5×5) slid across the image. At each position: element-wise multiply + sum = one output pixel. The robot's back-and-forth scan IS the convolution operation!`,
-      `Max pooling takes a 2×2 region and keeps only the maximum value, halving spatial dimensions. It discards weak signals and retains strong ones. The robot's "compression" showed throwing away irrelevant spatial detail!`,
-      `Layer 1 detects edges. Layer 3 detects shapes. Layer 8 detects eyes and wheels. The robot's progressive zoom-out showed this hierarchy — simple features combining into complex semantic representations!`,
-      `The final fully-connected layer flattens all features into a vector, then outputs class logits over 1000 categories. Softmax converts to probabilities. The robot's final triumphant pose = the winning classification!`,
-      `Vision Transformers (ViT) split images into 16×16 patches, treat each as a "visual token", then apply standard transformer attention. No convolutions at all! The robot's patch-stepping showed this tokenization of visual space.`,
-    ],
-    rl:[
-      `The agent perceives state s, picks action a from policy π(a|s), receives reward r, observes new state s'. This cycle repeats thousands of times. The robot IS the agent — it just ran one complete cycle for you!`,
-      `Reward is the scalar feedback signal — the only supervision in RL. Dense rewards (every step) are easier to learn. Sparse rewards (only at episode end) are harder but more powerful. Green glow = reward received!`,
-      `Policy π maps states to action probabilities. Off-policy (Q-learning) learns optimal policy from any data. On-policy (PPO) learns from current policy only. The robot followed its current policy π(a|s) to pick that action!`,
-      `Q(s,a) = expected cumulative reward from state s taking action a. Bellman equation: Q(s,a) = r + γ·max_a'Q(s',a'). γ=0.99 discounts future rewards slightly. The robot updated this Q-table after every action!`,
-      `ε-greedy: with probability ε take a random action (explore), otherwise take argmax Q (exploit). ε starts at 1.0, decays toward 0.05 over training. The robot's random stumbles are ε-exploration keeping the policy from getting stuck!`,
-      `AlphaGo played 4.9M self-play games using MCTS + policy/value networks trained with RL. OpenAI Five played 45,000 years of Dota 2 in 10 real days. The robot runs the same loop — just at a much smaller scale!`,
-    ],
-    diffusion:[
-      `CLIP encodes your text prompt into a 512-dim semantic vector. This vector conditions every denoising step — steering the image toward your words. The robot "reading" your prompt = CLIP encoding your meaning into latent space!`,
-      `Start with x_T ~ N(0,I): pure Gaussian noise. The forward process adds noise over T=1000 steps. The reverse process (what the model learns) removes that noise step by step. The robot covered in static = this initialization!`,
-      `The U-Net predicts ε_θ(x_t, t, c) — the noise to subtract at each step, conditioned on your text c. Then x_{t-1} = (x_t − predicted noise) / scale. The robot's careful undoing = one denoising step!`,
-      `U-Net: encoder path downsamples (captures context), bottleneck (global features), decoder path upsamples (recovers detail) with skip connections. Cross-attention injects your text at each scale. The robot's symmetric moves show this U-shape!`,
-      `Stable Diffusion works in 64×64 latent space, not pixel space — 8× more efficient. A VAE encodes: z=E(x), the diffusion runs on z, then VAE decodes: x̂=D(z). The robot's final reveal = the VAE decoder producing pixels!`,
-      `DALL-E 3 (OpenAI), Stable Diffusion (Stability AI), Midjourney, Flux — all use diffusion principles. The key innovation: instead of generating pixels directly, learn to reverse a noising process. The robot shows this reversal!`,
-    ]
-  };
-
-  const bid=b.id;
-  const kws=answers[bid]||[];
-  const reps=replies[bid]||[];
-  let bestIdx=-1;
-  for(let i=0;i<kws.length;i++){
-    if(kws[i].some(k=>q.includes(k))){ bestIdx=i; break; }
+function getFallback(b, question) {
+  var q=(question||'').toLowerCase();
+  var kws=FALLBACK_KW[b.id]||[];
+  var reps=FALLBACK_REPLIES[b.id]||[];
+  var bestIdx=-1;
+  for (var i=0; i<kws.length; i++) {
+    for (var j=0; j<kws[i].length; j++) {
+      if (q.indexOf(kws[i][j])!==-1) { bestIdx=i; break; }
+    }
+    if (bestIdx!==-1) break;
   }
-  if(bestIdx===-1){
-    const histLen=(convHistory[b.id]||[]).length;
+  if (bestIdx===-1) {
+    var histLen=(convHistory[b.id]||[]).length;
     bestIdx=Math.floor(histLen/2)%(reps.length||1);
   }
-  return reps[bestIdx]||`Deploy this project on Cloudflare to get live Llama 3.3 responses from ${b.name}!`;
+  return reps[bestIdx]||'Deploy on Cloudflare to get live Llama 3.3 responses from '+b.name+'!';
 }
 
 function addMsg(type, text, building) {
-  const el=document.getElementById('msgs');
-  const d=document.createElement('div');
-  d.className='msg '+type;
+  var el=document.getElementById('msgs');
+  var d=document.createElement('div'); d.className='msg '+type;
   if (type!=='s') {
-    const l=document.createElement('div');
-    l.className='ml'; l.textContent=type==='u'?'YOU':'🤖 '+(building?building.name:'AI');
+    var l=document.createElement('div'); l.className='ml';
+    l.textContent=type==='u'?'YOU':'🤖 '+(building?building.name:'AI');
     d.appendChild(l);
   }
-  const c=document.createElement('div'); c.textContent=text;
+  var c=document.createElement('div'); c.textContent=text;
   d.appendChild(c); el.appendChild(d); el.scrollTop=el.scrollHeight;
 }
+
 function addTyping() {
-  const el=document.getElementById('msgs');
-  const d=document.createElement('div'); d.className='msg a'; d.id='ty'+Date.now();
+  var el=document.getElementById('msgs');
+  var d=document.createElement('div'); d.className='msg a'; d.id='ty'+Date.now();
   d.innerHTML='<div class="ti"><span></span><span></span><span></span></div>';
   el.appendChild(d); el.scrollTop=el.scrollHeight; return d.id;
 }
-function removeTyping(id) { const e=document.getElementById(id); if(e) e.remove(); }
+
+function removeTyping(id) { var e=document.getElementById(id); if(e) e.remove(); }
 
 function onResize() {
   camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix();
   renderer.setSize(innerWidth,innerHeight);
 }
 
-// ================================================================
+// ============================================================
+//  PROGRESS PANEL
+// ============================================================
+function initProgressPanel() {
+  var list=document.getElementById('pb-list');
+  list.innerHTML='';
+  var icons={llm:'🏛',neural:'🧠',transformer:'🔁',vision:'👁',rl:'🎯',diffusion:'🌊',rag:'🔍',finetune:'🔧',embeddings:'💡'};
+  BUILDINGS.forEach(function(b) {
+    var row=document.createElement('div'); row.className='pb';
+    var hex='#'+new THREE.Color(b.col).getHexString();
+    row.innerHTML='<div class="pb-icon">'+(icons[b.id]||'⚡')+'</div><div class="pb-name" style="color:'+hex+'">'+b.name+'</div><div class="pb-status" id="pbs-'+b.id+'">—</div>';
+    list.appendChild(row);
+  });
+  updateProgress();
+}
+
+function updateProgress() {
+  var score=0, max=BUILDINGS.length*2;
+  BUILDINGS.forEach(function(b) {
+    var el=document.getElementById('pbs-'+b.id);
+    if (!el) return;
+    var visited=visitedBuildings.has(b.id);
+    var quiz=quizScores[b.id];
+    if (quiz&&quiz.passed) { el.textContent='QUIZ'; el.className='pb-status qpass'; score+=2; }
+    else if (quiz&&!quiz.passed) { el.textContent=quiz.score+'/'+quiz.total; el.className='pb-status qfail'; score+=1; }
+    else if (visited) { el.textContent='VISITED'; el.className='pb-status visited'; score+=1; }
+    else { el.textContent='—'; el.className='pb-status'; }
+  });
+  var pct=Math.round(score/max*100);
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
+}
+
+// ============================================================
+//  QUIZ SYSTEM
+// ============================================================
+var quizState = {};
+
+function startQuiz(building) {
+  var qs=QUIZ_DATA[building.id];
+  if (!qs||qs.length===0) return;
+  quizState={building:building,questions:qs,idx:0,score:0,answered:false};
+  document.getElementById('quiz-title').textContent='QUIZ: '+building.name;
+  document.getElementById('quiz-title').style.color=building.tagColor;
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-actions').style.display='flex';
+  document.getElementById('quiz-next').style.display='none';
+  document.getElementById('quiz-skip').style.display='inline-block';
+  showQuizQuestion();
+  document.getElementById('quiz').classList.add('show');
+}
+
+function showQuizQuestion() {
+  var q=quizState.questions[quizState.idx];
+  document.getElementById('quiz-qnum').textContent='QUESTION '+(quizState.idx+1)+' OF '+quizState.questions.length;
+  document.getElementById('quiz-q').textContent=q.q;
+  document.getElementById('quiz-feedback').style.display='none';
+  document.getElementById('quiz-feedback').classList.remove('show','ok','bad');
+  document.getElementById('quiz-next').style.display='none';
+  var optsEl=document.getElementById('quiz-opts');
+  optsEl.innerHTML='';
+  quizState.answered=false;
+  q.opts.forEach(function(opt,i) {
+    var btn=document.createElement('button');
+    btn.className='quiz-opt';
+    btn.textContent=String.fromCharCode(65+i)+'. '+opt;
+    btn.onclick=function(){ answerQuiz(i, btn); };
+    optsEl.appendChild(btn);
+  });
+}
+
+function answerQuiz(chosen, btn) {
+  if (quizState.answered) return;
+  quizState.answered=true;
+  var q=quizState.questions[quizState.idx];
+  var correct=chosen===q.correct;
+  if (correct) quizState.score++;
+  document.querySelectorAll('.quiz-opt').forEach(function(b,i) {
+    b.disabled=true;
+    if (i===q.correct) b.classList.add('correct');
+    else if (i===chosen&&!correct) b.classList.add('wrong');
+  });
+  var fb=document.getElementById('quiz-feedback');
+  fb.textContent=(correct?'CORRECT. ':'INCORRECT. ')+q.exp;
+  fb.className='quiz-feedback show '+(correct?'ok':'bad');
+  fb.style.display='block';
+  document.getElementById('quiz-next').style.display='inline-block';
+  document.getElementById('quiz-next').textContent=(quizState.idx+1<quizState.questions.length)?'NEXT QUESTION':'SEE RESULTS';
+}
+
+function nextQuizQuestion() {
+  quizState.idx++;
+  if (quizState.idx>=quizState.questions.length) showQuizResult();
+  else showQuizQuestion();
+}
+
+function showQuizResult() {
+  var score=quizState.score, total=quizState.questions.length;
+  var passed=score>=2;
+  quizScores[quizState.building.id]={score:score,total:total,passed:passed};
+  document.getElementById('quiz-opts').innerHTML='';
+  document.getElementById('quiz-q').textContent='';
+  document.getElementById('quiz-qnum').textContent='';
+  document.getElementById('quiz-feedback').style.display='none';
+  document.getElementById('quiz-actions').style.display='none';
+  var res=document.getElementById('quiz-result');
+  res.style.display='block';
+  var big=document.getElementById('quiz-score-big');
+  big.textContent=score+'/'+total;
+  big.style.color=passed?'#00ff88':'#ff00aa';
+  document.getElementById('quiz-result-msg').textContent=passed?'EXCELLENT! You have mastered '+quizState.building.name+'. Progress tracked.':'Keep exploring! Re-enter '+quizState.building.name+' and retry the quiz.';
+  updateProgress();
+}
+
+function closeQuiz() {
+  document.getElementById('quiz').classList.remove('show');
+  document.getElementById('quiz-skip').style.display='inline-block';
+  document.getElementById('quiz-actions').style.display='flex';
+  document.getElementById('quiz-result').style.display='none';
+}
+
+// ============================================================
+//  EXPORT PDF
+// ============================================================
+function exportNotesPDF() {
+  var lines=[];
+  lines.push('AI CITY — DEVELOPER NOTES EXPORT');
+  lines.push('Generated: '+new Date().toLocaleString());
+  lines.push('============================================================');
+  lines.push('');
+  BUILDINGS.forEach(function(b) {
+    var hist=convHistory[b.id]||[];
+    var quiz=quizScores[b.id];
+    if (hist.length===0&&!quiz) return;
+    lines.push('== '+b.name+' — '+b.sub+' ==');
+    if (quiz) lines.push('Quiz: '+quiz.score+'/'+quiz.total+(quiz.passed?' PASSED':''));
+    lines.push('');
+    hist.forEach(function(m) {
+      if (m.role==='user') lines.push('YOU: '+m.content);
+      else if (m.role==='assistant') lines.push('AI:  '+m.content);
+    });
+    lines.push('');
+  });
+  lines.push('============================================================');
+  lines.push('Buildings visited: '+visitedBuildings.size+'/'+BUILDINGS.length);
+  var passed=Object.values(quizScores).filter(function(q){return q.passed;}).length;
+  lines.push('Quizzes passed: '+passed+'/'+BUILDINGS.length);
+
+  var win=window.open('','_blank');
+  if (!win) { alert('Please allow pop-ups to export notes.'); return; }
+  win.document.write('<!DOCTYPE html><html><head><title>AI City Notes</title><style>body{font-family:monospace;background:#010912;color:#00f5ff;padding:40px;font-size:13px;line-height:1.8}pre{white-space:pre-wrap;word-break:break-word;color:#c0e8ff}@media print{body{background:#fff;color:#000}pre{color:#000}}</style></head><body><h2>AI CITY — Developer Notes</h2><pre>'+lines.join('\n')+'</pre><script>window.print();<\/script></body></html>');
+  win.document.close();
+}
+
+// ============================================================
 //  BOOT
-// ================================================================
-document.getElementById('startBtn').addEventListener('click',()=>{
-  const s=document.getElementById('splash');
-  s.classList.add('hide'); setTimeout(()=>s.remove(),800); init();
+// ============================================================
+document.getElementById('startBtn').addEventListener('click', function() {
+  var s=document.getElementById('splash');
+  s.classList.add('hide');
+  setTimeout(function(){s.remove();},800);
+  init();
 });
+
 document.getElementById('cClose').addEventListener('click', closeChat);
 document.getElementById('cs').addEventListener('click', sendMsg);
-document.getElementById('ci').addEventListener('keydown',e=>{ if(e.key==='Enter') sendMsg(); e.stopPropagation(); });
-document.getElementById('boom-btn').addEventListener('click',()=>{
-  const pid=document.getElementById('boom').dataset.pid;
+document.getElementById('ci').addEventListener('keydown', function(e){ if(e.key==='Enter') sendMsg(); e.stopPropagation(); });
+document.getElementById('boom-btn').addEventListener('click', function(){
+  var pid=document.getElementById('boom').dataset.pid;
   if (!pid) return;
-  const b=BUILDINGS.find(b=>b.id===pid);
+  var b=null;
+  for (var i=0; i<BUILDINGS.length; i++) { if (BUILDINGS[i].id===pid) { b=BUILDINGS[i]; break; } }
   if (b) enterBuilding(b);
 });
+document.getElementById('quiz-next').addEventListener('click', nextQuizQuestion);
+document.getElementById('quiz-skip').addEventListener('click', closeQuiz);
+document.getElementById('quiz-done').addEventListener('click', closeQuiz);
+document.getElementById('export-btn').addEventListener('click', exportNotesPDF);
 </script>
 </body>
 </html>

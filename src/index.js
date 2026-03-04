@@ -1,23 +1,13 @@
-/**
- * cf_ai_city — Cloudflare Worker
- * Routes:
- *   POST /api/chat   → Workers AI (Llama 3.3) + Durable Object memory
- *   GET  /api/health → health check
- *   All others       → serve static assets from ./public (via Cloudflare Pages)
- */
-
 export { ChatSession } from './ChatSession.js';
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
-    // CORS preflight
     if (request.method === 'OPTIONS') {
       return corsResponse('', 204);
     }
 
-    // ── API routes ──────────────────────────────────────────────────
     if (url.pathname === '/api/health') {
       return corsResponse(JSON.stringify({ ok: true, ts: Date.now() }), 200);
     }
@@ -26,14 +16,10 @@ export default {
       return handleChat(request, env, ctx);
     }
 
-    // ── Static fallback (local dev) ─────────────────────────────────
     return new Response('Not found', { status: 404 });
   }
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  CHAT HANDLER
-// ─────────────────────────────────────────────────────────────────────────────
 async function handleChat(request, env, ctx) {
   let body;
   try {
@@ -48,31 +34,20 @@ async function handleChat(request, env, ctx) {
     return corsResponse(JSON.stringify({ error: 'Missing fields' }), 400);
   }
 
-  // ── Durable Object: load + merge stored memory ──────────────────
   const sessionKey = `${sessionId || 'anon'}_${buildingId}`;
   const doId = env.CHAT_SESSION.idFromName(sessionKey);
   const doStub = env.CHAT_SESSION.get(doId);
 
-  // Retrieve stored history from Durable Object
   let storedHistory = [];
   try {
-    const histResp = await doStub.fetch(
-      new Request('https://do/history', { method: 'GET' })
-    );
+    const histResp = await doStub.fetch(new Request('https://do/history', { method: 'GET' }));
     storedHistory = await histResp.json();
-  } catch { /* first visit — no history yet */ }
+  } catch { /* first visit */ }
 
-  // Merge: stored history gives long-term memory; new messages are the latest
-  // Keep last 10 exchanges from stored history to stay within context window
   const memoryMessages = storedHistory.slice(-20);
-  
-  // Deduplicate: don't re-add messages already in memory
   const freshMessages = messages.slice(memoryMessages.length);
-  const allMessages = [...memoryMessages, ...freshMessages].filter(
-    m => m && m.role && m.content
-  );
+  const allMessages = [...memoryMessages, ...freshMessages].filter(m => m && m.role && m.content);
 
-  // ── Workers AI — Llama 3.3 70B ───────────────────────────────────
   let aiResponse;
   try {
     const result = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
@@ -84,18 +59,10 @@ async function handleChat(request, env, ctx) {
     aiResponse = result.response;
   } catch (err) {
     console.error('Workers AI error:', err);
-    return corsResponse(
-      JSON.stringify({ error: 'AI unavailable', details: err.message }),
-      502
-    );
+    return corsResponse(JSON.stringify({ error: 'AI unavailable', details: err.message }), 502);
   }
 
-  // ── Persist updated history to Durable Object ────────────────────
-  const updatedHistory = [
-    ...allMessages,
-    { role: 'assistant', content: aiResponse }
-  ];
-
+  const updatedHistory = [...allMessages, { role: 'assistant', content: aiResponse }];
   ctx.waitUntil(
     doStub.fetch(new Request('https://do/history', {
       method: 'POST',
@@ -107,9 +74,6 @@ async function handleChat(request, env, ctx) {
   return corsResponse(JSON.stringify({ response: aiResponse }), 200);
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────────────────────────────────────
 function corsResponse(body, status) {
   return new Response(body, {
     status,
